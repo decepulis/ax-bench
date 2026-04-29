@@ -1,0 +1,23 @@
+{
+  "name": "ax-bench",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "An illustrative experiment comparing how AI coding agents work with composable-primitive vs monolithic frontend libraries. Paired with a blog post about AX (agent experience).",
+  "scripts": {
+    "pilot": "tsx harness/run-pilot.ts",
+    "full": "tsx harness/run-full.ts",
+    "run-cell": "tsx harness/run-cell.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@types/node": "^22.0.0",
+    "dotenv": "^16.4.5",
+    "playwright": "^1.50.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "zod": "^3.23.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

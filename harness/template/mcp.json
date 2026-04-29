@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "@playwright/mcp",
+        "--browser=chromium",
+        "--executable-path=/usr/bin/brave-browser",
+        "--no-sandbox"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "chrome-devtools-mcp",
+        "--headless=true",
+        "--isolated",
+        "--executablePath=/usr/bin/brave-browser",
+        "--chromeArg=--no-sandbox",
+        "--chromeArg=--disable-setuid-sandbox"
+      ]
+    }
+  }
+}
