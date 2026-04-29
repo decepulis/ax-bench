@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark transparent control bar with red progress fill and white icons, matching YouTube's treatment",
+    "typography": "Small white sans-serif timestamp and title text, close to YouTube's style",
+    "notes": "The control bar layout closely mirrors YouTube: red progress bar with scrubber, left-aligned play/volume/timestamp/title and right-aligned CC, settings, and fullscreen icons. Missing the theater-mode toggle and a 'next' button, and there is no in-frame title overlay or chapter markers, but overall it reads convincingly as YouTube-inspired."
+  }
+}
+```

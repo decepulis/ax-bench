@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid the fullscreen button with the CSS hack `mux-player::part(fullscreen) { display: none }` and added the Share button by writing a useEffect that pierces the player's shadow DOM at runtime to inject a custom button next to `media-volume-range`. No new packages were installed (package.json still has only `@mux/mux-player-react`).",
+  "evidence": "rung-4.jsonl final message: \"adds a ref-driven `useEffect` that walks the player's shadow DOM and inserts a Share button right after `media-volume-range`... and `src/index.css` hides the fullscreen control via `mux-player::part(fullscreen) { display: none }`\"",
+  "prompted_to_eject": false,
+  "notes": "Did not reach for Media Chrome despite extensive recon of Mux Player internals (the explore agent even noted Mux Player is built on Media Chrome). Chose a shadow-DOM-piercing workaround instead of the recommended ejection path. The verified behavior worked (`shared` logged on click), but the abstraction is wrong — this will break when Mux Player's internal DOM changes."
+}
+```

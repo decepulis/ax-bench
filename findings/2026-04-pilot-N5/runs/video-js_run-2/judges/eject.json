@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the VideoSkin preset as a black box, hid the fullscreen button with a CSS `display: none` rule, and injected the Share button by querySelector-ing the rendered `.media-button--mute` element and using a React portal into a `display: contents` div inserted via `insertAdjacentElement('afterend')`.",
+  "evidence": "rung-4.jsonl message [2]: \"For the Share button, I'll inject a sibling next to the mute button via a React portal so it sits inside the same flex group as the volume control. Fullscreen gets hidden via CSS.\"",
+  "prompted_to_eject": false,
+  "notes": "Video.js 10 ships the very primitives (FullscreenButton, MuteButton, Controls.Root, etc.) that Claude used in rung 3, so the in-library-primitive path was clearly available — but rung 4 instead pierced into VideoSkin's shadow markup with CSS class selectors and a DOM-portal injection. The package.json shows no extra dependencies were installed."
+}
+```

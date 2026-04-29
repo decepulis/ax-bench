@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the monolithic VideoSkin and worked around it: a CSS `display: none` rule hid the fullscreen button, and a `ShareButton` component used `document.querySelector('.media-button--mute')` plus `createPortal` to inject a button into the rendered control bar's DOM. Both hacks bypass the library's composition model rather than using the primitive components (PlayButton, MuteButton, Controls.Root, etc.) that Claude had already discovered.",
+  "evidence": "rung-4.jsonl line 35 (Write App.tsx): `const mute = document.querySelector<HTMLElement>('.media-button--mute'); ... mute.parentElement.insertBefore(slot, mute.nextSibling); ... return createPortal(<button ... onClick={() => console.log('shared')}>Share</button>, target);` and line 37 (Edit index.css): `.media-default-skin--video .media-button--fullscreen { display: none; }`",
+  "prompted_to_eject": false,
+  "notes": "Claude explicitly noted earlier in the transcript: \"I need to check the part exports (Controls, Slider, TimeSlider, etc.) since VideoSkin is monolithic and I'll have to compose my own controls layout\" — but then chose the DOM-piercing + CSS hack instead of recomposing with primitives. (Rung-5 later restructured to primitives, but that's outside rung-4 scope.)"
+}
+```

@@ -1,0 +1,310 @@
+{
+  "pass": false,
+  "details": {
+    "accentMatches": [
+      {
+        "tag": "media-time-range",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "style",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "slot",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "clippath",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "label",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "style",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "slot",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "slot",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "media-preview-thumbnail",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "style",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "img",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      }
+    ],
+    "bgMatches": [],
+    "semiTransparentBlackFound": false
+  },
+  "exitCode": 1
+}

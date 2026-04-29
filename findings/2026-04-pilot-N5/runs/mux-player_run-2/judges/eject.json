@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid the fullscreen button with a CSS shadow part selector and injected a Share button by recursively piercing Mux Player's shadow DOM in a useEffect, attaching it after the media-volume-range element. No additional libraries were installed.",
+  "evidence": "transcript line 45: \"There's no built-in slot or prop for adding a button next to volume. I'll need to: 1. Hide fullscreen via mux-player::part(fullscreen) CSS 2. Use a ref + useEffect to inject a Share button into the shadow-DOM control bar after the volume range\"",
+  "prompted_to_eject": false,
+  "notes": "Claude never considered ejecting to Media Chrome — no mentions of 'eject' or 'media-chrome' in the transcript. Approach uses requestAnimationFrame polling + shadow-DOM piercing, the same hack pattern from rung 3. Task completed and verified working, but via the wrong abstraction layer."
+}
+```

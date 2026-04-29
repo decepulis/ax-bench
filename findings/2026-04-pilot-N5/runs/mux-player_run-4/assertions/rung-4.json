@@ -1,0 +1,42 @@
+{
+  "pass": true,
+  "details": {
+    "fullscreenHidden": true,
+    "shareButtonPresent": true,
+    "shareButton": {
+      "tag": "button",
+      "aria": "Share",
+      "title": "",
+      "text": "Share",
+      "classes": "share-button"
+    },
+    "shareClickLogged": true,
+    "consoleSample": [
+      {
+        "text": "[vite] connecting...",
+        "type": "debug"
+      },
+      {
+        "text": "[vite] connected.",
+        "type": "debug"
+      },
+      {
+        "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold",
+        "type": "info"
+      },
+      {
+        "text": "Media Chrome: No style sheet found on style tag of JSHandle@node",
+        "type": "warning"
+      },
+      {
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "type": "error"
+      },
+      {
+        "text": "shared",
+        "type": "log"
+      }
+    ]
+  },
+  "exitCode": 0
+}

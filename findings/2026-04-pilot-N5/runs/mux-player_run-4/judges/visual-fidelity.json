@@ -1,0 +1,20 @@
+```json
+{
+  "score": 3,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": false,
+      "settings_cog": false,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark translucent bar with red progress accent, similar to YouTube",
+    "typography": "Small light sans-serif timestamp, roughly matches YouTube's compact style",
+    "notes": "The redesign captures the overall YouTube silhouette: thin red progress bar, left-aligned play and timestamp, right-aligned icon cluster on a dark gradient. However, it omits the volume control, settings cog, captions (CC), and miniplayer/theater toggles, and the title overlay is missing. Icon set and spacing diverge enough that it reads as YouTube-inspired but not a faithful match."
+  }
+}
+```

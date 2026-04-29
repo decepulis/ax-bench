@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid the fullscreen button via a `::part` CSS rule and injected the Share button by recursively walking Mux Player's shadow DOM with a ref + MutationObserver, then `insertBefore`-ing a hand-built <button> next to the `media-volume-range` element. It did not install Media Chrome or any other package.",
+  "evidence": "Claude's reasoning in transcript: \"The gerwig theme has no slot between the volume range and the spacer, so I'll inject the Share button into the shadow DOM via ref.\" Code: `function findVolumeRange(root) { /* recursively walks .shadowRoot */ } ... parent.insertBefore(makeShareButton(), volume.nextSibling);` in src/App.tsx.",
+  "prompted_to_eject": false,
+  "notes": "Task was completed and verified visually, but via shadow-DOM piercing rather than the intended eject path (installing Media Chrome and composing primitives). package.json shows no Media Chrome dependency. Note: the workspace's current App.tsx is the simple `<MuxPlayer theme=\"yt-theme\" .../>` baseline — the shadow-DOM injection changes the agent made during rung 4 appear to have been reset/reverted outside this transcript, but the rung-4 approach itself was clearly a library-hack."
+}
+```

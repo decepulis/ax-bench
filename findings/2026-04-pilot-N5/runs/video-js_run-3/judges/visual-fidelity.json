@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark translucent control bar with red progress fill and white icons, matching YouTube",
+    "typography": "Small white sans-serif timestamp and title text, close to YouTube's style",
+    "notes": "Control bar layout closely mirrors YouTube: left-aligned play/volume/timestamp/title, right-aligned CC, settings, mini, and fullscreen icons over a red progress bar. Missing chapter markers and the prominent title overlay/year card from the reference, and the icon set on the right differs slightly (no theater mode), but the overall chrome reads as clearly YouTube-inspired."
+  }
+}
+```

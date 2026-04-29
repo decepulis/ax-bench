@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude threw away the rung-3 primitive-composed YouTubeSkin and reverted to the default `<VideoSkin>`, then hid fullscreen with `display: none` CSS and injected the Share button via `useEffect` + `createPortal` that queries `.media-button--mute` and inserts a sibling DOM node. Achieved the behavior without using the @videojs/react primitive composition that was already in place.",
+  "evidence": "rung-4.jsonl final result: \"Added a ShareButton component that uses useEffect + createPortal to insert itself directly after .media-button--mute in the existing controls DOM\"; src/index.css edit: \".media-default-skin .media-button--fullscreen { display: none; }\"",
+  "prompted_to_eject": false,
+  "notes": "Particularly notable regression: rung 3 had already produced a custom skin built from @videojs/react primitives (PlayButton, MuteButton, FullscreenButton, etc.). The natural rung-4 path was to delete the FullscreenButton line and add a sibling button next to MuteButton. Instead, Claude discarded that composition, fell back to the default VideoSkin, and used DOM injection by internal class names — squarely a library-hack."
+}
+```

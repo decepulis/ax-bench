@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": false,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black chrome with white icons, similar to YouTube's dark theme",
+    "typography": "Clean sans-serif, small white time/title text — close to YouTube's Roboto styling",
+    "notes": "Control bar layout matches YouTube's structure well: left-aligned play/volume/time/title and right-aligned overflow + fullscreen, with a thin progress bar above. Missing the red progress fill, settings cog, captions (CC), and miniplayer/theater toggles that appear in the reference; right side collapses to a generic '...' menu. Overall reads convincingly as YouTube-inspired with minor iconography gaps."
+  }
+}
+```

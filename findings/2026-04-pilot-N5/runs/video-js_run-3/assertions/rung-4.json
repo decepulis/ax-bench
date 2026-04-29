@@ -1,0 +1,42 @@
+{
+  "pass": false,
+  "details": {
+    "fullscreenHidden": true,
+    "shareButtonPresent": true,
+    "shareButton": {
+      "tag": "button",
+      "aria": "Share",
+      "title": "",
+      "text": "",
+      "classes": "media-button media-button--subtle media-button--icon"
+    },
+    "shareClickLogged": false,
+    "consoleSample": [
+      {
+        "text": "[vite] connecting...",
+        "type": "debug"
+      },
+      {
+        "text": "[vite] connected.",
+        "type": "debug"
+      },
+      {
+        "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold",
+        "type": "info"
+      },
+      {
+        "text": "Warning: React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.%s fetchPriority fetchpriority \n    at img\n    at div\n    at Thumbnail2 (http://localhost:5173/node_modules/.vite/deps/chunk-BJQDLEC6.js?v=d68f441e:4725:11)\n    at SliderThumbnail2 (http://localhost:5173/node_modules/.vite/deps/chunk-BJQDLEC6.js?v=d68f441e:5231:28)\n    at div\n    at div\n    at SliderProvider (http://localhost:5173/node_modules/.vite/deps/chunk-BJQDLEC6.js?v=d68f441e:5178:27)\n    at TimeSliderRoot2 (http://localhost:5173/node_modules/.vite/deps/chunk-BJQDLEC6.js?v=d68f441e:5345:11)\n    at div\n    at TooltipProvider (http://localhost:5173/node_modules/.vite/deps/chunk-BJQDLEC6.js?v=d68f441e:5534:28)\n    at div\n    at ControlsRoot2 (http://localhost:5173/node_modules/.vite/deps/chunk-BJQDLEC6.js?v=d68f441e:4889:11)\n    at div\n    at Container2 (http://localhost:5173/node_modules/.vite/deps/chunk-BJQDLEC6.js?v=d68f441e:184:69)\n    at VideoSkin (http://localhost:5173/node_modules/.vite/deps/@videojs_react_video.js?v=d68f441e:1827:11)\n    at PlayerContextProvider (http://localhost:5173/node_modules/.vite/deps/chunk-BJQDLEC6.js?v=d68f441e:148:34)\n    at Provider (http://localhost:5173/node_modules/.vite/deps/@videojs_react.js?v=d68f441e:171:23)\n    at main\n    at App",
+        "type": "error"
+      },
+      {
+        "text": "[vjs] controlsFeature requires a container element for activity tracking.",
+        "type": "warning"
+      },
+      {
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "type": "error"
+      }
+    ]
+  },
+  "exitCode": 1
+}

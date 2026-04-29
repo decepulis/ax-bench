@@ -1,0 +1,344 @@
+body {
+  margin: 0;
+  font-family: 'YouTube Sans', 'Roboto', system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ============================================================
+   YouTube-style player skin
+   ============================================================ */
+
+.yt-skin {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  outline: none;
+}
+
+.yt-skin video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.yt-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity 200ms ease-out;
+}
+
+.yt-poster[data-visible='false'] {
+  opacity: 0;
+}
+
+/* Mux-style watermark in top-right */
+.yt-watermark {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ============================================================
+   Buffering spinner
+   ============================================================ */
+
+.yt-buffering {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+  z-index: 6;
+}
+
+.yt-buffering[data-visible] {
+  opacity: 1;
+}
+
+.yt-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: yt-spin 0.8s linear infinite;
+}
+
+@keyframes yt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================
+   Controls — bottom progress bar + control row
+   ============================================================ */
+
+.yt-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.4) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding-top: 32px;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+  pointer-events: none;
+}
+
+.yt-controls[data-visible] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- Progress bar --- */
+
+.yt-progress {
+  position: relative;
+  height: 5px;
+  margin: 0 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  touch-action: none;
+}
+
+.yt-progress::before {
+  /* Larger pointer hit area */
+  content: '';
+  position: absolute;
+  inset: -8px 0;
+}
+
+.yt-progress__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: height 100ms ease-out;
+}
+
+.yt-progress:hover .yt-progress__track,
+.yt-progress[data-dragging] .yt-progress__track {
+  height: 5px;
+}
+
+.yt-progress__buffer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--media-slider-buffer, 0%);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.yt-progress__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--media-slider-fill, 0%);
+  background: #f00;
+}
+
+.yt-progress[data-dragging] .yt-progress__fill {
+  width: var(--media-slider-pointer);
+}
+
+.yt-progress__thumb {
+  position: absolute;
+  left: var(--media-slider-fill, 0%);
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  margin-left: -6.5px;
+  background: #f00;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 100ms ease-out;
+  pointer-events: none;
+}
+
+.yt-progress:hover .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__thumb {
+  transform: scale(1);
+}
+
+.yt-progress[data-dragging] .yt-progress__thumb {
+  left: var(--media-slider-pointer);
+}
+
+/* --- Control row --- */
+
+.yt-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  height: 40px;
+}
+
+.yt-bar__left,
+.yt-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* Buttons */
+
+.yt-btn {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.95;
+  transition: opacity 100ms ease-out;
+}
+
+.yt-btn:hover {
+  opacity: 1;
+}
+
+.yt-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+  border-radius: 50%;
+}
+
+.yt-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+/* Time text */
+
+.yt-time {
+  margin-left: 6px;
+  padding: 0 4px;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+.yt-time time {
+  display: inline;
+}
+
+/* Title */
+
+.yt-title {
+  margin-left: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 500;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   Icon visibility per button state
+   (the player sets data attributes on the button element)
+   ============================================================ */
+
+.yt-btn--play .yt-icon {
+  display: none;
+}
+.yt-btn--play[data-paused]:not([data-ended]) .yt-icon--play {
+  display: block;
+}
+.yt-btn--play:not([data-paused]):not([data-ended]) .yt-icon--pause {
+  display: block;
+}
+.yt-btn--play[data-ended] .yt-icon--restart {
+  display: block;
+}
+
+.yt-btn--mute .yt-icon {
+  display: none;
+}
+.yt-btn--mute[data-muted] .yt-icon--volume-off {
+  display: block;
+}
+.yt-btn--mute:not([data-muted])[data-volume-level='low'] .yt-icon--volume-low {
+  display: block;
+}
+.yt-btn--mute:not([data-muted]):not([data-volume-level='low']) .yt-icon--volume-high {
+  display: block;
+}
+
+.yt-btn--captions .yt-icon {
+  display: none;
+}
+.yt-btn--captions[data-active] .yt-icon--captions-on {
+  display: block;
+  /* Underline indicates active captions, like YouTube */
+  border-bottom: 2px solid #f00;
+}
+.yt-btn--captions:not([data-active]) .yt-icon--captions-off {
+  display: block;
+}
+
+.yt-btn--fullscreen .yt-icon {
+  display: none;
+}
+.yt-btn--fullscreen:not([data-fullscreen]) .yt-icon--fullscreen-enter {
+  display: block;
+}
+.yt-btn--fullscreen[data-fullscreen] .yt-icon--fullscreen-exit {
+  display: block;
+}

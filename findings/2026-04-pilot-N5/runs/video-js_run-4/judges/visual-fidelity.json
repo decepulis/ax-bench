@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black chrome with white icons; matches YouTube's neutral treatment though missing the red progress accent",
+    "typography": "Clean sans-serif white text for time and title, consistent with YouTube's style",
+    "notes": "Strong YouTube-inspired layout: left cluster (play, next, mute, time, title) and right cluster (CC-like, settings, mini, fullscreen) match the reference well. Missing the red progress fill accent and the title overlay/watermark in the video area, and the next-track button is an addition not present in the reference. Overall reads clearly as a YouTube-style player."
+  }
+}
+```

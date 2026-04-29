@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark chrome with red progress fill matching YouTube's signature treatment",
+    "typography": "Small sans-serif time/title text in the control bar, similar weight to reference",
+    "notes": "Control bar layout closely mirrors YouTube: left-aligned play/volume/time, right-aligned CC/settings/theater/fullscreen, with red progress accent. Title overlay and chapter markers from the reference are not visible, and the bottom row spacing/icon sizing is slightly tighter than YouTube's, but the overall read is clearly YouTube-inspired."
+  }
+}
+```

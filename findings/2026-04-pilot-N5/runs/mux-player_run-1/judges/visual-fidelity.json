@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": false,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black control bar with white icons and red progress fill, matching YouTube's palette",
+    "typography": "Clean sans-serif white text for time and title, consistent with YouTube",
+    "notes": "Control bar layout closely mirrors YouTube: left cluster has play, mute, time, and title; right cluster has overflow, speed, and fullscreen, with a red progress bar above. Missing the captions (CC) and settings cog icons, and the title is shown as 'ax-bench' in the top-left rather than YouTube's autoplay/title overlay treatment. The thumb on the progress bar is absent and there's no chapter segmentation, but overall the chrome reads convincingly as YouTube-inspired."
+  }
+}
+```

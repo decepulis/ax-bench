@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude stayed in Mux Player and pierced its nested shadow DOM via a ref + useEffect, walking shadow roots to imperatively mutate internal `media-*` elements (hiding the fullscreen button via `style.display = 'none'` and inserting a Share `<button>` after `media-volume-range`). It did not install Media Chrome or use a documented public API.",
+  "evidence": "rung-4.jsonl: \"The CSS variable is documented but not actually consumed — the button's `display` is hardcoded. Let me hide it via JS instead, in the same useEffect.\" Also workspace/src/App.tsx:6-20 (`findAllInShadow` helper that recurses through `shadowRoot`s).",
+  "prompted_to_eject": false,
+  "notes": "Claude tried the public surface first (slot=\"fullscreen-button\", `--media-fullscreen-button-display` CSS var) and discovered both were dead ends, but rather than reaching for Media Chrome (the underlying primitive library Mux Player is built on, already present as a transitive dep) it fell back to shadow-DOM piercing. The visible workspace App.tsx is from a later cumulative rung that reuses the same `findAllInShadow` hack pattern, confirming the pattern persisted."
+}
+```

@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "details": {
+    "muted": true,
+    "autoplay": true,
+    "loop": true,
+    "poster": null,
+    "playing": false,
+    "previewImageVisible": true
+  },
+  "exitCode": 0
+}

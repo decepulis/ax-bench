@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+mux-player {
+  --media-primary-color: #fff;
+  --media-secondary-color: transparent;
+  --media-accent-color: #ff0000;
+  --media-range-bar-color: #ff0000;
+  --media-range-track-background: rgba(255, 255, 255, 0.2);
+  --media-range-track-height: 3px;
+  --media-range-thumb-background: #ff0000;
+  --media-range-thumb-height: 13px;
+  --media-range-thumb-width: 13px;
+  --media-control-hover-background: transparent;
+  --media-control-padding: 0 8px;
+  --media-control-height: 36px;
+  --media-button-icon-height: 18px;
+  --media-text-content-height: 36px;
+  --media-font-family: Roboto, system-ui, -apple-system, sans-serif;
+}
+
+mux-player::part(control-bar bottom) {
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  padding: 0 4px 4px;
+}
+
+mux-player::part(control-bar top) {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), transparent);
+}
+
+mux-player::part(seek-backward),
+mux-player::part(seek-forward) {
+  display: none;
+}
+
+mux-player::part(play button) {
+  order: -10;
+}
+mux-player::part(mute button) {
+  order: -9;
+}
+mux-player::part(volume range) {
+  order: -8;
+}
+mux-player::part(time display) {
+  order: -7;
+  font-size: 13px;
+  min-width: auto;
+  padding: 0 8px;
+}

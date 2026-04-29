@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude pierced Mux Player's shadow DOM with a recursive findInShadow walker, created a raw <button> via document.createElement, and inserted it after media-volume-range; hid the fullscreen control via a CSS ::part(fullscreen) { display: none } rule. It did not install Media Chrome — package.json still lists only @mux/mux-player-react.",
+  "evidence": "rung-4.jsonl line 28: \"I'll inject the Share button directly into the shadow DOM next to the volume range, since Mux Player's default theme doesn't expose a slot in that position.\"",
+  "prompted_to_eject": false,
+  "notes": "Claude inspected the Mux Player theme source (gerwig/index.mjs) and Media Chrome internals to find a slot, concluded none existed for that position, and chose shadow-DOM piercing instead of installing media-chrome and composing a custom control bar — the intended eject path. The behavioral goal was met (clicking logs 'shared', fullscreen hidden), but via workaround rather than the right abstraction."
+}
+```

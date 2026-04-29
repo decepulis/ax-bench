@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Stayed on the default Video.js skin and hid the fullscreen button via a CSS `display: none` rule, then added the Share button by using a `useLayoutEffect` to inject a `display: contents` slot div next to `.media-button--mute` and `createPortal`-ing a plain `<button>` into it — rather than composing the control bar from Video.js's primitive components (which the library exposes and which rung 5 ultimately switches to).",
+  "evidence": "rung-4.jsonl assistant summary: \"Adds a `ShareControl` component that uses a `useLayoutEffect` to drop a slot div (`display: contents`) right after `.media-button--mute`, then portals a 'Share' button into it\" and \".media-button--fullscreen { display: none } hides fullscreen.\"",
+  "prompted_to_eject": false,
+  "notes": "The workspace src/App.tsx no longer reflects rung 4 — rung 5 rewrote the player as a primitive-based YouTubeSkin. Rung 4 itself is a clear library-hack: Claude inspected primitive components (popover-root, etc.) but chose CSS-hide + DOM-portal injection into the default skin instead of restructuring with primitives."
+}
+```

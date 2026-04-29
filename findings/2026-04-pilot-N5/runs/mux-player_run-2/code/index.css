@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Hide control-bar items YouTube doesn't show. */
+mux-player::part(seek-backward),
+mux-player::part(seek-forward),
+mux-player::part(playback-rate),
+mux-player::part(audio-track),
+mux-player::part(airplay),
+mux-player::part(cast) {
+  display: none;
+}
+
+/* Hide the top chrome — title is moved into the bottom bar instead. */
+mux-player::part(control-bar top) {
+  display: none;
+}
+
+/* Solid dark control bar, like YouTube's. */
+mux-player::part(control-bar bottom) {
+  background-color: rgba(0, 0, 0, 0.85);
+}
+

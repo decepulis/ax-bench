@@ -1,0 +1,146 @@
+{
+  "pass": true,
+  "details": {
+    "accentMatches": [
+      {
+        "tag": "div",
+        "classes": "media-slider",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider__track",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider__fill",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider__buffer",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider__thumb",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-surface media-preview media-slider__preview",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-preview__thumbnail",
+        "kind": "color"
+      },
+      {
+        "tag": "img",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "output",
+        "classes": "media-time media-preview__time",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "animate",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "animate",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "animate",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "animate",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "animate",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "animate",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "animate",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "animate",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      }
+    ],
+    "bgMatches": [
+      {
+        "tag": "div",
+        "classes": "media-surface media-controls",
+        "kind": "bg"
+      }
+    ],
+    "semiTransparentBlackFound": true
+  },
+  "exitCode": 0
+}

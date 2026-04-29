@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept using Video.js's default VideoSkin and worked around it: hid the fullscreen button with a CSS rule (`.media-button--fullscreen { display: none }`) and injected a Share button by querying the rendered DOM for `.media-button--mute`, inserting a `<span>` after it via `mute.after(span)`, and React-portaling the button into that DOM slot. It never reached for the @videojs/react primitives (Controls.Root, MuteButton, FullscreenButton, etc.) that would have allowed a clean in-library recomposition of the control bar.",
+  "evidence": "rung-4.jsonl message 13: \"Mute and fullscreen are direct siblings in `.media-button-group`. I'll: (a) hide fullscreen with CSS, and (b) portal a Share button right after the mute button.\"",
+  "prompted_to_eject": false,
+  "notes": "The behavioral goal was achieved (console verified `shared` logs and fullscreen is hidden), but via DOM-piercing + CSS rather than restructuring with Video.js 10 primitives. A later rung (visible in the current workspace App.tsx) appears to have rebuilt the player using primitives, which is what rung 4 should have done."
+}
+```

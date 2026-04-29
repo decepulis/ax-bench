@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark chrome with red progress fill, matching YouTube's dark theme",
+    "typography": "Sans-serif white timestamp and title text consistent with YouTube",
+    "notes": "Strong YouTube-inspired layout with red progress bar, left-aligned play/volume/time, and right-aligned settings/PiP/fullscreen icons. Title text 'Two bros' appears next to the time readout as in the reference. Missing a clear title overlay on the video and chapter markers; spacing and icon weights are slightly off but the overall impression reads as YouTube."
+  }
+}
+```

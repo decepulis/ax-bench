@@ -1,0 +1,6 @@
+{
+  "pass": false,
+  "details": {},
+  "error": "locator.hover: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('video').first()\n    - locator resolved to <video loop=\"\" muted=\"\" crossorigin=\"\" playsinline=\"\" preload=\"metadata\" src=\"blob:http://localhost:5173/83a5f1af-f5ff-495d-9235-0e8f50cdd4ed\">…</video>\n  - attempting hover action\n    2 × waiting for element to be visible and stable\n      - element is visible and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <button type=\"button\" aria-label=\"Pause\" class=\"yt-click-layer\"></button> intercepts pointer events\n    - retrying hover action\n    - waiting 20ms\n    2 × waiting for element to be visible and stable\n      - element is visible and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <button type=\"button\" aria-label=\"Pause\" class=\"yt-click-layer\"></button> intercepts pointer events\n    - retrying hover action\n      - waiting 100ms\n    56 × waiting for element to be visible and stable\n       - element is visible and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <button type=\"button\" aria-label=\"Pause\" class=\"yt-click-layer\"></button> intercepts pointer events\n     - retrying hover action\n       - waiting 500ms\n",
+  "exitCode": 1
+}
