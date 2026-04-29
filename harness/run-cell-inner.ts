@@ -114,6 +114,14 @@ async function loadPrompt(rung: number): Promise<string> {
     .replaceAll('{{LIBRARY_NOTE}}', libraryNote);
 }
 
+type RungUsage = {
+  inputTokens: number;
+  outputTokens: number;
+  cacheCreationInputTokens: number;
+  cacheReadInputTokens: number;
+  totalCostUsd: number | null;
+};
+
 type RungSummary = {
   rung: number;
   promptPreview: string;
@@ -122,6 +130,7 @@ type RungSummary = {
   sessionIdFirstSeen: string | null;
   assertion: unknown;
   screenshotPath: string | null;
+  usage: RungUsage | null;
 };
 
 const RUNG_TIMEOUT_MS = 15 * 60 * 1000;
@@ -130,7 +139,12 @@ async function invokeClaude(opts: {
   prompt: string;
   resumeSessionId: string | null;
   transcriptPath: string;
-}): Promise<{ exitCode: number | null; firstSessionId: string | null; timedOut: boolean }> {
+}): Promise<{
+  exitCode: number | null;
+  firstSessionId: string | null;
+  timedOut: boolean;
+  usage: RungUsage | null;
+}> {
   const args: string[] = [
     '-p',
     opts.prompt,
@@ -157,6 +171,7 @@ async function invokeClaude(opts: {
 
   const sink = createWriteStream(opts.transcriptPath);
   let firstSessionId: string | null = null;
+  let usage: RungUsage | null = null;
   let buffer = '';
 
   child.stdout.on('data', (chunk: Buffer) => {
@@ -171,6 +186,20 @@ async function invokeClaude(opts: {
         const evt = JSON.parse(line);
         if (!firstSessionId && typeof evt.session_id === 'string') {
           firstSessionId = evt.session_id;
+        }
+        // The terminal `result` event from claude -p --output-format=stream-json
+        // carries an aggregated `usage` for the whole turn plus total_cost_usd.
+        // That's authoritative — don't sum across assistant messages ourselves.
+        if (evt.type === 'result' && evt.usage) {
+          const u = evt.usage;
+          usage = {
+            inputTokens: Number(u.input_tokens ?? 0),
+            outputTokens: Number(u.output_tokens ?? 0),
+            cacheCreationInputTokens: Number(u.cache_creation_input_tokens ?? 0),
+            cacheReadInputTokens: Number(u.cache_read_input_tokens ?? 0),
+            totalCostUsd:
+              typeof evt.total_cost_usd === 'number' ? evt.total_cost_usd : null,
+          };
         }
       } catch {
         /* non-JSON line — ignore */
@@ -195,7 +224,7 @@ async function invokeClaude(opts: {
   const [exitCode] = (await once(child, 'exit')) as [number | null];
   clearTimeout(killer);
   sink.end();
-  return { exitCode, firstSessionId, timedOut };
+  return { exitCode, firstSessionId, timedOut, usage };
 }
 
 async function runAssertion(rung: number, screenshotPath: string): Promise<unknown> {
@@ -344,7 +373,7 @@ async function main() {
       `rung ${rung} begin (session=${sessionId ?? 'new'}, devServer=${upBefore ? 'up' : 'DOWN'}, respawns=${dev.respawns})`
     );
 
-    const { exitCode, firstSessionId, timedOut } = await invokeClaude({
+    const { exitCode, firstSessionId, timedOut, usage } = await invokeClaude({
       prompt,
       resumeSessionId: sessionId,
       transcriptPath,
@@ -377,10 +406,14 @@ async function main() {
       sessionIdFirstSeen: firstSessionId,
       assertion,
       screenshotPath,
+      usage,
     });
 
+    const tokensSummary = usage
+      ? `in=${usage.inputTokens} out=${usage.outputTokens} cacheR=${usage.cacheReadInputTokens} cacheW=${usage.cacheCreationInputTokens}${usage.totalCostUsd != null ? ` $${usage.totalCostUsd.toFixed(4)}` : ''}`
+      : 'usage=?';
     await log(
-      `rung ${rung} done in ${((Date.now() - t0) / 1000).toFixed(1)}s (exit=${exitCode}, pass=${(assertion as { pass?: boolean }).pass ?? '?'})`
+      `rung ${rung} done in ${((Date.now() - t0) / 1000).toFixed(1)}s (exit=${exitCode}, pass=${(assertion as { pass?: boolean }).pass ?? '?'}, ${tokensSummary})`
     );
   }
 

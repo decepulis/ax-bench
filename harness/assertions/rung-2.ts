@@ -7,6 +7,24 @@ async function check(page: Page): Promise<AssertionResult> {
   const videoLocator = page.locator('video').first();
   await videoLocator.waitFor({ state: 'attached', timeout: 10_000 });
 
+  // Wait for the video to actually start playing before measuring. The rung
+  // asks for autoplay; we test it behaviorally (paused === false) rather
+  // than checking the autoplay *attribute*, because Mux Player consumes
+  // `autoplay` as a React prop and starts playback via .play() without
+  // setting the inner <video> element's autoplay property.
+  await page
+    .waitForFunction(
+      () => {
+        const v = document.querySelector('video') as HTMLVideoElement | null;
+        return !!v && !v.paused && v.readyState >= 2;
+      },
+      null,
+      { timeout: 8_000 }
+    )
+    .catch(() => {
+      /* fall through — playing===false will be the failure signal */
+    });
+
   const details = await videoLocator.evaluate((video: HTMLVideoElement) => {
     return {
       muted: video.muted,
@@ -42,9 +60,12 @@ async function check(page: Page): Promise<AssertionResult> {
     previewImageVisible,
   };
 
+  // Behavioral pass criteria: actually playing, actually muted, loop set on
+  // the underlying element, a preview image visible. The `autoplay`
+  // *property* is intentionally not gated — see the wait above.
   const pass =
     result.muted === true &&
-    result.autoplay === true &&
+    result.playing === true &&
     result.loop === true &&
     previewImageVisible === true;
 

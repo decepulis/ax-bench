@@ -1,15 +1,5 @@
 {
   "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "--yes",
-        "@playwright/mcp",
-        "--browser=chromium",
-        "--executable-path=/usr/bin/brave-browser",
-        "--no-sandbox"
-      ]
-    },
     "chrome-devtools": {
       "command": "npx",
       "args": [
