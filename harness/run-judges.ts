@@ -48,15 +48,25 @@ async function fileExists(path: string): Promise<boolean> {
   }
 }
 
+type JudgeUsage = {
+  inputTokens: number;
+  outputTokens: number;
+  cacheCreationInputTokens: number;
+  cacheReadInputTokens: number;
+  totalCostUsd: number | null;
+};
+
 async function invokeClaude(opts: {
   prompt: string;
   outputPath: string;
   addDirs?: string[];
-}): Promise<{ exitCode: number | null }> {
+}): Promise<{ exitCode: number | null; usage: JudgeUsage | null }> {
   const model = process.env.AX_BENCH_JUDGE_MODEL ?? 'claude-opus-4-7[1m]';
   // Judges run on host with OAuth auth, so we can't use --bare (API-key only).
   // Instead, lock them down to read-only tools and disable skills + user MCPs
   // so a judge can't accidentally Slack/email/post on our behalf.
+  // stream-json output lets us capture usage + cost from the terminal
+  // `result` event without losing the judge's actual response.
   const args = [
     '-p',
     opts.prompt,
@@ -65,7 +75,8 @@ async function invokeClaude(opts: {
     '--permission-mode',
     'bypassPermissions',
     '--output-format',
-    'text',
+    'stream-json',
+    '--verbose',
     '--disable-slash-commands',
     '--mcp-config',
     '{"mcpServers":{}}',
@@ -78,13 +89,42 @@ async function invokeClaude(opts: {
   }
 
   const child = spawn('claude', args, { stdio: ['ignore', 'pipe', 'inherit'] });
-  let stdout = '';
+  let buffer = '';
+  let resultText = '';
+  let usage: JudgeUsage | null = null;
+
   child.stdout.on('data', (chunk: Buffer) => {
-    stdout += chunk.toString('utf8');
+    buffer += chunk.toString('utf8');
+    let idx;
+    while ((idx = buffer.indexOf('\n')) >= 0) {
+      const line = buffer.slice(0, idx).trim();
+      buffer = buffer.slice(idx + 1);
+      if (!line) continue;
+      try {
+        const evt = JSON.parse(line);
+        if (evt.type === 'result') {
+          if (typeof evt.result === 'string') resultText = evt.result;
+          if (evt.usage) {
+            const u = evt.usage;
+            usage = {
+              inputTokens: Number(u.input_tokens ?? 0),
+              outputTokens: Number(u.output_tokens ?? 0),
+              cacheCreationInputTokens: Number(u.cache_creation_input_tokens ?? 0),
+              cacheReadInputTokens: Number(u.cache_read_input_tokens ?? 0),
+              totalCostUsd:
+                typeof evt.total_cost_usd === 'number' ? evt.total_cost_usd : null,
+            };
+          }
+        }
+      } catch {
+        /* non-JSON line — ignore */
+      }
+    }
   });
+
   const [exitCode] = (await once(child, 'exit')) as [number | null];
-  await writeFile(opts.outputPath, stdout);
-  return { exitCode };
+  await writeFile(opts.outputPath, resultText);
+  return { exitCode, usage };
 }
 
 async function loadJudgePrompt(name: string, replacements: Record<string, string>) {
@@ -153,7 +193,7 @@ export async function runJudges(outputDir: string) {
         join(judgesDir, 'visual-fidelity.json'),
         JSON.stringify({ skipped: true, reason: 'missing reference or candidate image' }, null, 2)
       );
-      return { exitCode: 0 };
+      return { exitCode: 0, usage: null };
     }
     const prompt = await loadJudgePrompt('visual-fidelity-judge', {
       ...baseReplacements,
@@ -167,15 +207,59 @@ export async function runJudges(outputDir: string) {
     });
   })();
 
-  await Promise.all([hallucinationsTask, ejectTask, visualTask]);
+  const [hallucinationsResult, ejectResult, visualResult] = await Promise.all([
+    hallucinationsTask,
+    ejectTask,
+    visualTask,
+  ]);
 
   console.log(`[judges] ${metrics.library}: summarizer`);
   const sPrompt = await loadJudgePrompt('summarizer', baseReplacements);
-  await invokeClaude({
+  const summarizerResult = await invokeClaude({
     prompt: sPrompt,
     outputPath: join(outputDir, 'summary.md'),
     addDirs: [outputDir],
   });
+
+  // Aggregate token usage so cost-per-cell rolls up cleanly.
+  const usagePerJudge = {
+    hallucinations: hallucinationsResult.usage,
+    eject: ejectResult.usage,
+    visualFidelity: visualResult.usage,
+    summarizer: summarizerResult.usage,
+  };
+  type Totals = {
+    inputTokens: number;
+    outputTokens: number;
+    cacheCreationInputTokens: number;
+    cacheReadInputTokens: number;
+    totalCostUsd: number | null;
+  };
+  const totals: Totals = Object.values(usagePerJudge).reduce<Totals>(
+    (acc, u) => {
+      if (!u) return acc;
+      acc.inputTokens += u.inputTokens;
+      acc.outputTokens += u.outputTokens;
+      acc.cacheCreationInputTokens += u.cacheCreationInputTokens;
+      acc.cacheReadInputTokens += u.cacheReadInputTokens;
+      if (u.totalCostUsd != null) acc.totalCostUsd = (acc.totalCostUsd ?? 0) + u.totalCostUsd;
+      return acc;
+    },
+    {
+      inputTokens: 0,
+      outputTokens: 0,
+      cacheCreationInputTokens: 0,
+      cacheReadInputTokens: 0,
+      totalCostUsd: null,
+    }
+  );
+  await writeFile(
+    join(judgesDir, 'usage.json'),
+    JSON.stringify({ perJudge: usagePerJudge, totals }, null, 2)
+  );
+  console.log(
+    `[judges] ${metrics.library}: cost ${totals.totalCostUsd != null ? `$${totals.totalCostUsd.toFixed(4)}` : '?'} (in=${totals.inputTokens} out=${totals.outputTokens})`
+  );
 
   console.log(`[judges] ${metrics.library}: done. Summary at ${join(outputDir, 'summary.md')}`);
 }

@@ -19,7 +19,7 @@ You are auditing a Claude Code session in which Claude built a frontend app usin
 
 1. Read the five rung transcripts in `{{OUTPUT_DIR}}/transcripts/rung-*.jsonl` (one line per event, `type: "stream_event"` events hold model text).
 2. Read the final code in `{{OUTPUT_DIR}}/workspace/` to understand what ended up in the repo.
-3. Use `WebFetch` on `{{LIBRARY_DOCS_URL}}` or the published package's npm page if you need to verify whether a specific API exists.
+3. **Verify against installed code first.** `{{OUTPUT_DIR}}/types/node_modules/` contains every dep's `package.json` and `*.d.ts` files captured at the end of the run. Grep there for prop names, exports, CSS variables, `::part()` names, and method names — that's authoritative ground truth for the version Claude actually used. Only fall back to `WebFetch` on `{{LIBRARY_DOCS_URL}}` or the published package's npm page if the answer can't be settled by the type surface (e.g., undocumented runtime behavior).
 4. Output a JSON object with this exact schema, nothing else — no prose, no code fences:
 
 ```json

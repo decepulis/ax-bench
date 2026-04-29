@@ -11,7 +11,7 @@
  */
 import { spawn, type ChildProcess, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { createWriteStream } from 'node:fs';
-import { mkdir, readFile, readdir, writeFile, cp } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile, cp, copyFile, stat } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { once } from 'node:events';
@@ -98,6 +98,46 @@ async function waitForUrl(url: string, timeoutMs: number) {
   throw new Error(`timed out waiting for ${url}`);
 }
 
+/**
+ * Walks a node_modules tree and copies only package.json files + .d.ts
+ * declaration files, preserving relative layout. Follows symlinks so pnpm's
+ * virtual store resolves into real files in the output. Skips package
+ * internals we never need (`.bin/`, `.cache/`).
+ */
+async function snapshotTypes(srcRoot: string, dstRoot: string): Promise<void> {
+  let entries;
+  try {
+    entries = await readdir(srcRoot, { withFileTypes: true });
+  } catch {
+    return;
+  }
+  for (const ent of entries) {
+    if (ent.name === '.bin' || ent.name === '.cache') continue;
+    const srcPath = join(srcRoot, ent.name);
+    const dstPath = join(dstRoot, ent.name);
+    let isDir: boolean;
+    let isFile: boolean;
+    if (ent.isSymbolicLink()) {
+      try {
+        const s = await stat(srcPath);
+        isDir = s.isDirectory();
+        isFile = s.isFile();
+      } catch {
+        continue;
+      }
+    } else {
+      isDir = ent.isDirectory();
+      isFile = ent.isFile();
+    }
+    if (isDir) {
+      await snapshotTypes(srcPath, dstPath);
+    } else if (isFile && (ent.name === 'package.json' || ent.name.endsWith('.d.ts'))) {
+      await mkdir(dstRoot, { recursive: true });
+      await copyFile(srcPath, dstPath);
+    }
+  }
+}
+
 async function findTaskFile(rung: number): Promise<string> {
   const files = await readdir(TASKS);
   const match = files.find((f) => f.startsWith(`rung-${rung}-`));
@@ -131,6 +171,7 @@ type RungSummary = {
   assertion: unknown;
   screenshotPath: string | null;
   usage: RungUsage | null;
+  timedOut: boolean;
 };
 
 const RUNG_TIMEOUT_MS = 15 * 60 * 1000;
@@ -379,7 +420,6 @@ async function main() {
       transcriptPath,
     });
     if (!sessionId && firstSessionId) sessionId = firstSessionId;
-    if (timedOut) await log(`rung ${rung} timed out`);
 
     // Let Vite HMR settle, then make sure the server survived this rung
     // before screenshot + assertion attempt to talk to it.
@@ -407,6 +447,7 @@ async function main() {
       assertion,
       screenshotPath,
       usage,
+      timedOut,
     });
 
     const tokensSummary = usage
@@ -415,6 +456,16 @@ async function main() {
     await log(
       `rung ${rung} done in ${((Date.now() - t0) / 1000).toFixed(1)}s (exit=${exitCode}, pass=${(assertion as { pass?: boolean }).pass ?? '?'}, ${tokensSummary})`
     );
+
+    // Halt the cell after a timeout. The agent's session was SIGKILLed
+    // mid-turn; resuming into rung N+1 would feed the next prompt to a
+    // session in an undefined state, making subsequent transcripts
+    // un-interpretable. Better to stop and show 2/5 rungs honestly than
+    // produce 5/5 rungs of contaminated data.
+    if (timedOut) {
+      await log(`rung ${rung} timed out — skipping remaining rungs`);
+      break;
+    }
   }
 
   // 5. Snapshot workspace final state
@@ -423,6 +474,14 @@ async function main() {
     recursive: true,
     filter: (src) => !src.includes('node_modules') && !src.includes('.git'),
   });
+
+  // Snapshot the *type surface* of installed deps separately so the
+  // hallucination judge can grep `--media-foo` / `::part(bar)` / a prop
+  // name against the actually-installed code instead of relying solely
+  // on WebFetch. Only package.json + *.d.ts files — bounded size, lossless
+  // for the API-name questions we care about.
+  await log('snapshotting type surface');
+  await snapshotTypes(join(WORKSPACE, 'node_modules'), join(OUTPUT, 'types', 'node_modules'));
 
   // 6. Stop dev server
   dev.stop();

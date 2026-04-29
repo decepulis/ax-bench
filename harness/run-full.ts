@@ -14,18 +14,27 @@
  * Each batch is a balanced 3/2 split of the two conditions so library-specific
  * issues show up in the first batch, not just the second.
  *
- * Output lands in runs/.
+ * Output lands in runs/<label>/.
  *
  * Usage:
- *   tsx harness/run-full.ts
+ *   tsx harness/run-full.ts                # label defaults to ISO timestamp
+ *   tsx harness/run-full.ts --label N5     # human-friendly label
  */
 import { resolve } from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { config as loadEnv } from 'dotenv';
 import { runCell } from './run-cell.ts';
 import { runJudges } from './run-judges.ts';
+import { runSynthesis } from './run-synthesis.ts';
 
 loadEnv();
+
+function parseLabel(): string {
+  const args = process.argv.slice(2);
+  const i = args.indexOf('--label');
+  if (i >= 0 && args[i + 1]) return args[i + 1]!;
+  return new Date().toISOString().replace(/:/g, '-').replace(/\.\d+Z$/, 'Z');
+}
 
 const N = 5;
 const CONDITIONS = ['video-js', 'mux-player'] as const;
@@ -78,8 +87,10 @@ async function runBatch(batchIndex: number, cells: Cell[]) {
 
 async function main() {
   const repoRoot = resolve(import.meta.dirname, '..');
-  const runsDir = resolve(repoRoot, 'runs');
+  const label = parseLabel();
+  const runsDir = resolve(repoRoot, 'runs', label);
   await mkdir(runsDir, { recursive: true });
+  console.log(`[full] output dir: ${runsDir}`);
 
   const cells = buildCells(runsDir);
   const batchSize = 5;
@@ -92,9 +103,15 @@ async function main() {
     await runBatch(i, batches[i]!);
   }
 
+  console.log('[full] running synthesis');
+  await runSynthesis(runsDir).catch((err) => {
+    console.error('[full] synthesis failed:', err);
+  });
+
   console.log('[full] all batches done.');
+  console.log(`Read: ${resolve(runsDir, 'findings.md')}`);
   for (const cell of cells) {
-    console.log(`Read: ${resolve(cell.outputDir, 'summary.md')}`);
+    console.log(`      ${resolve(cell.outputDir, 'summary.md')}`);
   }
 }
 
