@@ -172,6 +172,7 @@ type RungSummary = {
   screenshotPath: string | null;
   usage: RungUsage | null;
   timedOut: boolean;
+  apiError: { status: number | null; message: string | null } | null;
 };
 
 const RUNG_TIMEOUT_MS = 15 * 60 * 1000;
@@ -185,6 +186,7 @@ async function invokeClaude(opts: {
   firstSessionId: string | null;
   timedOut: boolean;
   usage: RungUsage | null;
+  apiError: { status: number | null; message: string | null } | null;
 }> {
   const args: string[] = [
     '-p',
@@ -213,6 +215,7 @@ async function invokeClaude(opts: {
   const sink = createWriteStream(opts.transcriptPath);
   let firstSessionId: string | null = null;
   let usage: RungUsage | null = null;
+  let apiError: { status: number | null; message: string | null } | null = null;
   let buffer = '';
 
   child.stdout.on('data', (chunk: Buffer) => {
@@ -242,6 +245,16 @@ async function invokeClaude(opts: {
               typeof evt.total_cost_usd === 'number' ? evt.total_cost_usd : null,
           };
         }
+        // Detect Claude API errors (rate-limit, overload, network). The `result`
+        // event carries `is_error: true` + `api_error_status` when the SDK
+        // bailed without progress. Captured here so the rung loop can halt
+        // the cell rather than firing the next prompt at a dead account.
+        if (evt.type === 'result' && evt.is_error && evt.api_error_status) {
+          apiError = {
+            status: Number(evt.api_error_status) || null,
+            message: typeof evt.result === 'string' ? evt.result : null,
+          };
+        }
       } catch {
         /* non-JSON line — ignore */
       }
@@ -265,7 +278,7 @@ async function invokeClaude(opts: {
   const [exitCode] = (await once(child, 'exit')) as [number | null];
   clearTimeout(killer);
   sink.end();
-  return { exitCode, firstSessionId, timedOut, usage };
+  return { exitCode, firstSessionId, timedOut, usage, apiError };
 }
 
 async function runAssertion(rung: number, screenshotPath: string): Promise<unknown> {
@@ -400,6 +413,7 @@ async function main() {
   // 4. Drip-feed rungs
   let sessionId: string | null = null;
   const perRung: RungSummary[] = [];
+  let apiHalt: { status: number | null; message: string | null } | null = null;
 
   for (let rung = 1; rung <= 5; rung++) {
     const t0 = Date.now();
@@ -414,12 +428,13 @@ async function main() {
       `rung ${rung} begin (session=${sessionId ?? 'new'}, devServer=${upBefore ? 'up' : 'DOWN'}, respawns=${dev.respawns})`
     );
 
-    const { exitCode, firstSessionId, timedOut, usage } = await invokeClaude({
+    const { exitCode, firstSessionId, timedOut, usage, apiError } = await invokeClaude({
       prompt,
       resumeSessionId: sessionId,
       transcriptPath,
     });
     if (!sessionId && firstSessionId) sessionId = firstSessionId;
+    if (apiError) apiHalt = apiError;
 
     // Let Vite HMR settle, then make sure the server survived this rung
     // before screenshot + assertion attempt to talk to it.
@@ -448,6 +463,7 @@ async function main() {
       screenshotPath,
       usage,
       timedOut,
+      apiError,
     });
 
     const tokensSummary = usage
@@ -464,6 +480,18 @@ async function main() {
     // produce 5/5 rungs of contaminated data.
     if (timedOut) {
       await log(`rung ${rung} timed out — skipping remaining rungs`);
+      break;
+    }
+
+    // Halt the cell on an API error (rate-limit, overload). Continuing would
+    // burn wall time on rungs that can't succeed, and the orchestrator can't
+    // tell the difference between "agent crashed for real" and "out of usage"
+    // unless we make it explicit. Exit code propagates back to run-full so
+    // it can abort the run rather than start the next batch.
+    if (apiError) {
+      await log(
+        `rung ${rung} api error (status=${apiError.status}, msg=${apiError.message ?? '?'}) — halting cell`
+      );
       break;
     }
   }
@@ -499,6 +527,19 @@ async function main() {
     rungs: perRung,
   };
   await writeFile(join(OUTPUT, 'metrics.json'), JSON.stringify(metrics, null, 2));
+
+  if (apiHalt) {
+    // Marker file lets the orchestrator detect the halt without re-parsing
+    // metrics.json. Content is human-readable for debugging.
+    await writeFile(
+      join(OUTPUT, 'api-halt.json'),
+      JSON.stringify({ ...apiHalt, haltedAt: new Date().toISOString() }, null, 2)
+    );
+    await log(
+      `cell halted by api error (status=${apiHalt.status}) after ${perRung.length} rung(s); exiting 3`
+    );
+    process.exit(3);
+  }
 
   await log(`cell done in ${((finishedAt - startedAt) / 1000 / 60).toFixed(1)} min`);
 }
