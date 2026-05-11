@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the pre-built `<VideoSkin>` component and worked around it: hid the fullscreen button with a `display: none` CSS rule on `.media-button--fullscreen`, and added the Share button via a React `createPortal` + `MutationObserver` that queries `document.querySelector('.media-button--mute')` and DOM-injects a button after it.",
+  "evidence": "transcript line 30: \"I'll use a portal to inject the Share button right after the mute button, and CSS to hide the fullscreen button\"; src/App.tsx Write — `mute.insertAdjacentElement('afterend', span)` inside a MutationObserver; src/index.css Edit — `.media-default-skin .media-button--fullscreen { display: none; }`",
+  "prompted_to_eject": false,
+  "notes": "The in-library-primitive path was readily available — @videojs/react exports PlayButton, MuteButton, Controls.Root, Container, etc. (and rung 5 ends up using exactly those). Claude chose DOM-piercing over reaching for the primitives one level down, despite earlier `wc -l` comparing minimal-skin vs skin source. The behavior works (console shows 'shared') but the abstraction is wrong: the Share button lives outside React's component tree and is positioned by mutating the skin's internal DOM."
+}
+```

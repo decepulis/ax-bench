@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  font-family: "Roboto", system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.yt-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+
+  --media-primary-color: #fff;
+  --media-secondary-color: transparent;
+  --media-accent-color: #f00;
+  --media-text-color: #fff;
+  --media-icon-color: #fff;
+  --media-font-family: "Roboto", system-ui, -apple-system, sans-serif;
+  --media-font-size: 13px;
+  --media-control-height: 36px;
+  --media-control-padding: 0 8px;
+  --media-control-hover-background: transparent;
+  --media-tooltip-display: none;
+  --media-range-track-height: 3px;
+  --media-range-thumb-height: 13px;
+  --media-range-thumb-width: 13px;
+  --media-range-thumb-background: #f00;
+  --media-time-range-buffered-color: rgba(255, 255, 255, 0.4);
+  --media-control-bar-background: transparent;
+}
+
+/* Auto-hide controls and progress bar when inactive (matches YouTube behavior). */
+.yt-player[userinactive]:not([mediapaused]) media-time-range,
+.yt-player[userinactive]:not([mediapaused]) media-control-bar {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.yt-player media-time-range,
+.yt-player media-control-bar {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* Dark gradient overlay behind the bottom controls. */
+.yt-player::part(vertical-layer) {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.35) 40%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* Progress bar sits flush above the control bar. */
+.yt-player media-time-range {
+  --media-range-padding: 0;
+  --media-range-track-border-radius: 0;
+  height: 4px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.yt-player media-control-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 0 8px;
+  gap: 0;
+}
+
+.yt-player media-mute-button {
+  padding-right: 0;
+}
+
+/* YouTube-style: volume slider expands on hover of mute+volume group. */
+.yt-player media-volume-range {
+  --media-range-track-width: 52px;
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  transition: width 0.2s ease;
+  padding: 0;
+}
+
+.yt-player media-mute-button:hover + media-volume-range,
+.yt-player media-volume-range:hover,
+.yt-player media-volume-range:focus-within {
+  width: 64px;
+  padding: 0 4px;
+}
+
+.yt-player media-time-display {
+  --media-control-background: transparent;
+  font-variant-numeric: tabular-nums;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.yt-title {
+  color: #fff;
+  font-size: 13px;
+  line-height: 36px;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+.yt-spacer {
+  flex: 1;
+}
+
+.yt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.9;
+}
+
+.yt-btn:hover {
+  opacity: 1;
+}
+
+.yt-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}

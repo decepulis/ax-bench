@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+mux-player {
+  --media-button-icon-width: 22px;
+  --media-button-icon-height: 22px;
+  --media-control-padding: 8px;
+  --media-range-thumb-width: 13px;
+  --media-range-thumb-height: 13px;
+  --media-range-track-background: rgba(255, 255, 255, 0.3);
+  --media-range-bar-color: #ff0000;
+  --media-control-hover-background: transparent;
+}
+
+mux-player::part(seek-backward),
+mux-player::part(seek-forward),
+mux-player::part(volume range),
+mux-player::part(playback-rate),
+mux-player::part(audio-track),
+mux-player::part(airplay),
+mux-player::part(cast),
+mux-player::part(top) {
+  display: none;
+}
+
+mux-player::part(captions button),
+mux-player::part(rendition button) {
+  display: flex;
+}
+
+mux-player::part(play button) {
+  order: -10;
+}
+mux-player::part(mute button) {
+  order: -8;
+}
+mux-player::part(time display) {
+  order: -6;
+}
+mux-player::part(captions button) {
+  order: 5;
+}
+mux-player::part(rendition button) {
+  order: 6;
+}
+mux-player::part(pip button) {
+  order: 7;
+}
+mux-player::part(fullscreen button) {
+  order: 8;
+}
+
+.player-wrap {
+  position: relative;
+}
+
+.mux-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  pointer-events: none;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.mux-badge-bracket {
+  opacity: 0.65;
+  margin: 0 2px;
+}
+
+mux-player::part(control-bar) {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding: 0 4px 4px;
+}
+
+mux-player::part(control-bar bottom) {
+  background: transparent;
+}
+
+mux-player::part(time range) {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding: 0 4px;
+  --media-range-thumb-opacity: 1;
+}

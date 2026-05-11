@@ -1,0 +1,14 @@
+{
+  "hallucinations": [
+    {
+      "rung": 3,
+      "turn": 1,
+      "kind": "css-var",
+      "claim": "Set `--media-control-bar-background` as an inline CSS custom property on the `<MuxPlayer>` to color the control bar background (first `rgba(0,0,0,0.5)`, later upgraded to a `linear-gradient(...)` in rung 5).",
+      "reality": "Mux Player / media-chrome do not publish a `--media-control-bar-background` CSS custom property. The `<media-control-bar>` element documents only `--media-control-bar-display`, `--media-control-display`, `--media-primary-color`, `--media-secondary-color`, and `--media-text-color` (see node_modules/.pnpm/media-chrome@4.19.0*/dist/media-control-bar.d.ts). Nothing in the control bar's stylesheet consumes a `*-background` variable, so setting it has no effect.",
+      "evidence": "src/App.tsx final: `\"--media-control-bar-background\": \"linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.4))\"`. `grep -rln \"control-bar-background\" types/node_modules/` returns no matches; media-chrome styling reference at media-chrome.org likewise omits it."
+    }
+  ],
+  "total": 1,
+  "notes": "Across the five rungs Claude used a fairly minimal mux-player-react surface — `playbackId`, `streamType`, `muted`, `loop`, `autoPlay`, `thumbnailTime`, `accentColor`, `title`, `ref`, `style` — all of which are valid per `@mux/mux-player-react/dist/types/types.d.ts`. The transitive `@mux/mux-player` import of the `MuxPlayerElement` type is real (default export confirmed in its index.d.ts). The one valid Mux-style CSS variable used, `--media-range-track-height`, is documented in `media-chrome-range.d.ts`. The `::part(fullscreen)` selector Claude briefly tried in rung 4 was abandoned in the same turn after empirical testing and replaced with shadow-DOM traversal, so per the rubric it is a corrected attempt rather than a standing hallucination. The remaining `media-*` element names used inside `querySelector` calls are real media-chrome custom elements, not API-surface claims. The single clear factual hallucination is the `--media-control-bar-background` CSS variable, which was introduced in rung 3 and persisted into the final rung 5 code."
+}

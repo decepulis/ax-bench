@@ -1,0 +1,337 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', 'YouTube Sans', system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ---------- Player root ---------- */
+
+.yt {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  user-select: none;
+  container-type: inline-size;
+}
+
+.yt *,
+.yt *::before,
+.yt *::after {
+  box-sizing: border-box;
+}
+
+.yt__video,
+.yt__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.yt__poster {
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.yt__poster:not([data-visible]) {
+  opacity: 0;
+}
+
+.yt__gesture {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------- Buffering spinner ---------- */
+
+.yt__buffering {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.yt__buffering svg {
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  animation: yt-spin 0.9s linear infinite;
+}
+
+@keyframes yt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Bottom gradient ---------- */
+
+.yt__bottom-gradient {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 80px;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.yt:hover .yt__bottom-gradient,
+.yt:focus-within .yt__bottom-gradient,
+.yt__controls[data-visible] ~ .yt__bottom-gradient,
+.yt:has(.yt__controls[data-visible]) .yt__bottom-gradient {
+  opacity: 1;
+}
+
+/* ---------- Controls ---------- */
+
+.yt__controls {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px 8px;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  z-index: 2;
+}
+
+.yt__controls[data-visible] {
+  opacity: 1;
+}
+
+.yt:hover .yt__controls {
+  opacity: 1;
+}
+
+.yt__row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-height: 36px;
+}
+
+.yt__group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.yt__group--right {
+  margin-left: auto;
+}
+
+/* ---------- Buttons ---------- */
+
+.yt__btn {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  outline: none;
+  transition: opacity 100ms ease;
+}
+
+.yt__btn:hover {
+  opacity: 0.9;
+}
+
+.yt__btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: -4px;
+}
+
+.yt__btn svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+/* Icon-state visibility driven by data attrs the primitives expose */
+.yt__icon {
+  display: none;
+  width: 22px;
+  height: 22px;
+}
+
+/* PlayButton: data-paused on the button */
+.yt__btn[data-paused] .yt__icon--play,
+.yt__btn:not([data-paused]) .yt__icon--pause {
+  display: inline-block;
+}
+
+/* MuteButton: data-muted */
+.yt__btn[data-muted] .yt__icon--vol-off,
+.yt__btn:not([data-muted]) .yt__icon--vol-on {
+  display: inline-block;
+}
+
+/* FullscreenButton: data-fullscreen */
+.yt__btn[data-fullscreen] .yt__icon--fs-exit,
+.yt__btn:not([data-fullscreen]) .yt__icon--fs-enter {
+  display: inline-block;
+}
+
+/* ---------- Volume slider (hover-expand) ---------- */
+
+.yt__volume {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+}
+
+.yt__vol-slider {
+  position: relative;
+  width: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: width 200ms ease, margin 200ms ease;
+  margin-right: 0;
+}
+
+.yt__volume:hover .yt__vol-slider,
+.yt__volume:focus-within .yt__vol-slider {
+  width: 52px;
+  margin-right: 4px;
+}
+
+.yt__vol-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.yt__vol-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--media-slider-fill, 100%);
+  background: #fff;
+  border-radius: 2px;
+}
+
+.yt__vol-thumb {
+  position: absolute;
+  left: var(--media-slider-fill, 100%);
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+/* ---------- Time + title ---------- */
+
+.yt__time {
+  padding: 0 6px 0 8px;
+  font-size: 13px;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.yt__time time {
+  font-variant-numeric: tabular-nums;
+}
+
+.yt__title {
+  padding-left: 8px;
+  font-size: 13px;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 30%;
+}
+
+/* ---------- Progress bar (above the controls row) ---------- */
+
+.yt__progress {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.yt__progress-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 0;
+  transition: height 100ms ease;
+}
+
+.yt__progress:hover .yt__progress-track,
+.yt__progress[data-dragging] .yt__progress-track {
+  height: 5px;
+}
+
+.yt__progress-buffer {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--media-slider-buffer, 0%);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.yt__progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--media-slider-fill, 0%);
+  background: #f00;
+}
+
+.yt__progress-thumb {
+  position: absolute;
+  left: var(--media-slider-fill, 0%);
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  margin: -6.5px 0 0 -6.5px;
+  background: #f00;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 100ms ease;
+}
+
+.yt__progress:hover .yt__progress-thumb,
+.yt__progress[data-dragging] .yt__progress-thumb {
+  transform: scale(1);
+}

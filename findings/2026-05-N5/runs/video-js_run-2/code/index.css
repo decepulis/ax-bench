@@ -1,0 +1,271 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ===========================================================================
+   YouTube-style video player skin
+   =========================================================================== */
+
+.yt-skin {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+  font-family: Roboto, 'YouTube Sans', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.yt-skin video,
+.yt-skin .yt-poster {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.yt-skin .yt-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 200ms;
+}
+
+.yt-skin .yt-poster:not([data-visible]) {
+  opacity: 0;
+}
+
+/* Buffering spinner */
+.yt-buffering {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.yt-buffering[data-visible] {
+  display: flex;
+}
+
+.yt-spinner {
+  width: 48px;
+  height: 48px;
+  color: rgba(255, 255, 255, 0.9);
+  animation: yt-spin 1s linear infinite;
+}
+
+@keyframes yt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Controls container */
+.yt-controls {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 36px 12px 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.yt-controls:not([data-visible]) {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
+/* Progress slider */
+.yt-progress {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.yt-progress__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: height 100ms ease-out;
+}
+
+.yt-progress:hover .yt-progress__track,
+.yt-progress[data-dragging] .yt-progress__track {
+  height: 5px;
+}
+
+.yt-progress__buffer,
+.yt-progress__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.yt-progress__buffer {
+  background: rgba(255, 255, 255, 0.4);
+  width: var(--media-slider-buffer);
+}
+
+.yt-progress__fill {
+  background: #ff0000;
+  width: var(--media-slider-fill);
+}
+
+.yt-progress__thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill);
+  width: 13px;
+  height: 13px;
+  background: #ff0000;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 100ms ease-out;
+  pointer-events: none;
+}
+
+.yt-progress:hover .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__thumb {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.yt-progress[data-dragging] .yt-progress__fill {
+  width: var(--media-slider-pointer);
+}
+
+.yt-progress[data-dragging] .yt-progress__thumb {
+  left: var(--media-slider-pointer);
+}
+
+/* Bottom bar */
+.yt-bar {
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+
+.yt-bar__left,
+.yt-bar__right {
+  display: flex;
+  align-items: center;
+}
+
+.yt-bar__right {
+  margin-left: auto;
+}
+
+/* Buttons */
+.yt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.92;
+  transition: opacity 100ms ease-out;
+}
+
+.yt-btn:hover,
+.yt-btn:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+
+.yt-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.yt-icon {
+  display: none;
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+/* Icon visibility — show the right icon for each button's state */
+.yt-btn--no-state .yt-icon,
+.yt-btn--play[data-paused] .yt-icon--play,
+.yt-btn--play:not([data-paused]):not([data-ended]) .yt-icon--pause,
+.yt-btn--play[data-ended] .yt-icon--play,
+.yt-btn--mute[data-muted] .yt-icon--volume-off,
+.yt-btn--mute:not([data-muted])[data-volume-level="low"] .yt-icon--volume-low,
+.yt-btn--mute:not([data-muted])[data-volume-level="high"] .yt-icon--volume-high,
+.yt-btn--mute:not([data-muted]):not([data-volume-level="low"]):not([data-volume-level="high"]) .yt-icon--volume-high,
+.yt-btn--fullscreen:not([data-fullscreen]) .yt-icon--fullscreen-enter,
+.yt-btn--fullscreen[data-fullscreen] .yt-icon--fullscreen-exit,
+.yt-btn--pip:not([data-pip]) .yt-icon--pip-enter,
+.yt-btn--pip[data-pip] .yt-icon--pip-exit,
+.yt-btn--captions:not([data-active]) .yt-icon--captions-off,
+.yt-btn--captions[data-active] .yt-icon--captions-on {
+  display: block;
+}
+
+/* Time text */
+.yt-time {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.yt-time time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Title */
+.yt-title {
+  display: inline-block;
+  max-width: 240px;
+  padding: 0 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Hide cursor while controls hidden */
+.yt-skin:has(.yt-controls:not([data-visible])) {
+  cursor: none;
+}

@@ -1,0 +1,26 @@
+Based on my analysis, I have a clear picture. Let me write the final output.
+
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 3,
+      "turn": 2,
+      "kind": "css-var",
+      "claim": "--media-control-bar-background",
+      "reality": "Not a documented Mux Player / Media Chrome CSS custom property. The control bar uses --media-control-background (no 'bar'). Media Chrome only exposes --media-control-bar-display for the control bar; backgrounds are styled via --media-control-background or ::part(control-bar).",
+      "evidence": "Edit at rung-3:L2 sets style={ { '--media-control-bar-background': 'rgba(0, 0, 0, 0.5)' } } and the final src/App.tsx keeps '--media-control-bar-background': 'transparent'. Verified absent from https://media-chrome.org/docs/en/reference/styling and from media-chrome's media-control-bar.ts source."
+    },
+    {
+      "rung": 5,
+      "turn": 11,
+      "kind": "css-var",
+      "claim": "--media-control-bar-background (re-applied with value 'transparent')",
+      "reality": "Same as above — this variable does not exist; the control-bar's only documented custom property is --media-control-bar-display.",
+      "evidence": "Final src/App.tsx line 68: \"--media-control-bar-background\": \"transparent\". Verified against https://media-chrome.org/docs/en/reference/styling."
+    }
+  ],
+  "total": 2,
+  "notes": "Across the five rungs Claude used a wide surface of Mux Player and Media Chrome — props (playbackId, streamType, accentColor, thumbnailTime, title, autoPlay, muted, loop, ref, style), ::part() selectors (seek-backward, seek-forward, volume, range, time, display, control-bar, captions, rendition, play, mute, pip, fullscreen, audio-track, airplay, cast, top, playback-rate, button), and CSS custom properties (--media-button-icon-width/height, --media-control-padding, --media-range-thumb-width/height/opacity/background, --media-range-track-background, --media-range-track-height, --media-range-bar-color, --media-control-hover-background, --controls-backdrop-color, --media-primary/secondary/accent-color). All of those are documented and resolve to real surfaces. The single recurring fabrication is --media-control-bar-background, which is not a documented Media Chrome variable (the correct ones are --media-control-background for backgrounds and --media-control-bar-display for visibility). It was introduced in rung 3 and persisted in the final src/App.tsx through rung 5. A briefly-tried slot=\"top-chrome\" was attempted and removed within the same rung after Claude observed it did not render, so it falls under the 'tried-and-fixed' carve-out rather than a hallucination."
+}
+```

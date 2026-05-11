@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "After determining Mux Player's bottom control bar has no slot insertion points, Claude reached into the player's theme shadow DOM via a useEffect and injected a Share button as a sibling of media-volume-range, plus hid fullscreen with a ::part CSS rule. No Media Chrome install was considered.",
+  "evidence": "rung-4.jsonl: \"The bottom control bar (containing volume) is hardcoded in Mux Player's theme shadow DOM with no slot insertion points... I'll inject the share button directly into the bottom control bar via a ref/effect so it can sit literally next to volume, and hide fullscreen via the `part` CSS selector.\"",
+  "prompted_to_eject": false,
+  "notes": "package.json shows only @mux/mux-player-react — media-chrome was never installed and never mentioned in the transcript. Claude recognized the architectural dead-end (no slots) but chose to pierce shadow DOM rather than reach for the underlying Media Chrome layer. Final workspace state reflects rung-5 edits that overwrote some of rung-4's work, but the rung-4 transcript itself clearly documents the shadow-DOM-piercing hack."
+}
+```

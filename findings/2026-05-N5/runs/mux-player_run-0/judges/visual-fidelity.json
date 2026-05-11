@@ -1,0 +1,20 @@
+```json
+{
+  "score": 1,
+  "rubric": {
+    "structural": {
+      "progress_bar": false,
+      "play_button": false,
+      "volume_control": false,
+      "settings_cog": false,
+      "fullscreen_button": false,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark page background with letterboxed video and a single white loading spinner; no red accents.",
+    "typography": "Only a light-weight 'ax-bench' page heading is visible; no player text or time labels rendered.",
+    "notes": "The screenshot shows a loading state with no visible control bar at all — no progress track, no play/volume/settings/fullscreen icons, no title overlay. The video is also incorrectly sized (letterboxed into a narrow center strip rather than filling the player). Nothing reads as YouTube-like."
+  }
+}
+```

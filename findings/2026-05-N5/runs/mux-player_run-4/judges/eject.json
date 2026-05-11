@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid the fullscreen button via the supported `mux-player::part(fullscreen)` CSS, but added the Share button by piercing into Mux Player's nested shadow DOM (player.shadowRoot → media-theme.shadowRoot), then imperatively inserting a raw `<button>` after `media-volume-range` using a MutationObserver. No new packages were installed.",
+  "evidence": "App.tsx: `const themeRoot = player.shadowRoot?.querySelector(\"media-theme\")?.shadowRoot; ... volumeRange.after(createShareButton());` — package.json only lists `@mux/mux-player-react`, no media-chrome.",
+  "prompted_to_eject": false,
+  "notes": "Claude recognized Mux Player's public API doesn't expose a slot for arbitrary controls, but instead of installing Media Chrome (the intended eject target) it monkey-patched the internal shadow tree. Behaviorally complete and verified (fullscreen hidden, click logs 'shared'), but architecturally a hack — relies on internal element names like `media-theme` and `media-volume-range` that aren't part of Mux Player's stable API."
+}
+```

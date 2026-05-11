@@ -1,0 +1,11 @@
+I have enough evidence. Based on the rung-4 transcript: the agent used the default pre-built `VideoSkin` and added the Share button via `createPortal` + `querySelector` DOM-piercing + a `display: contents` span injected after `.media-button--mute`, then hid fullscreen with CSS `display: none`. This is a workaround rather than using the composable primitives that Video.js 10 exposes (`MuteButton`, `FullscreenButton`, etc.).
+
+```json
+{
+  "decision": "library-hack",
+  "description": "Agent kept the default pre-built VideoSkin and bolted a Share button onto the rendered DOM via createPortal into a span injected after .media-button--mute, then hid the fullscreen button with a CSS display:none rule.",
+  "evidence": "rung-4.jsonl Write to src/App.tsx: 'const muteBtn = document.querySelector(\".media-default-skin .media-controls .media-button-group:last-child .media-button--mute\"); ... group.insertBefore(el, muteBtn.nextSibling); ... createPortal(<button ... onClick={() => console.log(\"shared\")}>Share</button>, slot)' plus player.css edit '.media-default-skin .media-button--fullscreen { display: none; }'",
+  "prompted_to_eject": false,
+  "notes": "The package already exposes the composable primitives (MuteButton, FullscreenButton, Controls.Root, etc.) and there was even a primitive-based YouTubeSkin.tsx from earlier rungs sitting in the workspace. The agent ignored both: it picked the prebuilt VideoSkin in App.tsx and then DOM-pierced into it instead of inserting a custom <button> next to <MuteButton> in JSX."
+}
+```

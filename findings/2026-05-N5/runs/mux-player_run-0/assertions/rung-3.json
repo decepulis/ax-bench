@@ -1,0 +1,411 @@
+{
+  "pass": true,
+  "details": {
+    "accentMatches": [
+      {
+        "tag": "media-time-range",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "style",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "slot",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "clippath",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "label",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "style",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "slot",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "slot",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "media-preview-thumbnail",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "style",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "img",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      }
+    ],
+    "bgMatches": [
+      {
+        "tag": "media-time-range",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-control-bar",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-play-button",
+        "classes": "animated",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-seek-backward-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-seek-forward-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-time-display",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-mute-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-volume-range",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-rendition-menu-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-rendition-menu",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-playback-rate-menu-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-playback-rate-menu",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-audio-track-menu-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-audio-track-menu",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-captions-menu-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-captions-menu",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-airplay-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-cast-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-pip-button",
+        "classes": "",
+        "kind": "bg"
+      },
+      {
+        "tag": "media-fullscreen-button",
+        "classes": "",
+        "kind": "bg"
+      }
+    ],
+    "semiTransparentBlackFound": true
+  },
+  "exitCode": 0
+}

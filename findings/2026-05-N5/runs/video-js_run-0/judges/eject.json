@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the sealed `VideoSkin` preset and bolted on the requested behavior with workarounds: a `useEffect` + `querySelector('.media-button--mute')` to DOM-pierce the skin, a React `createPortal` to inject the Share button into that slot, and a CSS `display: none` rule to hide the fullscreen control. The behavioral goal was met but the library's composable-primitive layer (which Claude had even acknowledged) was bypassed.",
+  "evidence": "rung-4.jsonl line 32: \"a `useEffect` finds `.media-button--mute` after the skin renders and inserts a `display: contents` span as its next sibling; the Share button is `createPortal`'d into that slot ... In `index.css`, `.media-default-skin .media-button--fullscreen { display: none }` hides the fullscreen control.\"",
+  "prompted_to_eject": false,
+  "notes": "At the start of rung-4 Claude explicitly stated 'I need to look at the primitives so I can compose custom controls (the `VideoSkin` is a sealed preset with no slot for injecting buttons)' and read the primitives' type files — then went with the DOM-piercing portal hack anyway rather than restructuring with Controls.Root/PlayButton/etc. The workspace's current App.tsx uses primitives, but that reflects rung-5's refactor; rung-4 ended on the hack. Run terminated mid-rung-5 with an 'out of extra usage' error."
+}
+```

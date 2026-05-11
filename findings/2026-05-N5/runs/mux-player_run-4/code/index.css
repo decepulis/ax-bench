@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+mux-player {
+  --media-button-icon-width: 22px;
+  --media-button-icon-height: 22px;
+}
+
+/* Hide buttons that are not part of the YouTube reference layout. */
+mux-player::part(seek-backward),
+mux-player::part(rendition),
+mux-player::part(audio-track),
+mux-player::part(airplay),
+mux-player::part(cast) {
+  display: none !important;
+}
+
+/* Hide the top control bar (used by default for title in gerwig theme). */
+mux-player::part(top) {
+  display: none;
+}

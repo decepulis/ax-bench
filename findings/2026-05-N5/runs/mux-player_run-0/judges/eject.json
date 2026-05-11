@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid fullscreen via the documented `::part(fullscreen)` CSS, but added the Share button by piercing two levels of shadow DOM (mux-player → media-theme → media-control-bar) and imperatively `insertAdjacentElement`-ing a hand-built `<button>` after the volume range. No new dependencies were installed; Media Chrome was never reached for.",
+  "evidence": "rung-4.jsonl line 47 Write: `const bottomBar = player.shadowRoot?.querySelector('media-theme')?.shadowRoot?.querySelector('media-control-bar[part~=\"bottom\"]'); ... volumeRange.insertAdjacentElement('afterend', btn);`",
+  "prompted_to_eject": false,
+  "notes": "Claude spent most of the rung grepping Mux Player's internal theme/slot definitions (gerwig theme, slot names) looking for a supported insertion point, found none, and fell back to shadow-DOM injection rather than installing media-chrome and composing a control bar from primitives. package.json still lists only `@mux/mux-player-react` — no eject occurred."
+}
+```

@@ -1,0 +1,22 @@
+Based on my analysis of the workspace code, transcripts, and type definitions, I've identified one hallucination — a CSS custom property name that doesn't exist in the media-chrome/mux-player API.
+
+The variable `--media-time-buffered-color` does not exist in the library. The actual documented variable is `--media-time-range-buffered-color` (defined on `media-time-range.d.ts` in media-chrome). Claude wrote both versions side-by-side in the final `src/index.css`, with only the second being valid.
+
+All `::part()` selectors used (bottom, seek-backward, seek-forward, rendition, audio-track, airplay, cast, play, mute, volume, display, captions, playback-rate, pip, fullscreen) are valid — runtime inspection in rung 5 confirmed they match the space-separated part names like `"bottom play button"`. All other CSS variables (`--media-range-thumb-*`, `--media-range-track-background`, `--media-range-bar-color`, `--media-time-range-buffered-color`) are documented in `media-chrome-range.d.ts` / `media-time-range.d.ts`. All MuxPlayer props (playbackId, muted, loop, autoPlay, thumbnailTime, accentColor, ref) are present in the React component's TypeScript types. The earlier use of `--media-control-bar-background` in rung 3 was tested, found ineffective, and removed — so it qualifies as "buggy code Claude then fixed" rather than a hallucination.
+
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 5,
+      "turn": 11,
+      "kind": "css-var",
+      "claim": "--media-time-buffered-color: rgba(255, 255, 255, 0.4);",
+      "reality": "No such CSS custom property exists in @mux/mux-player or media-chrome. The documented variable for buffered range color is --media-time-range-buffered-color (which Claude also set, correctly, on the adjacent line).",
+      "evidence": "workspace/src/index.css line 23: '--media-time-buffered-color: rgba(255, 255, 255, 0.4);'. Verified by grep across types/node_modules — only --media-time-range-buffered-color is declared (media-chrome/dist/media-time-range.d.ts: '@cssproperty --media-time-range-buffered-color - `background` color of buffered range.')."
+    }
+  ],
+  "total": 1,
+  "notes": "Across five rungs Claude correctly used a single legitimate React import (@mux/mux-player-react default + @mux/mux-player type), valid props (playbackId, muted, loop, autoPlay, thumbnailTime, accentColor), and accurate ::part() selectors verified against the runtime exportparts chain (Claude ran an evaluate_script in rung 5 that returned the actual part attributes like 'bottom play button', confirming each selector). The CSS custom-property surface was mostly correct (range-thumb-*, range-track-background, range-bar-color, time-range-buffered-color all documented in media-chrome's media-chrome-range.d.ts and media-time-range.d.ts). The one factual hallucination is --media-time-buffered-color in the final index.css — a plausible-sounding shorter alias that does not exist in the library; it sits next to the genuine --media-time-range-buffered-color, suggesting Claude hedged by setting both. An earlier inline use of --media-control-bar-background in rung 3 was tested, observed not to take effect, and replaced with a ::part(bottom) selector, so it is excluded per the 'buggy code Claude then fixed' rule."
+}
+```

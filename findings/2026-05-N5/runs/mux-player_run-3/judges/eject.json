@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude pierced Mux Player's nested shadow DOMs (player.shadowRoot → media-theme.shadowRoot), hid the fullscreen button by setting its style.display, and injected a custom <button> next to media-volume-range using document.createElement, with a MutationObserver to keep it alive against re-renders. Media Chrome was never installed as a direct dependency — package.json still lists only @mux/mux-player-react.",
+  "evidence": "src/App.tsx (rung-4 edit): `const theme = player.shadowRoot?.querySelector(\"media-theme\"); return theme?.shadowRoot ?? null;` ... `btn = document.createElement(\"button\"); ... volumeRange.after(btn);`",
+  "prompted_to_eject": false,
+  "notes": "Claude actually explored media-chrome's source in node_modules (transitive dep via Mux Player) and discovered its slot-based architecture, but used that knowledge to inform shadow-DOM manipulation rather than installing media-chrome and composing a custom control bar. Recognized the eject target existed but didn't take it."
+}
+```

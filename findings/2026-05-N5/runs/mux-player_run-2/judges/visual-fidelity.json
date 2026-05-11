@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": true,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark translucent bar with red progress accent and white icons, matching YouTube's palette",
+    "typography": "Small light sans-serif timestamp and title, close in weight/size to YouTube's",
+    "notes": "Strong YouTube-like structure: red progress bar with scrubber dot, left cluster (play, volume, timestamp, title) and right cluster of icons (CC, settings, theater/mini, fullscreen). Icon spacing is tighter and the icon set is slightly different (no clear next-video button on the left), and the right-side icons read a bit smaller/denser than YouTube's, but at a glance it clearly reads as YouTube-inspired."
+  }
+}
+```

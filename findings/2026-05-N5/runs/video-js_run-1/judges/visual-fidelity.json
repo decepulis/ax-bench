@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark transparent control bar with red progress fill and white icons, matching YouTube",
+    "typography": "Small light sans-serif time/title text, similar weight and scale to YouTube",
+    "notes": "Control bar layout closely mirrors YouTube: left cluster (play, volume, time, title) and right cluster (CC, settings, mini, fullscreen) with red progress bar above. Missing chapter markers and title overlay on the video itself, and the right-side icon set is slightly different (no theater-mode toggle), but at a glance it reads convincingly as a YouTube-style player."
+  }
+}
+```

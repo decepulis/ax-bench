@@ -1,0 +1,301 @@
+.yt-skin {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #fff;
+  font-family: 'YouTube Sans', 'Roboto', system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.yt-skin video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.yt-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  background: #000;
+}
+
+.yt-buffering {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+}
+
+.yt-buffering[data-visible] {
+  display: flex;
+}
+
+.yt-spinner {
+  animation: yt-spin 1s linear infinite;
+}
+
+@keyframes yt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.yt-gradient {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 7rem;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 35%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.yt-skin:has(.yt-controls[data-visible]) .yt-gradient {
+  opacity: 1;
+}
+
+.yt-controls {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 10;
+}
+
+.yt-controls[data-visible] {
+  opacity: 1;
+}
+
+.yt-skin:has(.yt-controls:not([data-visible])) {
+  cursor: none;
+}
+
+/* ===========================================================
+   Progress bar (red, thin, full-width)
+   =========================================================== */
+
+.yt-progress {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.yt-progress__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  transition: height 0.1s ease;
+}
+
+.yt-progress:hover .yt-progress__track,
+.yt-progress[data-dragging] .yt-progress__track {
+  height: 5px;
+}
+
+.yt-progress__buffer {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: var(--media-slider-buffer, 0%);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.yt-progress__fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: var(--media-slider-fill, 0%);
+  background: #f00;
+}
+
+.yt-progress[data-dragging] .yt-progress__fill {
+  width: var(--media-slider-pointer, 0%);
+}
+
+.yt-progress__thumb {
+  position: absolute;
+  left: var(--media-slider-fill, 0%);
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  background: #f00;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.1s ease;
+  pointer-events: none;
+}
+
+.yt-progress:hover .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__thumb {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.yt-progress[data-dragging] .yt-progress__thumb {
+  left: var(--media-slider-pointer, 0%);
+}
+
+/* ===========================================================
+   Bottom row
+   =========================================================== */
+
+.yt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  height: 36px;
+}
+
+.yt-row__side {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+}
+
+/* ===========================================================
+   Buttons
+   =========================================================== */
+
+.yt-btn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 2px;
+  font: inherit;
+  line-height: 1;
+  opacity: 0.92;
+  transition: opacity 0.1s ease;
+}
+
+.yt-btn:hover {
+  opacity: 1;
+}
+
+.yt-btn:focus-visible {
+  outline: 2px solid #3ea6ff;
+  outline-offset: -2px;
+}
+
+.yt-btn svg {
+  display: block;
+  width: 36px;
+  height: 36px;
+  fill: currentColor;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+/* state-driven icon visibility */
+.yt-btn .yt-icon {
+  display: none;
+}
+
+.yt-btn--play:not([data-paused]):not([data-ended]) .yt-icon--pause,
+.yt-btn--play[data-paused]:not([data-ended]) .yt-icon--play,
+.yt-btn--play[data-ended] .yt-icon--replay,
+.yt-btn--mute:not([data-muted]) .yt-icon--volume-on,
+.yt-btn--mute[data-muted] .yt-icon--volume-off,
+.yt-btn--fs:not([data-fullscreen]) .yt-icon--fs-enter,
+.yt-btn--fs[data-fullscreen] .yt-icon--fs-exit {
+  display: block;
+}
+
+/* CC button: thin underline when active, like YouTube */
+.yt-btn--cc {
+  position: relative;
+}
+
+.yt-btn--cc[data-active]::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 4px;
+  height: 2px;
+  background: #fff;
+}
+
+/* settings button (PlaybackRate): hide its built-in label rendering */
+.yt-btn--settings {
+  font-size: 0;
+}
+.yt-btn--settings svg {
+  font-size: initial;
+}
+
+/* ===========================================================
+   Time display
+   =========================================================== */
+
+.yt-time {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 4px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  font-feature-settings: 'tnum';
+}
+
+.yt-time-sep {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  color: #ddd;
+  font-size: 13px;
+  padding: 0 2px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.yt-title {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 10px;
+  margin-left: 6px;
+  font-size: 13px;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,34 @@
+Based on my analysis, I have enough evidence. Both `--media-control-bar-background` and `--media-accent-color` are not in the media-chrome type definitions, and the WebFetch on the docs confirmed them as undocumented. The correct property for control bar background is `--media-control-background`. All other Mux Player and media-chrome usages (props, parts, imports) check out against the installed type surface.
+
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 3,
+      "turn": 2,
+      "kind": "css-var",
+      "claim": "Set `--media-control-bar-background: rgba(0, 0, 0, 0.5)` via the MuxPlayer `style` prop to tint the control bar background.",
+      "reality": "Neither `@mux/mux-player` nor `media-chrome` publishes a `--media-control-bar-background` custom property. The `media-control-bar` element only documents `--media-primary-color`, `--media-secondary-color`, `--media-text-color`, `--media-control-bar-display`, and `--media-control-display`; the control's background hook is `--media-control-background` (and Mux Player's gerwig theme uses `--controls-backdrop-color`/`--controls`).",
+      "evidence": "rung-3 transcript: `style={{ \"--media-control-bar-background\": \"rgba(0, 0, 0, 0.5)\" }}`. Verified against `types/node_modules/media-chrome/dist/media-control-bar.d.ts` and https://www.media-chrome.org/docs/en/reference/styling — the rung's own assertion (`assertion.pass: false`) also recorded that the color was not actually applied."
+    },
+    {
+      "rung": 5,
+      "turn": 44,
+      "kind": "css-var",
+      "claim": "`--media-control-bar-background: transparent` set on the `.yt-player` (media-controller) to control the control bar background.",
+      "reality": "Same as above — `--media-control-bar-background` is not a published CSS custom property in media-chrome (the analogous documented hook is `--media-control-background`).",
+      "evidence": "rung-5 transcript Write of `src/index.css`: `--media-control-bar-background: transparent;` (also present in final `workspace/src/index.css:39`). Verified against `media-chrome/dist/media-control-bar.d.ts` and https://www.media-chrome.org/docs/en/reference/styling."
+    },
+    {
+      "rung": 5,
+      "turn": 44,
+      "kind": "css-var",
+      "claim": "`--media-accent-color: #f00` set on the `.yt-player` (media-controller) as an accent color custom property.",
+      "reality": "media-chrome does not publish a `--media-accent-color` CSS variable; the string `accent` does not appear anywhere in the media-chrome type surface. Mux Player uses an `accentColor` attribute/prop (not a CSS var) for its branding color.",
+      "evidence": "rung-5 transcript Write of `src/index.css`: `--media-accent-color: #f00;` (final `workspace/src/index.css:25`). Verified: grep for `accent` in `types/node_modules/media-chrome/dist` returns no matches, and https://www.media-chrome.org/docs/en/reference/styling confirms the variable is not documented."
+    }
+  ],
+  "total": 3,
+  "notes": "The Mux Player React API surface (default `MuxPlayer` import, `streamType`, `src`, `poster`, `autoPlay`, `muted`, `loop`, `accentColor`, `MuxPlayerRefAttributes` type import) and the `::part(fullscreen)` / `::part(vertical-layer)` selectors all check out against the installed `.d.ts` files and were further confirmed by Claude's own runtime probes. Likewise, the media-chrome React component imports, the `slot=\"media\" | \"poster\" | \"centered-chrome\"` placements, `showDuration` on `MediaTimeDisplay`, and the long list of `--media-primary-color`, `--media-secondary-color`, `--media-text-color`, `--media-icon-color`, `--media-font-family`, `--media-font-size`, `--media-control-height`, `--media-control-padding`, `--media-control-hover-background`, `--media-tooltip-display`, `--media-range-track-height`, `--media-range-thumb-{height,width,background}`, `--media-time-range-buffered-color`, `--media-range-padding`, `--media-range-track-border-radius`, and `--media-range-track-width` variables are all present in media-chrome's documented type surface. The only fabricated names are the two CSS custom properties listed above (`--media-control-bar-background` and `--media-accent-color`), the first of which is cited in two places."
+}
+```

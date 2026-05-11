@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Kept the closed VideoSkin preset and hacked around it: hid the fullscreen button with a CSS specificity override, then injected a Share button into the rendered DOM by querying `.media-button--mute`, inserting a sibling `<div>` via `mute.after(slot)`, and rendering through `createPortal`. Never reached for Video.js 10's primitive components (PlayButton/MuteButton/Controls.Root/etc.) that would have let it restructure the control bar in-library.",
+  "evidence": "rung-4.jsonl L49: \"The VideoSkin is closed (its control bar isn't a children slot), so I: Find the existing .media-button--mute (the volume control) in the DOM after mount. Insert a display:contents slot <div> right after it via mute.after(slot). Render the Share button into that slot with createPortal.\"",
+  "prompted_to_eject": false,
+  "notes": "Claude explicitly recognized the eject signal (\"VideoSkin is closed\") but chose CSS overrides + portal-into-DOM-mutation rather than the in-library primitive layer that's the intended Video.js 10 path. The workspace/ dir shows a primitive-composed App.tsx, but that's from a later rung — rung-4's transcript is unambiguous."
+}
+```

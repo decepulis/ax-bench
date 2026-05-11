@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": true,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark chrome with red progress fill and white icons, matches YouTube's palette closely",
+    "typography": "Small white sans-serif labels for time/title, consistent with YouTube's understated control bar text",
+    "notes": "Clearly YouTube-inspired: thin red progress bar over a muted track, left-aligned play/volume/time grouping, and right-aligned settings/captions/fullscreen cluster. Title overlay reads as a video title rather than YouTube's chapter label, and the control row is a touch denser with smaller icons than the reference, but the overall silhouette is recognizable at a glance."
+  }
+}
+```

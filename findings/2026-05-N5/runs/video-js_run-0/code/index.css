@@ -1,0 +1,238 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.yt-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  color: #fff;
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.yt-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.yt-mux {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font: 700 11px/1 system-ui, sans-serif;
+  letter-spacing: 0.5px;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 4px 6px;
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 2;
+  color: #fff;
+}
+
+.yt-controls {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 200ms ease;
+}
+
+.yt-controls:not([data-visible]) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.yt-gradient {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 110px;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  z-index: -1;
+}
+
+/* Progress bar */
+.yt-progress {
+  position: relative;
+  width: 100%;
+  height: 13px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 12px;
+  touch-action: none;
+}
+
+.yt-progress__track {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  transition: height 100ms ease;
+}
+
+.yt-progress:hover .yt-progress__track,
+.yt-progress[data-dragging] .yt-progress__track {
+  height: 5px;
+}
+
+.yt-progress__buffer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--media-slider-buffer, 0%);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.yt-progress__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--media-slider-fill, 0%);
+  background: #f00;
+}
+
+.yt-progress__thumb {
+  position: absolute;
+  top: 50%;
+  left: calc(12px + (100% - 24px) * var(--media-slider-pointer, 0%) / 100%);
+  width: 13px;
+  height: 13px;
+  background: #f00;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 100ms ease;
+  z-index: 2;
+}
+
+.yt-progress:hover .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__thumb {
+  opacity: 1;
+}
+
+/* Bottom bar */
+.yt-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 4px 4px;
+}
+
+.yt-bar__group {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.yt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.95;
+  transition: opacity 100ms ease, transform 80ms ease;
+  flex-shrink: 0;
+}
+
+.yt-btn:hover {
+  opacity: 1;
+}
+
+.yt-btn:active {
+  transform: scale(0.94);
+}
+
+.yt-btn:focus {
+  outline: none;
+}
+
+.yt-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: -3px;
+  border-radius: 2px;
+}
+
+.yt-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  fill: currentColor;
+}
+
+/* Icon visibility per button state */
+.yt-btn--play .yt-icon { display: none; }
+.yt-btn--play[data-paused] .yt-icon--play { display: block; }
+.yt-btn--play:not([data-paused]) .yt-icon--pause { display: block; }
+
+.yt-btn--mute .yt-icon { display: none; }
+.yt-btn--mute[data-muted] .yt-icon--vol-off,
+.yt-btn--mute[data-volume-level="off"] .yt-icon--vol-off { display: block; }
+.yt-btn--mute:not([data-muted]):not([data-volume-level="off"]) .yt-icon--vol-on { display: block; }
+
+.yt-btn--fs .yt-icon { display: none; }
+.yt-btn--fs:not([data-fullscreen]) .yt-icon--fs-enter { display: block; }
+.yt-btn--fs[data-fullscreen] .yt-icon--fs-exit { display: block; }
+
+.yt-btn[data-availability="unsupported"] {
+  display: none;
+}
+
+.yt-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px 0 4px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.yt-time__value {
+  font-style: normal;
+  font-feature-settings: 'tnum';
+}
+
+.yt-time__sep {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.yt-title {
+  padding-left: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}

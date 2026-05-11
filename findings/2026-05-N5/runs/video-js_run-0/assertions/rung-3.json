@@ -1,0 +1,15 @@
+{
+  "pass": false,
+  "details": {
+    "accentMatches": [],
+    "bgMatches": [
+      {
+        "tag": "div",
+        "classes": "media-surface media-controls",
+        "kind": "bg"
+      }
+    ],
+    "semiTransparentBlackFound": true
+  },
+  "exitCode": 1
+}

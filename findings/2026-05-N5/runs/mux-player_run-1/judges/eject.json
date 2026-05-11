@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude stayed in @mux/mux-player-react and used a CSS `mux-player::part(fullscreen) { display: none }` rule to hide fullscreen, then pierced two shadow roots in a useEffect (`player.shadowRoot.querySelector('media-theme').shadowRoot`) to imperatively insert a Share `<button>` after `media-volume-range`, with a MutationObserver fallback. Did not install Media Chrome or otherwise eject.",
+  "evidence": "rung-4.jsonl:83 — \"Hide fullscreen with `mux-player::part(fullscreen) { display: none }` ... Use a `useEffect` + ref to insert a Share `<button>` into the bottom control bar after the volume range, traversing two shadow roots.\"",
+  "prompted_to_eject": false,
+  "notes": "Claude never considered installing Media Chrome (which Mux Player is built on) as the eject path; instead it reached for shadow-DOM piercing and DOM mutation. The current workspace state (MediaController + MuxVideo + media-chrome) is from rung 5, not rung 4."
+}
+```

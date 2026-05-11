@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+mux-player {
+  border-radius: 12px;
+  overflow: hidden;
+  --media-range-thumb-background: #ff0000;
+  --media-range-thumb-transform: scale(1);
+  --media-range-thumb-width: 13px;
+  --media-range-thumb-height: 13px;
+  --media-range-thumb-border-radius: 50%;
+  --media-range-track-background: rgba(255, 255, 255, 0.2);
+  --media-time-buffered-color: rgba(255, 255, 255, 0.4);
+  --media-time-range-buffered-color: rgba(255, 255, 255, 0.4);
+  --media-range-bar-color: #ff0000;
+}
+
+mux-player::part(bottom) {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+mux-player::part(bottom)::before {
+  display: none;
+}
+
+mux-player::part(seek-backward),
+mux-player::part(seek-forward),
+mux-player::part(rendition),
+mux-player::part(audio-track),
+mux-player::part(airplay),
+mux-player::part(cast) {
+  display: none !important;
+}
+
+mux-player::part(play) { order: 1; }
+mux-player::part(mute) { order: 2; }
+mux-player::part(volume) { order: 3; }
+mux-player::part(display) { order: 4; }
+mux-player::part(captions) { order: 7; }
+mux-player::part(playback-rate) { order: 8; }
+mux-player::part(pip) { order: 9; }
+mux-player::part(fullscreen) { order: 10; }

@@ -1,0 +1,16 @@
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 3,
+      "turn": 1,
+      "kind": "css-var",
+      "claim": "--media-control-bar-background: rgba(0, 0, 0, 0.5) (later set to transparent in rung-5), used in inline style on <MuxPlayer> to control the bottom control bar's background",
+      "reality": "media-chrome's <media-control-bar> documents only --media-primary-color, --media-secondary-color, --media-text-color, --media-control-bar-display, and --media-control-display. There is no --media-control-bar-background custom property; control-bar background is achieved via --media-secondary-color (or via styling the host element directly). The rung-3 assertion confirmed the value was set on the host but produced no semi-transparent black background (semiTransparentBlackFound: false).",
+      "evidence": "App.tsx line 8: '\"--media-control-bar-background\": \"transparent\"'. Type defs at @mux+mux-player@3.13.0/node_modules/media-chrome/dist/media-control-bar.d.ts only declare --media-control-bar-display and --media-control-display. Verified via https://www.media-chrome.org/docs/en/reference/styling — variable is not documented."
+    }
+  ],
+  "total": 1,
+  "notes": "Across five rungs the model mostly stayed within the real Mux Player / media-chrome API: imports (@mux/mux-player-react default, type-only @mux/mux-player), props (playbackId, streamType, muted, loop, autoPlay, thumbnailTime, accentColor, proudlyDisplayMuxBadge, style), CSS variables (--media-control-background, --media-control-hover-background, --media-range-*, --media-time-range-buffered-color, --media-button-icon-width/-height), and ::part() names (seek-backward, rendition, audio-track, airplay, cast, top, fullscreen) all check out against the captured type surface. The one factual error is the CSS custom property --media-control-bar-background, introduced in rung-3 to satisfy the 'semi-transparent black control bar' task and carried through to rung-5; media-chrome's MediaControlBar element does not publish that variable and the rung-3 assertion confirmed it had no effect. An intermediate ::part(top.control-bar) attempt in rung-5 was caught and corrected to ::part(top) within the same turn, so it doesn't count."
+}
+```

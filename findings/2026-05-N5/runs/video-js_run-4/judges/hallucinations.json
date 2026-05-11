@@ -1,0 +1,22 @@
+{
+  "hallucinations": [
+    {
+      "rung": 5,
+      "turn": 3,
+      "kind": "prop",
+      "claim": "Used `event` as the prop name on `<Gesture>` to specify the gesture kind (e.g. `event=\"tap\"`, `event=\"doubletap\"`).",
+      "reality": "`GestureProps` in @videojs/react 10.0.0-beta.23 declares the prop as `type` (`type: 'tap' | 'doubletap' | (string & {})`), not `event`. There is no `event` prop. The `event` attribute is silently dropped at runtime.",
+      "evidence": "App.tsx final code: `<Gesture event=\"tap\" action=\"togglePaused\" className=\"yt__gesture\" />` and `<Gesture event=\"doubletap\" action=\"toggleFullscreen\" .../>`. Verified against types/node_modules/@videojs/react/dist/dev/ui/gesture/gesture.d.ts which destructures only `{ type, action, value, pointer, region, disabled }`."
+    },
+    {
+      "rung": 5,
+      "turn": 3,
+      "kind": "other",
+      "claim": "Passed `type=\"currentTime\"` to `<Time.Value>` to render the current playback time.",
+      "reality": "`TimeProps.type` is constrained to `TimeType = 'current' | 'duration' | 'remaining'`. The valid value for current playback time is `\"current\"`, not `\"currentTime\"`.",
+      "evidence": "App.tsx final code: `<Time.Value type=\"currentTime\" />`. Verified against types/node_modules/.pnpm/@videojs+core@10.0.0-beta.23.../dist/dev/core/ui/time/time-core.d.ts line 6: `type TimeType = 'current' | 'duration' | 'remaining';`."
+    }
+  ],
+  "total": 2,
+  "notes": "Claude grounded most of the work in actual type-surface inspection (read the .d.ts files, used DevTools to confirm class names and CSS variables, used real exports like `videoFeatures`, `createPlayer`, `Container`, `Controls.Root`, `TimeSlider.*`, `VolumeSlider.*`, `BufferingIndicator`, `Poster`, `HlsVideo`, the `data-paused`/`data-muted`/`data-fullscreen` attrs, and the `--media-slider-fill` / `--media-slider-buffer` CSS variables — all verified as real). Two factual deviations remain in the final code, both in rung 5's custom YouTube-style skin: the `<Gesture>` prop is misnamed `event` instead of `type`, and `<Time.Value>` is given an invalid `type=\"currentTime\"` value (the valid string is `\"current\"`). Both happen to be silently tolerated at runtime (Gesture drops the unknown prop and the type union for Gesture's `type` widens to `string`; Time.Value falls through to a default), which is why the page still renders, but they do not match the published API surface."
+}

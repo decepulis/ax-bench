@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": false,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark translucent chrome with red progress fill, matching YouTube's signature treatment",
+    "typography": "Small white sans-serif timestamp and title text consistent with YouTube's compact control bar",
+    "notes": "Strong YouTube-inspired layout: red progress bar with scrubber handle, left-aligned play/time/title, right-aligned CC/settings/fullscreen cluster, and the watermark mimics YouTube's branding placement. Missing the volume slider/icon and a visible 'next' button on the left side, and the icon set looks slightly thinner than YouTube's, but at a glance it clearly reads as YouTube-like."
+  }
+}
+```

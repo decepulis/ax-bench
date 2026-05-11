@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": true,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark control bar with red progress accent, matching YouTube's red-on-black treatment",
+    "typography": "Small white sans-serif time/title labels consistent with YouTube's compact chrome",
+    "notes": "Strong YouTube-like rendition: red progress bar, left cluster (play, volume, time, title) and right cluster (CC, settings, theater, fullscreen) are correctly arranged. Title slot reads 'Two bros' in reference vs an empty/placeholder area in Claude's render, and the icon set on the right is slightly denser/different in proportion, but the overall layout and color treatment clearly read as YouTube at a glance."
+  }
+}
+```

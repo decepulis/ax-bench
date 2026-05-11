@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Kept the monolithic `VideoSkin` component and hid fullscreen via a CSS specificity override (`.media-default-skin--video .media-button.media-button--fullscreen { display: none }`). Added the Share button by DOM-querying `.media-button--mute`, inserting a `display: contents` placeholder div as a sibling, and rendering the button into it via `createPortal`.",
+  "evidence": "transcript line 37 (App.tsx edit): `// VideoSkin's controls bar has no slot for custom buttons. We inject the Share button as a sibling of the mute (volume) button via a portal so VideoSkin's React-managed children stay untouched.` — uses `document.querySelector<HTMLElement>('.media-button--mute')` + `createPortal`",
+  "prompted_to_eject": false,
+  "notes": "Claude explicitly recognized that `VideoSkin` exposes no slot for custom buttons but, instead of reaching for the primitive components that `@videojs/react` exposes (PlayButton, MuteButton, FullscreenButton, etc. — the in-library eject path), it reused the skin's CSS classes and force-inserted a button via DOM querying + a portal. The Share button mimics the skin's button classes to inherit styling. Final workspace shows the primitives approach in CustomVideoSkin.tsx, suggesting a later rung restructured — but rung 4 itself is a library-hack."
+}
+```

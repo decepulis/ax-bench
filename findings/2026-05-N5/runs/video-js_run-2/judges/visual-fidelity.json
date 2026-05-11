@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark/black chrome with red progress fill and white icons, matching YouTube's dark-theme palette",
+    "typography": "Small sans-serif white labels for time and title — close to YouTube's Roboto-like treatment",
+    "notes": "The control bar reproduces YouTube's structure well: left-aligned play/volume/time/title group and right-aligned cluster of CC, settings, theater/mini, and fullscreen icons over a red progress bar. Missing the title overlay/'2016' style on-video text and chapter markers, and the player is wrapped in an outer dark frame with an 'ax-bench' label rather than sitting flush like YouTube's embed, but at a glance the bottom chrome clearly reads as YouTube."
+  }
+}
+```
