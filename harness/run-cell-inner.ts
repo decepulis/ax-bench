@@ -47,6 +47,7 @@ const LIBRARY_NOTE: Record<Condition, string> = {
 
 const LIBRARY = (process.env.LIBRARY ?? '') as Condition;
 const RUN_INDEX = process.env.RUN_INDEX ?? '0';
+const WITH_DOCS = process.env.WITH_DOCS === '1';
 const MODEL = process.env.AX_BENCH_MODEL ?? 'claude-opus-4-7[1m]';
 const WORKSPACE = '/home/pwuser/workspace';
 const WORKSPACE_CACHE = '/home/pwuser/workspace-cache';
@@ -70,6 +71,14 @@ if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) {
 const libraryLabel = LIBRARY_LABEL[LIBRARY];
 const libraryDocsUrl = LIBRARY_DOCS[LIBRARY];
 const libraryNote = LIBRARY_NOTE[LIBRARY];
+// Soft docs hint repeated on every rung when WITH_DOCS=1. Off by default to
+// keep the baseline condition unchanged. The rung-1 prompt already mentions
+// the URL inline (training-cutoff patch), so this hint only adds value on
+// rungs 2-5 — but the same `{{LIBRARY_DOCS_HINT}}` placeholder is appended
+// to all rung templates for consistency, and is empty in the off condition.
+const libraryDocsHint = WITH_DOCS
+  ? `\n> See: ${libraryDocsUrl} for the library's documentation.\n`
+  : '';
 
 async function log(line: string) {
   const stamp = new Date().toISOString();
@@ -151,7 +160,8 @@ async function loadPrompt(rung: number): Promise<string> {
   return raw
     .replaceAll('{{LIBRARY_NAME}}', libraryLabel)
     .replaceAll('{{LIBRARY_DOCS_URL}}', libraryDocsUrl)
-    .replaceAll('{{LIBRARY_NOTE}}', libraryNote);
+    .replaceAll('{{LIBRARY_NOTE}}', libraryNote)
+    .replaceAll('{{LIBRARY_DOCS_HINT}}', libraryDocsHint);
 }
 
 type RungUsage = {
@@ -518,6 +528,7 @@ async function main() {
   const finishedAt = Date.now();
   const metrics = {
     library: LIBRARY,
+    withDocs: WITH_DOCS,
     runIndex: RUN_INDEX,
     model: MODEL,
     sessionId,

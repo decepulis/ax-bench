@@ -4,3 +4,4 @@
 - Add a custom "Share" button next to the volume control. When clicked, it should run `console.log('shared')`.
 
 Let me know when you're done.
+{{LIBRARY_DOCS_HINT}}

@@ -15,3 +15,4 @@ The player should render on page load, and the video should be playable.
 > Docs: {{LIBRARY_DOCS_URL}}
 
 When you're done, tell me and I'll check your work before we move on.
+{{LIBRARY_DOCS_HINT}}

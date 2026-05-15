@@ -5,3 +5,4 @@ Here's a reference screenshot of the YouTube player UI: `./assets/youtube-refere
 Rebuild the player's UI to match this reference as closely as possible.
 
 Let me know when you're done.
+{{LIBRARY_DOCS_HINT}}

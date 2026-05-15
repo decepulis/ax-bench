@@ -14,7 +14,21 @@ import { config as loadEnv } from 'dotenv';
 
 loadEnv();
 
-type Condition = 'video-js' | 'mux-player';
+// "*-with-docs" variants pass the same library to the container but flip
+// WITH_DOCS=1, which appends a soft "See: <docs URL>" hint to every rung.
+// Output dirs still use the full label so baseline and with-docs cells
+// don't collide.
+type Condition =
+  | 'video-js'
+  | 'mux-player'
+  | 'video-js-with-docs'
+  | 'mux-player-with-docs';
+const CONDITIONS: readonly Condition[] = [
+  'video-js',
+  'mux-player',
+  'video-js-with-docs',
+  'mux-player-with-docs',
+];
 
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -26,8 +40,8 @@ function parseArgs() {
   const runIndex = get('--run-index') ?? '0';
   const outputDir = get('--output-dir');
   const imageTag = get('--image') ?? 'ax-bench:latest';
-  if (!condition || !['video-js', 'mux-player'].includes(condition)) {
-    console.error('--condition must be "video-js" or "mux-player"');
+  if (!condition || !CONDITIONS.includes(condition)) {
+    console.error(`--condition must be one of: ${CONDITIONS.join(', ')}`);
     process.exit(2);
   }
   return { condition, runIndex, outputDir, imageTag };
@@ -54,6 +68,9 @@ export async function runCell(opts: {
     return 2;
   }
 
+  const withDocs = condition.endsWith('-with-docs');
+  const library = withDocs ? condition.replace(/-with-docs$/, '') : condition;
+
   const dockerArgs = [
     'run',
     '--rm',
@@ -62,7 +79,9 @@ export async function runCell(opts: {
     '-e',
     `CLAUDE_CODE_OAUTH_TOKEN=${token}`,
     '-e',
-    `LIBRARY=${condition}`,
+    `LIBRARY=${library}`,
+    '-e',
+    `WITH_DOCS=${withDocs ? '1' : '0'}`,
     '-e',
     `RUN_INDEX=${runIndex}`,
     '-e',

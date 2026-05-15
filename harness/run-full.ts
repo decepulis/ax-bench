@@ -22,6 +22,8 @@
  *   tsx harness/run-full.ts --output-dir runs/2026-05-11T17-24-51Z  # reuse an existing dir
  *   tsx harness/run-full.ts --output-dir <dir> \                    # re-run only specific cells
  *     --cells video-js:3,video-js:4,mux-player:2
+ *   tsx harness/run-full.ts --label N5-with-docs \                  # run only the with-docs arms
+ *     --conditions video-js-with-docs,mux-player-with-docs
  *
  * Cells that exit with code 3 (api-error halt — rate-limit, overload) abort
  * the whole run: no subsequent batches, no judges, no synthesis. See
@@ -48,16 +50,40 @@ function parseLabel(): string {
 }
 
 const N = 5;
-const CONDITIONS = ['video-js', 'mux-player'] as const;
+// All known conditions. `--conditions` filters this list per-run; the
+// default selection is the two baseline conditions so existing invocations
+// are unchanged. "-with-docs" variants flip WITH_DOCS=1 in the container,
+// which appends a soft docs hint to every rung — see run-cell.ts.
+const CONDITIONS = [
+  'video-js',
+  'mux-player',
+  'video-js-with-docs',
+  'mux-player-with-docs',
+] as const;
 type Condition = (typeof CONDITIONS)[number];
+const DEFAULT_CONDITIONS: readonly Condition[] = ['video-js', 'mux-player'];
 
 type Cell = { condition: Condition; runIndex: string; outputDir: string };
 
-function buildCells(rootDir: string): Cell[] {
+function parseConditions(): readonly Condition[] {
+  const raw = parseFlag('--conditions');
+  if (!raw) return DEFAULT_CONDITIONS;
+  const list = raw.split(',').map((s) => s.trim()).filter(Boolean);
+  for (const c of list) {
+    if (!(CONDITIONS as readonly string[]).includes(c)) {
+      throw new Error(
+        `bad --conditions entry "${c}" — must be one of ${CONDITIONS.join(', ')}`
+      );
+    }
+  }
+  return list as Condition[];
+}
+
+function buildCells(rootDir: string, conditions: readonly Condition[]): Cell[] {
   // Interleave by run index so batches stay balanced across conditions.
   const cells: Cell[] = [];
   for (let i = 0; i < N; i++) {
-    for (const condition of CONDITIONS) {
+    for (const condition of conditions) {
       cells.push({
         condition,
         runIndex: String(i),
@@ -78,7 +104,7 @@ function parseCellFilter(): Set<string> | null {
   const out = new Set<string>();
   for (const part of raw.split(',').map((s) => s.trim()).filter(Boolean)) {
     const [cond, idx] = part.split(':');
-    if (!cond || !idx || !CONDITIONS.includes(cond as Condition)) {
+    if (!cond || !idx || !(CONDITIONS as readonly string[]).includes(cond)) {
       throw new Error(`bad --cells entry "${part}" — expected "<condition>:<runIndex>"`);
     }
     out.add(`${cond}:${idx}`);
@@ -134,8 +160,10 @@ async function main() {
   await mkdir(runsDir, { recursive: true });
   console.log(`[full] output dir: ${runsDir}${outputDirFlag ? ' (reused)' : ''}`);
 
+  const conditions = parseConditions();
+  console.log(`[full] conditions: ${conditions.join(', ')}`);
   const cellFilter = parseCellFilter();
-  let cells = buildCells(runsDir);
+  let cells = buildCells(runsDir, conditions);
   if (cellFilter) {
     const before = cells.length;
     cells = cells.filter((c) => cellFilter.has(`${c.condition}:${c.runIndex}`));
@@ -180,7 +208,7 @@ async function main() {
   console.log(`Read: ${resolve(runsDir, 'findings.md')}`);
   // List every expected cell summary, not just the filtered ones — useful
   // when reading a stitched-together re-run alongside the original.
-  for (const cell of buildCells(runsDir)) {
+  for (const cell of buildCells(runsDir, conditions)) {
     console.log(`      ${resolve(cell.outputDir, 'summary.md')}`);
   }
 }
