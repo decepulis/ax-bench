@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": false,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark translucent control bar with red progress accent — close to YouTube's palette",
+    "typography": "Small sans-serif timestamp, readable but slightly lighter weight than YouTube's",
+    "notes": "Control bar layout reads convincingly YouTube-like: red progress with scrubber, left-aligned play/volume/timestamp, right-aligned icon cluster ending in fullscreen. Missing the settings cog, captions (CC), and theater-mode toggle; right side appears to show share/PiP-style icons instead of YouTube's exact set. No title overlay or chapter markers, but overall chrome treatment matches well at a glance."
+  }
+}
+```

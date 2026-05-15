@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": false,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark chrome with white iconography; progress bar appears red-tinted, matching YouTube's signature accent.",
+    "typography": "Small white sans-serif timecode and title label, consistent with YouTube's control-bar text scale.",
+    "notes": "Bottom control bar layout reads convincingly YouTube-like: left cluster has play, volume, timecode, and title; right cluster has share/CC-style icons and a fullscreen button. Missing the settings cog and theater toggle, and the right-side icon set diverges (share-style glyphs instead of CC/settings/mini/theater/fullscreen), so it's clearly inspired but not pixel-faithful."
+  }
+}
+```

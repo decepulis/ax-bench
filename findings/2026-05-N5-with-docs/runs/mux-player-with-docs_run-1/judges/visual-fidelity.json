@@ -1,0 +1,20 @@
+```json
+{
+  "score": 1,
+  "rubric": {
+    "structural": {
+      "progress_bar": false,
+      "play_button": false,
+      "volume_control": false,
+      "settings_cog": false,
+      "fullscreen_button": false,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black background with a faint loading spinner; no red accent.",
+    "typography": "Only a small 'ax-bench' label visible top-left; no player text rendered.",
+    "notes": "The screenshot shows the player in a loading/uninitialized state with no visible control chrome — no progress bar, buttons, or title overlay are present. None of the YouTube-like structural elements can be evaluated. The result does not read as YouTube-like at all."
+  }
+}
+```

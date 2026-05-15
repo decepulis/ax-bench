@@ -1,0 +1,20 @@
+```json
+{
+  "score": 1,
+  "rubric": {
+    "structural": {
+      "progress_bar": false,
+      "play_button": false,
+      "volume_control": false,
+      "settings_cog": false,
+      "fullscreen_button": false,
+      "chapter_markers": false,
+      "title_overlay": true,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark video with no visible control chrome; only a small 'ax-bench' label in top-left.",
+    "typography": "Single small sans-serif label in upper-left; no other text visible.",
+    "notes": "The rung-5 screenshot shows only a buffering spinner over the video with a small 'ax-bench' title — no control bar, progress bar, play/volume/fullscreen icons, or any YouTube-like chrome is rendered. It is essentially a bare video frame and does not read as a YouTube-style player."
+  }
+}
+```

@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": false,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black chrome with white icons; progress bar lacks YouTube's signature red accent.",
+    "typography": "Clean sans-serif white text for time/title; close in weight to YouTube but lacks the exact YouTube Sans feel.",
+    "notes": "Strong structural match: left-aligned play/next/volume cluster, centered time and title, right-aligned overflow/captions-ish/fullscreen controls, and a thin progress bar above the control row all read as YouTube. Missing the red progress fill and red play accent, no settings cog or CC icon, and the playback-speed pill ('10x') replaces the YouTube 'next' button. Title is rendered outside the player ('ax-bench') rather than as an in-frame overlay, but overall it clearly reads as YouTube-inspired."
+  }
+}
+```

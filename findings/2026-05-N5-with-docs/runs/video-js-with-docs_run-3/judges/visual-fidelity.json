@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": true,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark transparent control bar with red progress accent and white icons, matching YouTube's palette",
+    "typography": "Small white sans-serif time/title text, similar weight to YouTube's UI",
+    "notes": "Control bar layout closely mirrors YouTube: left cluster (play, volume, time, title), right cluster (captions, settings cog, fullscreen). Red progress with scrubber dot and white icon set read clearly as YouTube-inspired. Missing chapter markers and theater-mode toggle, and the title overlay reads 'ax-bench' rather than a video title, but the structural fidelity is strong."
+  }
+}
+```

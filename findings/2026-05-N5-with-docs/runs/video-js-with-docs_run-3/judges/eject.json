@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the closed `VideoSkin` component and used a CSS specificity override (`.media-default-skin .media-button--icon.media-button--fullscreen { display: none }`) to hide the fullscreen button, plus a `MutationObserver` + `createPortal` that queries the live DOM for `.media-button--mute` and injects a `<span style=\"display:contents\">` slot to portal a Share button into. Behavior works, but it pierces the skin's internal DOM/class-names rather than reaching for the in-library primitives (`ControlsRoot`, `MuteButton`, etc.) that the package already exposes.",
+  "evidence": "rung-4.jsonl line 59 (final summary): \"A `ShareButtonInjector` component uses `useEffect` + a `MutationObserver` to find the live `.media-button--mute` and insert a `<span style=\\\"display:contents\\\">` placeholder right after it, then React-portals a `<button>` into that slot.\"",
+  "prompted_to_eject": false,
+  "notes": "Claude explicitly identified the in-library-primitive alternative in its closing note (\"the alternative is to stop using VideoSkin and compose your own controls from @videojs/react's building blocks (ControlsRoot, Mut...\") but chose the portal/CSS-hack path anyway. Note: the workspace's current App.tsx shows a fully-composed YouTubeSkin built from primitives — that is rung-5's output, which rewrote rung-4's hack. The rung-4 transcript is the source of truth for this rung's classification."
+}
+```

@@ -1,0 +1,7 @@
+```json
+{
+  "hallucinations": [],
+  "total": 0,
+  "notes": "Claude exercised consistent verification before using any Video.js 10 (@videojs/html / @videojs/react 10.0.0-beta.23) APIs. Before importing components, Claude read the actual .d.ts files in node_modules (index.d.ts, individual component .d.ts files, slider/time/controls index.parts.d.ts namespaces) and confirmed class names by querying the live DOM via Chrome DevTools MCP. All imports in the final code resolve to real exports: createPlayer, videoFeatures (re-exported from @videojs/core/dom), HlsVideo from '@videojs/react/media/hls-video' (valid subpath per package.json exports), and the UI primitives (BufferingIndicator, CaptionsButton, Container, Controls, FullscreenButton, Gesture, Hotkey, MuteButton, PiPButton, PlayButton, Poster, Slider, Time, TimeSlider, VolumeSlider). All render-state field accesses (state.paused, state.muted, state.fullscreen, state.visible) match the real *Core.State interfaces. The thumbAlignment='edge' prop on VolumeSlider.Root is real (SliderProps base). Gesture/Hotkey action names (togglePaused, toggleControls, toggleMuted, toggleFullscreen) and Time.Value type values ('current', 'duration') match the published string-literal unions. The CSS custom properties --media-slider-fill, --media-slider-buffer, --media-slider-pointer and data-attributes data-dragging, data-visible are real, library-published names. The .media-button--share class used in rung 4 is Claude's own custom class on his portal-injected node, not a claim about a library export."
+}
+```

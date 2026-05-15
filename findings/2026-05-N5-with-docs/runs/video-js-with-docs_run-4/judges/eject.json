@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the high-level VideoSkin component and worked around it: a React portal that finds the rendered .media-button--mute DOM node and injects a host element next to it for the Share button, plus a CSS specificity bump to hide .media-button--fullscreen. Did not switch to composing Video.js's primitive components (PlayButton, MuteButton, etc.) the way the library is designed to support.",
+  "evidence": "rung-4.jsonl final assistant text: 'added <ShareButtonSlot> (React portal that finds the .media-button--mute element on mount and inserts a host node right after it inside the same button group)' and CSS: '.media-default-skin--video .media-button--fullscreen.media-button--icon { display: none }'",
+  "prompted_to_eject": false,
+  "notes": "Claude explicitly justified the hack: 'VideoSkin has its controls baked in and only takes children (which render outside the controls bar), so there's no slot to compose into' — it didn't consider replacing VideoSkin with the library's exported primitives, which is the architecturally-intended eject path for Video.js 10. The current workspace App.tsx shows a primitive-based composition, but that was done in rung 5, not rung 4."
+}
+```

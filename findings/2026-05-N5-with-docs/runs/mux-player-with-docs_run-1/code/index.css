@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Match YouTube layout: hide controls Mux ships with that YouTube doesn't show. */
+mux-player::part(seek-backward button),
+mux-player::part(seek-forward button),
+mux-player::part(playback-rate button),
+mux-player::part(playback-rate menu),
+mux-player::part(audio-track button),
+mux-player::part(audio-track menu),
+mux-player::part(airplay button),
+mux-player::part(cast button) {
+  display: none;
+}

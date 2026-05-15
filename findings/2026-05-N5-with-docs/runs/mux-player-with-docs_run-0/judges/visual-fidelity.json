@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark translucent control bar with red progress fill and white icons, matching YouTube",
+    "typography": "Small white sans-serif time display and title, consistent with YouTube's Roboto-style treatment",
+    "notes": "The control bar layout reads as clearly YouTube-inspired: red progress bar with scrubber, left-aligned play/volume/time, right-aligned CC/settings/fullscreen cluster, and a dark gradient bottom chrome. Icon set and spacing are slightly tighter than YouTube and the title overlay above the bar is missing, but at thumbnail glance it convincingly mimics YouTube's player."
+  }
+}
+```

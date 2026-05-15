@@ -1,0 +1,14 @@
+{
+  "hallucinations": [
+    {
+      "rung": 3,
+      "turn": 2,
+      "kind": "css-var",
+      "claim": "Setting `--media-control-bar-background` on the <MuxPlayer> style prop to apply a gradient/dark background to the control bar.",
+      "reality": "No such published CSS custom property exists in media-chrome or @mux/mux-player. The `media-control-bar` component documents only `--media-primary-color`, `--media-secondary-color`, `--media-text-color`, `--media-control-bar-display`, and `--media-control-display`. The variable is silently ignored at runtime.",
+      "evidence": "workspace/src/App.tsx:88-89 sets `--media-control-bar-background`; grep for `media-control-bar-background` across `types/node_modules/.pnpm/**` returns zero hits, and `media-chrome/dist/media-control-bar.d.ts` enumerates the actual @cssproperty list (no `-background` variant). Mux docs: https://www.mux.com/docs/guides/mux-player-web#css-variables."
+    }
+  ],
+  "total": 1,
+  "notes": "Only one factual hallucination about the library's public API surface landed in the final code: a CSS custom property `--media-control-bar-background` that media-chrome / @mux/mux-player do not publish (introduced in rung 3 and carried through rungs 4 and 5). All other API touchpoints check out against the installed type surface: the React props used on <MuxPlayer> (playbackId, streamType, muted, loop, autoPlay, thumbnailTime, title, accentColor) are declared in @mux/mux-player-react/dist/types/types.d.ts; the remaining CSS variables (`--media-range-track-height`, `--media-range-thumb-height/-width/-background`, `--media-control-padding`) are documented `@cssproperty` annotations on media-chrome-range / media-text-display / media-chrome-button; the custom-element tag names queried at runtime (media-theme, media-control-bar, media-time-display, media-volume-range, media-seek-backward-button, media-airplay-button, media-cast-button, media-audio-track-menu(-button), media-playback-rate-menu(-button)) all exist as files under media-chrome/dist; the `part~=\"top\"` and `part~=\"bottom\"` selectors line up with the `Parts.TOP` / `Parts.BOTTOM` exports in @mux/mux-player/dist/types/template.d.ts; and `import type MuxPlayerElement from \"@mux/mux-player\"` is a valid transitive dependency import."
+}

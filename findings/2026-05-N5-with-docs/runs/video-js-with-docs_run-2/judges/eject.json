@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the rung-3 VideoSkin (Video.js's monolithic default skin) and worked around its closed API: added `display: none` CSS on `.media-button--fullscreen` to hide fullscreen, then created a ShareButton component that queries the DOM for `.media-button--mute`, imperatively inserts a sibling `<button>` element after it via `document.createElement` + `insertBefore`, and uses React `createPortal` to render the icon into that injected host node.",
+  "evidence": "rung-4.jsonl plan message: \"hide the fullscreen button with CSS, and inject a custom Share button into the controls bar next to the mute button using a small React portal (since `VideoSkin` doesn't accept extra control children)\"; ShareButton.tsx uses `document.querySelector('.media-button--mute')` + `group.insertBefore(node, mute.nextSibling)`",
+  "prompted_to_eject": false,
+  "notes": "The Video.js 10 primitive components (Container, Controls.Root, MuteButton, FullscreenButton, etc.) were available — and rung-5 later used them to rebuild the skin as `YouTubeSkin.tsx` (what the workspace now shows). But in rung-4 itself, Claude did not recognize VideoSkin's monolithic nature as a signal to drop down to primitives; it chose CSS hiding + DOM piercing + portal injection instead. Classic library-hack."
+}
+```

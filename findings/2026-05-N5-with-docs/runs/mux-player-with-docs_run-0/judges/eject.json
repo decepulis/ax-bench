@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude noticed that Mux Player's control bar is a fixed template with no user slot, then chose to inject a share button into Mux Player's nested shadow DOM via a recursive shadow-root walker + MutationObserver, and used `::part(fullscreen)` CSS to hide fullscreen. No Media Chrome install — pure shadow-DOM piercing on the monolith.",
+  "evidence": "rung-4.jsonl L24: \"The bottom control bar's contents are fixed in the Mux Player template — no user slot inside it.\" → L27: \"I'll use a ref + effect to insert a `<button>` right after the volume range\" → L48: \"The volume range is inside a nested `<media-theme>` shadow root — `querySelector` doesn't pierce shadow boundaries. Let me fix both issues: walk shadow roots to find it\"",
+  "prompted_to_eject": false,
+  "notes": "package.json shows only @mux/mux-player-react — Media Chrome was never installed despite Claude recognizing the template was closed. Assertions show shareButtonPresent=true and fullscreenHidden=true but shareClickLogged=false, so the hack rendered the button but the click handler didn't survive the verification harness's test (likely the MutationObserver re-injected and lost the listener, or the button was replaced). Rung pass=false."
+}
+```

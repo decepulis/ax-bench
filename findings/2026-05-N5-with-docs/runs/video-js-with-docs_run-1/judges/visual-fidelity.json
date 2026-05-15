@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark translucent control bar with red progress fill and white icons, matching YouTube's signature treatment",
+    "typography": "Small white sans-serif time/title text, similar weight and scale to YouTube",
+    "notes": "Control bar layout reads as YouTube at a glance — left cluster (play, volume, time, title) and right cluster (captions, settings, mini/theater, fullscreen) are both present with the red progress bar. Iconography is close but slightly different in stroke/spacing, and the title overlay (e.g. '2016') above the video is missing. Overall a clearly YouTube-inspired result with minor mismatches."
+  }
+}
+```

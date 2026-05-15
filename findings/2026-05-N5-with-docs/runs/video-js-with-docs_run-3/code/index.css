@@ -1,0 +1,359 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', 'YouTube Sans', system-ui, -apple-system, sans-serif;
+  background: #0f0f0f;
+  color: #f1f1f1;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ============================================================
+   Player container
+   ============================================================ */
+
+.yt-player {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  isolation: isolate;
+}
+
+.yt-player ::slotted(video),
+.yt-player video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.yt-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 200ms ease-out;
+}
+.yt-poster[data-visible='false'],
+.yt-poster:not([data-visible]) {
+  opacity: 0;
+}
+
+/* ============================================================
+   Buffering spinner
+   ============================================================ */
+
+.yt-buffering {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+.yt-buffering[data-visible='true'] {
+  opacity: 1;
+}
+.yt-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: yt-spin 0.8s linear infinite;
+}
+@keyframes yt-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   Controls
+   ============================================================ */
+
+.yt-controls {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+/* Controls auto-hide; visible on hover, focus-within, or while paused */
+.yt-controls {
+  opacity: 0;
+}
+.yt-player:hover .yt-controls,
+.yt-player:focus-within .yt-controls,
+.yt-player:has(video[data-paused='true']) .yt-controls,
+.yt-controls:has(:focus-visible) {
+  opacity: 1;
+}
+
+.yt-gradient {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 110px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.55) 30%,
+    rgba(0, 0, 0, 0.2) 65%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  pointer-events: none;
+}
+
+/* ============================================================
+   Progress bar
+   ============================================================ */
+
+.yt-progress {
+  position: relative;
+  height: 14px;
+  margin: 0 12px;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+}
+
+.yt-progress__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  transition: height 100ms ease;
+}
+.yt-progress:hover .yt-progress__track,
+.yt-progress[data-dragging] .yt-progress__track {
+  height: 5px;
+}
+
+.yt-progress__buffer {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: var(--media-slider-buffer);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.yt-progress__fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: var(--media-slider-fill);
+  background: #f00;
+}
+.yt-progress[data-dragging] .yt-progress__fill {
+  width: var(--media-slider-pointer);
+}
+
+.yt-progress__thumb {
+  position: absolute;
+  bottom: -4.5px;
+  left: var(--media-slider-fill);
+  width: 13px;
+  height: 13px;
+  margin-left: -6.5px;
+  background: #f00;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: center;
+  transition: opacity 100ms ease, transform 100ms ease;
+}
+.yt-progress:hover .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__thumb,
+.yt-progress__thumb:focus-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+.yt-progress[data-dragging] .yt-progress__thumb {
+  left: var(--media-slider-pointer);
+}
+
+/* ============================================================
+   Bottom row
+   ============================================================ */
+
+.yt-bottom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 8px 4px;
+  pointer-events: auto;
+}
+
+.yt-bottom__left,
+.yt-bottom__right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+.yt-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.95;
+  transition: opacity 100ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.yt-btn:hover {
+  opacity: 1;
+}
+.yt-btn:focus {
+  outline: none;
+}
+.yt-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: -2px;
+  border-radius: 50%;
+}
+.yt-btn svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+/* CC underline when captions are on */
+.yt-btn[data-captions='on'] svg {
+  border-bottom: 2px solid #fff;
+}
+
+/* ============================================================
+   Volume slider — expands on hover over the mute+slider group
+   ============================================================ */
+
+.yt-volume-group {
+  display: flex;
+  align-items: center;
+}
+
+.yt-volume {
+  position: relative;
+  width: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  transition: width 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.yt-volume-group:hover .yt-volume,
+.yt-volume-group:focus-within .yt-volume,
+.yt-volume[data-dragging] {
+  width: 56px;
+  margin-right: 8px;
+}
+
+.yt-volume__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+}
+.yt-volume__fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: var(--media-slider-fill);
+  background: #fff;
+  border-radius: 2px;
+}
+.yt-volume[data-dragging] .yt-volume__fill {
+  width: var(--media-slider-pointer);
+}
+.yt-volume__thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill);
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  transform: translateY(-50%);
+  background: #fff;
+  border-radius: 50%;
+}
+.yt-volume[data-dragging] .yt-volume__thumb {
+  left: var(--media-slider-pointer);
+}
+
+/* ============================================================
+   Time + chapter
+   ============================================================ */
+
+.yt-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  color: #fff;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+.yt-time time {
+  font-variant-numeric: tabular-nums;
+}
+.yt-time__sep {
+  opacity: 0.8;
+}
+
+.yt-chapter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px 0 6px;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.yt-chapter__dot {
+  opacity: 0.7;
+}

@@ -1,0 +1,16 @@
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 3,
+      "turn": 2,
+      "kind": "css-var",
+      "claim": "Set `--media-control-bar-background` as a CSS custom property on `<MuxPlayer>` to style the bottom control bar background (initially `rgba(0, 0, 0, 0.5)`, later changed to a linear-gradient in rung 5).",
+      "reality": "Neither mux-player (gerwig theme template at @mux/mux-player@3.13.0/src/themes/gerwig/gerwig.html) nor media-chrome defines or consumes a `--media-control-bar-background` CSS variable. The gerwig theme's bottom control-bar gradient is painted via a `::before` pseudo using a fixed `linear-gradient(to bottom, var(--gradient-steps))` and is not parameterized by any `--media-control-bar-*` variable. The closest real variables are media-chrome's `--media-control-background` (per-control background) and `--media-control-bar-display` (control-bar `display`), neither of which sets the bar's background fill.",
+      "evidence": "App.tsx (final): `\"--media-control-bar-background\": \"linear-gradient(transparent, rgba(0, 0, 0, 0.7))\"`. Verified via gerwig.html @ tag `@mux/mux-player@3.13.0` (only `--media-` vars referenced: `--media-control-background`, `--media-control-display`, `--media-control-height`, `--media-control-hover-background`, `--media-control-padding`, plus range/menu/preview/text vars; no `--media-control-bar-background`)."
+    }
+  ],
+  "total": 1,
+  "notes": "Across the five rungs, Claude's only factual hallucination about Mux Player's public API surface was the CSS custom property `--media-control-bar-background`, introduced in rung 3 to tint the control bar and carried through to the final code in rung 5 (with the value changed to a linear-gradient). The variable is not defined anywhere in @mux/mux-player@3.13.0 (gerwig theme) or in its underlying media-chrome@4.19.0 dependency, so setting it has no visual effect — the dark gradient observed in the screenshots is the gerwig theme's built-in `::before` overlay. All other surface usage is accurate: the `MuxPlayer` props (`playbackId`, `streamType=\"on-demand\"`, `autoPlay`, `muted`, `loop`, `thumbnailTime`, `accentColor`, `ref`, `style`), the `import type MuxPlayerElement from \"@mux/mux-player\"` (re-exported from `@mux/mux-player/base`), the range CSS variables (`--media-range-track-height`, `--media-range-thumb-height`, `--media-range-thumb-width` are documented on media-chrome's MediaChromeRange), and the `::part()` selectors (`seek-backward`, `seek-forward`, `rendition`, `audio-track`, `airplay`, `cast`, `volume`, `fullscreen`) are all present in gerwig.html's `part=\"...\"` attributes."
+}
+```

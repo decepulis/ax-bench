@@ -1,0 +1,42 @@
+{
+  "pass": false,
+  "details": {
+    "fullscreenHidden": true,
+    "shareButtonPresent": true,
+    "shareButton": {
+      "tag": "button",
+      "aria": "Share",
+      "title": "",
+      "text": "",
+      "classes": "media-button media-button--subtle media-button--icon media-button--share"
+    },
+    "shareClickLogged": false,
+    "consoleSample": [
+      {
+        "text": "[vite] connecting...",
+        "type": "debug"
+      },
+      {
+        "text": "[vite] connected.",
+        "type": "debug"
+      },
+      {
+        "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold",
+        "type": "info"
+      },
+      {
+        "text": "Warning: React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.%s fetchPriority fetchpriority \n    at img\n    at div\n    at Thumbnail2 (http://localhost:5173/node_modules/.vite/deps/chunk-3QAAM6VV.js?v=2aab0dae:4536:11)\n    at SliderThumbnail2 (http://localhost:5173/node_modules/.vite/deps/chunk-3QAAM6VV.js?v=2aab0dae:5042:28)\n    at div\n    at div\n    at SliderProvider (http://localhost:5173/node_modules/.vite/deps/chunk-3QAAM6VV.js?v=2aab0dae:4989:27)\n    at TimeSliderRoot2 (http://localhost:5173/node_modules/.vite/deps/chunk-3QAAM6VV.js?v=2aab0dae:5156:11)\n    at div\n    at TooltipProvider (http://localhost:5173/node_modules/.vite/deps/chunk-3QAAM6VV.js?v=2aab0dae:5345:28)\n    at div\n    at ControlsRoot2 (http://localhost:5173/node_modules/.vite/deps/chunk-3QAAM6VV.js?v=2aab0dae:4700:11)\n    at div\n    at Container2 (http://localhost:5173/node_modules/.vite/deps/chunk-L37T4FBU.js?v=2aab0dae:204:69)\n    at VideoSkin (http://localhost:5173/node_modules/.vite/deps/@videojs_react_video.js?v=2aab0dae:1825:11)\n    at PlayerContextProvider (http://localhost:5173/node_modules/.vite/deps/chunk-L37T4FBU.js?v=2aab0dae:168:34)\n    at Provider (http://localhost:5173/node_modules/.vite/deps/@videojs_react.js?v=2aab0dae:173:23)\n    at div\n    at main\n    at App",
+        "type": "error"
+      },
+      {
+        "text": "Warning: Unexpected return value from a callback ref in %s. A callback ref should not return a function.%s video \n    at video\n    at HlsVideo2 (http://localhost:5173/node_modules/.vite/deps/@videojs_react_media_hls-video.js?v=2aab0dae:34213:66)\n    at div\n    at Container2 (http://localhost:5173/node_modules/.vite/deps/chunk-L37T4FBU.js?v=2aab0dae:204:69)\n    at VideoSkin (http://localhost:5173/node_modules/.vite/deps/@videojs_react_video.js?v=2aab0dae:1825:11)\n    at PlayerContextProvider (http://localhost:5173/node_modules/.vite/deps/chunk-L37T4FBU.js?v=2aab0dae:168:34)\n    at Provider (http://localhost:5173/node_modules/.vite/deps/@videojs_react.js?v=2aab0dae:173:23)\n    at div\n    at main\n    at App",
+        "type": "error"
+      },
+      {
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "type": "error"
+      }
+    ]
+  },
+  "exitCode": 1
+}

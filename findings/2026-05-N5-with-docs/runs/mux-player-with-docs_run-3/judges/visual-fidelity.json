@@ -1,0 +1,20 @@
+```json
+{
+  "score": 2,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": false,
+      "fullscreen_button": false,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black background with white text — close to YouTube's neutrals but lacking the red accent",
+    "typography": "Clean sans-serif at small size, similar in spirit to YouTube but less prominent",
+    "notes": "Bottom-left cluster (play, volume, time, title) matches YouTube's structure, but the right-aligned controls (CC, settings, theater, fullscreen) are entirely missing, replaced by a 'Powered by Mux' badge. The progress bar appears absent or extremely thin, and there is no scrubber handle or red fill — the hallmark YouTube cue is missing, so it doesn't read as YouTube-like overall."
+  }
+}
+```

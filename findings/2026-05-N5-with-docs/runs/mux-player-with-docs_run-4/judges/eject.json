@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid the fullscreen button via the exposed CSS shadow part (`mux-player::part(fullscreen) { display: none }`), then pierced two layers of Mux Player's shadow DOM (`player.shadowRoot → media-theme → shadowRoot → media-control-bar[part~=\"bottom\"]`) to imperatively inject a plain `<button class=\"mux-share-button\">` after `media-volume-range`. No Media Chrome installed; package.json still only contains `@mux/mux-player-react`.",
+  "evidence": "rung-4.jsonl L82 tool_result: `bottomBarKids` ends with `\"media-volume-range\",\"button.mux-share-button\",\"div.spacer\",...,\"media-fullscreen-button\"` with `fsBtnDisplay:\"none\"` — the share button was DOM-injected into Mux's internal shadow tree alongside the still-present (but display:none) fullscreen button.",
+  "prompted_to_eject": false,
+  "notes": "Claude briefly inspected the Media Chrome package on disk (`media-chrome@4.19.0`) while exploring the shadow tree but never considered installing it / composing a custom theme. The intended eject path (install media-chrome, compose primitives) was not taken. The behavior works but is fragile — it mutates Mux's private shadow DOM directly."
+}
+```

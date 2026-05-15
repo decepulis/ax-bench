@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid fullscreen using Mux Player's documented `--fullscreen-button: none` CSS variable, but added the Share button by piercing two levels of shadow DOM (`player.shadowRoot.querySelector('media-theme').shadowRoot.querySelector('media-control-bar[part=\"control-bar bottom\"]')`) and injecting a vanilla `<button>` via a `useEffect` + `MutationObserver`. No Media Chrome was installed.",
+  "evidence": "src/App.tsx — `const bottomBar = player.shadowRoot?.querySelector(\"media-theme\")?.shadowRoot?.querySelector('media-control-bar[part=\"control-bar bottom\"]'); ... volumeRange.insertAdjacentElement(\"afterend\", btn);` (rung-4.jsonl L93 Edit)",
+  "prompted_to_eject": false,
+  "notes": "package.json shows only @mux/mux-player-react — the in-tree media-chrome found at L111 is a transitive dep, not installed by Claude. The fullscreen-hide half used a legitimate documented var, but the Share half is pure shadow-DOM piercing rather than the recommended eject-to-Media-Chrome path."
+}
+```

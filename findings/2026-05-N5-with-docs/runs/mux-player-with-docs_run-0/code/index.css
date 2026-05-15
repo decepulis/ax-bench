@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+mux-player {
+  --media-primary-color: #fff;
+  --media-secondary-color: transparent;
+  --media-accent-color: #ff0000;
+  --media-control-background: transparent;
+  --media-control-hover-background: rgba(255, 255, 255, 0.1);
+  --media-range-track-height: 3px;
+  --media-range-thumb-height: 13px;
+  --media-range-thumb-width: 13px;
+  --media-range-track-background: rgba(255, 255, 255, 0.25);
+  --media-time-range-buffered-color: rgba(255, 255, 255, 0.4);
+  --media-tooltip-display: none;
+}
+
+mux-player::part(control-bar bottom) {
+  background: transparent;
+  padding: 0 8px 6px;
+}
+
+mux-player::part(time range) {
+  --media-range-padding: 0;
+  height: 5px;
+  margin-bottom: -2px;
+}
+
+mux-player::part(seek-backward),
+mux-player::part(volume),
+mux-player::part(playback-rate),
+mux-player::part(audio-track),
+mux-player::part(airplay),
+mux-player::part(cast) {
+  display: none;
+}
+
+mux-player::part(play) {
+  order: -5;
+}
+mux-player::part(seek-forward) {
+  order: -4;
+}
+mux-player::part(mute) {
+  order: -3;
+}
+mux-player::part(time display) {
+  order: -2;
+}
+

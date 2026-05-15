@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the default VideoSkin and used CSS `display: none` to hide the fullscreen button, then portaled (via createPortal + MutationObserver) a custom Share button into the existing skin's volume `.media-button-group`, using flex `order` to position it. It explored the primitive components but consciously chose not to use them.",
+  "evidence": "rung-4.jsonl line 42 (assistant): \"I'll take a pragmatic approach: hide fullscreen with CSS and portal a Share button into the same button-group as the volume control, positioned via flex `order`.\"",
+  "prompted_to_eject": false,
+  "notes": "Claude first inspected the primitive parts exports (Controls.Root, PlayButton, MuteButton, TimeSlider, VolumeSlider, etc.) and said 'Let me look at exactly how I'd build a custom skin component using the public exports' — then explicitly rejected that path in favor of the portal/CSS hack against the default skin. The workspace App.tsx now shows a clean primitive-based restructure, but that is the result of rung 5, not rung 4."
+}
+```

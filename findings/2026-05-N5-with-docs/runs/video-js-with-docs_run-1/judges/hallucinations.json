@@ -1,0 +1,16 @@
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 5,
+      "turn": 0,
+      "kind": "prop",
+      "claim": "FullscreenButton's render-prop state exposes `state.active` (used to toggle the fullscreen-enter/exit glyph and aria-label).",
+      "reality": "FullscreenButtonState extends `Pick<MediaFullscreenState, 'fullscreen'>` and ButtonState — the boolean is `state.fullscreen`, not `state.active`. There is no `active` field on the render-prop state.",
+      "evidence": "App.tsx:272-274 — `aria-label={state.active ? 'Exit fullscreen' : 'Fullscreen'} ... {state.active ? <FullscreenExitGlyph /> : <FullscreenEnterGlyph />}`. Type source: types/node_modules/.pnpm/@videojs+core@10.0.0-beta.23.../@videojs/core/dist/dev/core/ui/fullscreen-button/fullscreen-button-core.d.ts — `interface FullscreenButtonState extends Pick<MediaFullscreenState, 'fullscreen'>, ButtonState { availability: ... }`."
+    }
+  ],
+  "total": 1,
+  "notes": "Audited the final workspace (App.tsx, player.css, main.tsx) and the five rung transcripts against the captured `@videojs/react@10.0.0-beta.23` and `@videojs/core@10.0.0-beta.23` type surface. All imports (including `videoFeatures` from `@videojs/react`, which is re-exported via `export * from '@videojs/core/dom'`, and `HlsVideo` from `@videojs/react/media/hls-video`) resolve to real exports. Component props used in the YouTube-style player — Popover.Root `openOnHover/delay/closeDelay/side/align`, VolumeSlider.Root `orientation`, SeekButton `seconds`, BufferingIndicator `render`, Hotkey `keys/action/value`, Gesture `type/action/pointer`, Time.Value `type=\"current\"|\"duration\"`, the Controls/TimeSlider/VolumeSlider parts, and the `--media-slider-fill / --media-slider-buffer / --media-slider-pointer` CSS variables — all match the published surface. The only factual mismatch is the FullscreenButton render-prop state property: the code reads `state.active` for the icon/aria-label toggle, but the documented state shape uses `state.fullscreen` (with the corresponding data attribute `data-fullscreen`). PlayButton (`paused`), MuteButton (`muted`), BufferingIndicator (`visible`), and Time (`text`, `negative`) state usages were all verified as valid."
+}
+```

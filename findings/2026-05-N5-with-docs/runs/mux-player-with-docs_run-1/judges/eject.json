@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude recognized that Mux Player's public API doesn't support inserting a custom button between control-bar siblings, but instead of installing Media Chrome it pierced the shadow DOM via a ref to inject a Share button and used a `::part()` CSS selector to hide the fullscreen button.",
+  "evidence": "rung-4.jsonl: \"Mux Player doesn't expose a slot for inserting *between* siblings of the bottom control bar, so I'll inject a custom button via a ref. Fullscreen can be hidden via the `--media-fullscreen-button: none` CSS variable\"; package.json shows only `@mux/mux-player-react`, no `media-chrome`",
+  "prompted_to_eject": false,
+  "notes": "Claude correctly diagnosed the API gap (\"Mux Player doesn't expose a slot...\") but did not consider installing Media Chrome — the documented eject path. Behavioral goals were met (console logs 'shared', fullscreen hidden) per the transcript's own verification, but via shadow-DOM piercing and ::part() hacks rather than the right abstraction."
+}
+```

@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude pierced Mux Player's shadow DOM via `player.shadowRoot.querySelector('media-theme').shadowRoot`, then hid the native fullscreen button with `style.display = 'none'` and injected a plain `document.createElement('button')` element into the internal control bar after the volume range. No new dependencies were installed — package.json still lists only `@mux/mux-player-react`.",
+  "evidence": "rung-4.jsonl: \"I'll hide fullscreen with the documented CSS variable, and inject the Share button into the shadow DOM after the volume range using a ref + useEffect.\" — followed by `const btn = document.createElement(\"button\"); ... volume.insertAdjacentElement(\"afterend\", btn);` and `fullscreen.style.display = \"none\";`",
+  "prompted_to_eject": false,
+  "notes": "Claude saw media-chrome referenced in Mux Player's own type files (e.g., `import 'media-chrome/dist/media-theme-element.js'`) but never considered installing it as a separate package to compose primitives — instead doubled down on shadow-DOM piercing when the CSS variable approach failed. The final workspace App.tsx no longer contains the Share button code (likely overwritten in rung 5), but the rung-4 approach itself is unambiguously a library-hack."
+}
+```

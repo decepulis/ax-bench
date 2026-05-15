@@ -1,0 +1,22 @@
+{
+  "hallucinations": [
+    {
+      "rung": 5,
+      "turn": 1,
+      "kind": "other",
+      "claim": "MuteButton's render-prop `state` argument exposes `state.volume` (used as `state.volume === 0` and `state.volume < 0.5` to pick a volume icon)",
+      "reality": "`MuteButtonCore.State` (= `MuteButtonState`) only exposes `muted`, `volumeLevel`, and `label`. The library publishes a derived `volumeLevel: 'off' | 'low' | 'medium' | 'high'` for exactly this icon-selection use case; `volume` is on `MediaVolumeState` but is not picked into the MuteButton state.",
+      "evidence": "App.tsx:147,149 — `state.muted || state.volume === 0 ? <VolumeOffIcon /> : state.volume < 0.5 ? ...`. Ground truth: types/.../@videojs/core/dist/dev/core/ui/mute-button/mute-button-core.d.ts — `interface MuteButtonState extends Pick<MediaVolumeState, 'muted'>, ButtonState { volumeLevel: VolumeLevel }`."
+    },
+    {
+      "rung": 5,
+      "turn": 1,
+      "kind": "prop",
+      "claim": "The CaptionsButton emits a `data-captions='on'` attribute when captions are active (used as the CSS selector `.yt-btn[data-captions='on'] svg` to draw a CC underline)",
+      "reality": "`CaptionsButtonDataAttrs` only exposes `data-active` (for `subtitlesShowing`) and `data-availability`. No `data-captions` attribute is emitted by the library, so the selector never matches.",
+      "evidence": "src/index.css:257 — `.yt-btn[data-captions='on'] svg { border-bottom: 2px solid #fff; }`. Ground truth: types/.../@videojs/core/dist/dev/core/ui/captions-button/captions-button-data-attrs.d.ts — `{ subtitlesShowing: 'data-active', availability: 'data-availability' }`."
+    }
+  ],
+  "total": 2,
+  "notes": "The final code's imports, CSS custom properties (`--media-slider-fill/buffer/pointer`), data attributes (`data-dragging`, `data-visible`), part/namespaced components (`Controls.Root`, `TimeSlider.{Root,Track,Buffer,Fill,Thumb}`, `VolumeSlider.*`, `Time.Value`), and Hotkey/Gesture action names (`togglePaused`, `toggleMuted`, `toggleFullscreen`, `seekStep`) all match the installed `@videojs/react` 10.0.0-beta.23 type surface. An early rung-1 import (`createPlayer` from `@videojs/react/video`) was a hallucination but Claude caught the runtime error and fixed it; rung-3 CSS overrides used `--media-color-primary` and `--media-surface-background-color`, which Claude verified actually exist in the published `skin.css`. Two factual errors persist in the final code: the MuteButton render prop reads a non-existent `state.volume` property (the library exposes `state.volumeLevel` instead), and an index.css selector targets a non-existent `data-captions='on'` attribute on the CaptionsButton (the library emits `data-active`)."
+}

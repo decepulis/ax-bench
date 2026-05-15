@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude used the monolithic VideoSkin component, hid the fullscreen button via CSS (`display: none` on `.media-button--fullscreen`), and injected the Share button into the rendered DOM via a React `createPortal` + `querySelector` + `MutationObserver` workaround. It did not reach for Video.js's composable primitives (`Controls.Root`, `MuteButton`, etc.) even though they were available in the same package.",
+  "evidence": "player.css adds `.media-default-skin--video .media-button--fullscreen { display: none; }`; App.tsx (rung-4 version, later overwritten by rung-5) injects via `document.querySelector('.media-controls .media-button--mute')` + `insertAdjacentElement('afterend', ...)` + `createPortal` inside a MutationObserver",
+  "prompted_to_eject": false,
+  "notes": "Task was completed behaviorally (console verified the `shared` log fired) but the rung-4 changes were entirely overwritten in rung-5 when Claude rewrote App.tsx using the composable primitives — so rung-5 demonstrates Claude knew the in-library-primitive path existed, but didn't take it for rung-4."
+}
+```

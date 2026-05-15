@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+mux-player::part(seek-backward),
+mux-player::part(seek-forward),
+mux-player::part(rendition),
+mux-player::part(audio-track),
+mux-player::part(airplay),
+mux-player::part(cast),
+mux-player::part(volume) {
+  display: none;
+}
+
+.yt-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 4px;
+  padding: 0 4px;
+  align-self: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

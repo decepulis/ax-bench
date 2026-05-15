@@ -1,0 +1,367 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ==========================================================================
+   YouTube-style player skin
+   ========================================================================== */
+
+.yt-player {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  color: #fff;
+  font-family:
+    Roboto, "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  isolation: isolate;
+  user-select: none;
+}
+
+.yt-player *,
+.yt-player *::before,
+.yt-player *::after {
+  box-sizing: border-box;
+}
+
+.yt-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.yt-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 200ms ease-out;
+}
+
+.yt-poster[data-visible="false"] {
+  opacity: 0;
+}
+
+/* Buffering spinner */
+.yt-buffering {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+}
+
+.yt-buffering[data-visible] {
+  opacity: 1;
+}
+
+.yt-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: yt-spin 0.8s linear infinite;
+}
+
+@keyframes yt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Bottom strip (gradient + progress + controls) */
+.yt-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.45) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding-top: 24px;
+  transition: opacity 150ms ease-out;
+}
+
+.yt-player:has(.yt-controls:not([data-visible])) .yt-bottom {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Progress bar (TimeSlider) */
+.yt-progress {
+  position: relative;
+  display: block;
+  height: 12px;
+  padding: 5px 12px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.yt-progress-track {
+  position: relative;
+  height: 3px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 1px;
+  overflow: visible;
+  transition: height 100ms ease-out;
+}
+
+.yt-progress:hover .yt-progress-track,
+.yt-progress[data-dragging] .yt-progress-track {
+  height: 5px;
+}
+
+.yt-progress-buffer,
+.yt-progress-fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.yt-progress-buffer {
+  background: rgba(255, 255, 255, 0.45);
+  width: var(--media-slider-buffer);
+}
+
+.yt-progress-fill {
+  background: #ff3e00;
+  width: var(--media-slider-fill);
+}
+
+.yt-progress-thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill);
+  translate: -50% -50%;
+  width: 13px;
+  height: 13px;
+  background: #ff3e00;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 100ms ease-out;
+  pointer-events: none;
+}
+
+.yt-progress:hover .yt-progress-thumb,
+.yt-progress[data-dragging] .yt-progress-thumb {
+  opacity: 1;
+}
+
+.yt-progress[data-dragging] .yt-progress-fill {
+  width: var(--media-slider-pointer);
+}
+
+.yt-progress[data-dragging] .yt-progress-thumb {
+  left: var(--media-slider-pointer);
+}
+
+/* Controls bar */
+.yt-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 4px;
+  color: #fff;
+}
+
+.yt-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+}
+
+.yt-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.yt-right {
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.yt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.95;
+  transition: opacity 100ms ease-out;
+  font: inherit;
+  flex-shrink: 0;
+}
+
+.yt-btn:hover {
+  opacity: 1;
+}
+
+.yt-btn:focus-visible {
+  outline: 2px solid #ff3e00;
+  outline-offset: -4px;
+}
+
+.yt-btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.yt-btn[data-availability="unavailable"],
+.yt-btn[data-availability="unsupported"] {
+  display: none;
+}
+
+.yt-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+}
+
+/* Icon visibility via state attributes */
+.yt-btn-play .yt-icon-pause,
+.yt-btn-play .yt-icon-restart,
+.yt-btn-play[data-ended] .yt-icon-play,
+.yt-btn-play[data-ended] .yt-icon-pause,
+.yt-btn-play[data-paused] .yt-icon-pause {
+  display: none;
+}
+
+.yt-btn-play:not([data-paused]):not([data-ended]) .yt-icon-play {
+  display: none;
+}
+
+.yt-btn-play:not([data-paused]):not([data-ended]) .yt-icon-pause {
+  display: block;
+}
+
+.yt-btn-play[data-ended] .yt-icon-restart {
+  display: block;
+}
+
+.yt-btn-mute .yt-icon-vol-off {
+  display: none;
+}
+
+.yt-btn-mute[data-muted] .yt-icon-vol-on {
+  display: none;
+}
+
+.yt-btn-mute[data-muted] .yt-icon-vol-off {
+  display: block;
+}
+
+.yt-btn-fs .yt-icon-fs-exit {
+  display: none;
+}
+
+.yt-btn-fs[data-fullscreen] .yt-icon-fs-enter {
+  display: none;
+}
+
+.yt-btn-fs[data-fullscreen] .yt-icon-fs-exit {
+  display: block;
+}
+
+/* Time display */
+.yt-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.yt-time time {
+  font: inherit;
+}
+
+.yt-time-sep {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.yt-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  margin-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* Captions button: "CC" label with active underline */
+.yt-btn-cc .yt-cc-text {
+  position: relative;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.yt-btn-cc[data-active] .yt-cc-text::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  bottom: -4px;
+  height: 2px;
+  background: #fff;
+}
+
+/* Playback rate button (renders "1×" via data-rate) */
+.yt-btn-rate {
+  width: auto;
+  min-width: 36px;
+  padding: 0 8px;
+}
+
+.yt-btn-rate::after {
+  content: attr(data-rate) "×";
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
