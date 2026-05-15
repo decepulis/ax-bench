@@ -1,4 +1,4 @@
-**Task 2 of 5:**
+{{LIBRARY_DOCS_HINT}}**Task 2 of 5:**
 
 Update the player you just built:
 
@@ -8,4 +8,3 @@ Update the player you just built:
 - Before the video plays, show an image from the beginning of the video as a preview.
 
 Let me know when you're done.
-{{LIBRARY_DOCS_HINT}}

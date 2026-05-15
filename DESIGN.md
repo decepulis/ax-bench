@@ -119,6 +119,30 @@ Shifts the test from *"does the agent remember Video.js 10 exists?"* (dominated 
 
 **Asymmetry note:** the mux-player line is harmless reinforcement (Claude already finds the right package); the video-js line is load-bearing. We accept this asymmetry as a known concession to keep the run testing Video.js 10 instead of Video.js 8. Same blog-post footnote as the docs URL — the upstream fix (npm meta-package or similar) makes this hint unnecessary.
 
+### WITH_DOCS ablation condition
+
+**Goal:** test whether *handing Claude the docs URL on every rung* changes behavior vs. the baseline (where rung 1 alone mentions the URL). The hope was a clean A/B: same task, same primer, only difference is whether the docs URL is dangled on rungs 2–5 as well.
+
+**Mechanism (v1, May 2026):** when `WITH_DOCS=1`, every rung template's trailing `{{LIBRARY_DOCS_HINT}}` placeholder is replaced with a soft footer:
+
+```
+> See: <docs URL> for the library's documentation.
+```
+
+Off (`WITH_DOCS=0`), the placeholder collapses to empty and rungs are byte-identical to baseline. Two new conditions wired up: `video-js-with-docs` and `mux-player-with-docs`. Runs land in `runs/<label>/<condition>_run-<i>/`.
+
+**May 2026 result: operationally inert.** Across `N5-with-docs` (10 cells), 9/10 made zero `WebFetch` / `WebSearch` calls. The 1 cell that did fetch (`mux-player-with-docs_run-2`) got back wrong CSS-variable info and ejected to shadow-DOM piercing anyway. Findings comparable to the no-docs May baseline within noise.
+
+**Why the soft footer can't compete:** the workspace already ships `node_modules/<lib>/**/*.d.ts` (Claude greps these freely) and, for mux, the bundled gerwig theme CSS source. Given a free local oracle and a paid network round-trip, Claude rationally picks the local one for "what's the API surface." A footer-style URL with no imperative phrasing doesn't shift that tradeoff. **Lesson:** a hint that *invites* WebFetch can't beat a type-surface that *enables* grep.
+
+**Mechanism (v2):** keep the URL-only delivery (no inline docs injection yet) but flip the framing from soft-footer to imperative-pre-task. Every rung template now leads with the `{{LIBRARY_DOCS_HINT}}` placeholder; when `WITH_DOCS=1` it expands to:
+
+```
+> Before writing any code, fetch <docs URL>. It is the authoritative reference for this library at the version you have installed.
+```
+
+Tests a narrower question than v1: *given an explicit instruction to fetch the docs, does Claude do it — and if so, does that change output quality?* If v2 is still inert, the next move is inline-injecting a curated docs excerpt (so the docs land in context regardless of WebFetch).
+
 ## What this test does NOT do
 
 - Compare multiple frameworks (Next.js, Remix, SvelteKit, vanilla HTML) — Vite only.

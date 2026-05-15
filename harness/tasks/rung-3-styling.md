@@ -1,4 +1,4 @@
-**Task 3 of 5:**
+{{LIBRARY_DOCS_HINT}}**Task 3 of 5:**
 
 Style the player:
 
@@ -6,4 +6,3 @@ Style the player:
 - Give the control bar a semi-transparent black background: `rgba(0, 0, 0, 0.5)`.
 
 Let me know when you're done.
-{{LIBRARY_DOCS_HINT}}

@@ -1,4 +1,4 @@
-This is a Vite + React + TypeScript project. Your job across a series of tasks is to build a working video player here. Each task will build on the work you've done so far.
+{{LIBRARY_DOCS_HINT}}This is a Vite + React + TypeScript project. Your job across a series of tasks is to build a working video player here. Each task will build on the work you've done so far.
 
 **Task 1 of 5:**
 
@@ -15,4 +15,3 @@ The player should render on page load, and the video should be playable.
 > Docs: {{LIBRARY_DOCS_URL}}
 
 When you're done, tell me and I'll check your work before we move on.
-{{LIBRARY_DOCS_HINT}}

@@ -71,13 +71,16 @@ if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) {
 const libraryLabel = LIBRARY_LABEL[LIBRARY];
 const libraryDocsUrl = LIBRARY_DOCS[LIBRARY];
 const libraryNote = LIBRARY_NOTE[LIBRARY];
-// Soft docs hint repeated on every rung when WITH_DOCS=1. Off by default to
-// keep the baseline condition unchanged. The rung-1 prompt already mentions
-// the URL inline (training-cutoff patch), so this hint only adds value on
-// rungs 2-5 — but the same `{{LIBRARY_DOCS_HINT}}` placeholder is appended
-// to all rung templates for consistency, and is empty in the off condition.
+// Imperative docs hint prefixed to every rung when WITH_DOCS=1. Off by
+// default to keep the baseline condition unchanged. v1 of this hint was a
+// soft trailing footer (`> See: <URL> for the library's documentation.`);
+// May 2026's N5-with-docs run showed 9/10 cells made zero WebFetch calls,
+// so the hint was operationally inert (see DESIGN.md). v2 moves it to the
+// top of each rung and phrases it imperatively to push Claude past the
+// "local .d.ts is cheaper than a network call" default. The placeholder
+// is empty in the off condition so baseline rungs stay byte-identical.
 const libraryDocsHint = WITH_DOCS
-  ? `\n> See: ${libraryDocsUrl} for the library's documentation.\n`
+  ? `> Before writing any code, fetch ${libraryDocsUrl}. It is the authoritative reference for this library at the version you have installed.\n\n`
   : '';
 
 async function log(line: string) {
