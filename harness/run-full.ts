@@ -1,18 +1,21 @@
 /**
- * Full N=5 runner: 5 runs × 2 conditions = 10 cells.
+ * Full runner: N runs × C conditions = N×C cells. Defaults to N=5, 2
+ * conditions = 10 cells. Override with `--n` and/or `--conditions`.
  *
- * Cells run in 2 batches of 5 in parallel (not all 10 at once, not pairs of 2):
+ * Cells run in parallel batches capped at 5 (not all-at-once, not pairs of 2):
  *
- * - All 10 in parallel risks Claude API rate limits and stresses the laptop
- *   (10 Docker containers + 20 MCP subprocesses). Token spend on a bad
- *   build would also be unrecoverable — every cell fires before any signal.
- * - Batches of 2 (pilot pattern × 5) is safe but ~100min wall time.
- * - Batches of 5 halves wall time vs the pilot pattern (~40min total) while
- *   giving us a checkpoint between batches: if batch 1 surfaces a regression,
- *   we haven't burned the back half of the run.
+ * - All cells in parallel risks Claude API rate limits and stresses the laptop
+ *   (one Docker container + ~2 MCP subprocesses per cell). Token spend on a
+ *   bad build would also be unrecoverable — every cell fires before any signal.
+ * - Batches of 2 (pilot pattern) is safe but very slow on N=5 (~100min wall).
+ * - Batches of 5 halve wall time vs the pilot pattern while giving us a
+ *   checkpoint between batches: if batch 1 surfaces a regression, we haven't
+ *   burned the back half of the run.
  *
- * Each batch is a balanced 3/2 split of the two conditions so library-specific
- * issues show up in the first batch, not just the second.
+ * Cells are split into ceil(total / 5) batches sized as evenly as possible —
+ * so 6 cells run as 3+3, not 5+1 — and the interleaved cell order keeps each
+ * batch balanced across conditions so library-specific issues surface in
+ * batch 1, not just batch 2.
  *
  * Output lands in runs/<label>/.
  *
@@ -24,6 +27,7 @@
  *     --cells video-js:3,video-js:4,mux-player:2
  *   tsx harness/run-full.ts --label N5-with-docs \                  # run only the with-docs arms
  *     --conditions video-js-with-docs,mux-player-with-docs
+ *   tsx harness/run-full.ts --label N3 --n 3                         # override default N=5
  *
  * Cells that exit with code 3 (api-error halt — rate-limit, overload) abort
  * the whole run: no subsequent batches, no judges, no synthesis. See
@@ -49,7 +53,17 @@ function parseLabel(): string {
   return parseFlag('--label') ?? new Date().toISOString().replace(/:/g, '-').replace(/\.\d+Z$/, 'Z');
 }
 
-const N = 5;
+const N = parseN();
+
+function parseN(): number {
+  const raw = parseFlag('--n');
+  if (!raw) return 5;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 1) {
+    throw new Error(`bad --n value "${raw}" — must be a positive integer`);
+  }
+  return n;
+}
 // All known conditions. `--conditions` filters this list per-run; the
 // default selection is the two baseline conditions so existing invocations
 // are unchanged. "-with-docs" variants flip WITH_DOCS=1 in the container,
@@ -77,6 +91,24 @@ function parseConditions(): readonly Condition[] {
     }
   }
   return list as Condition[];
+}
+
+/**
+ * Distribute cells into ceil(total/maxBatchSize) batches sized as evenly as
+ * possible, preserving order. For 10 cells, maxBatchSize 5 → [5, 5]. For 6
+ * cells, maxBatchSize 5 → [3, 3] (not [5, 1]). Combined with interleaved cell
+ * order this keeps each batch balanced across conditions.
+ */
+function splitIntoBatches<T>(items: readonly T[], maxBatchSize: number): T[][] {
+  if (items.length === 0) return [];
+  const batchCount = Math.ceil(items.length / maxBatchSize);
+  const batches: T[][] = [];
+  for (let i = 0; i < batchCount; i++) {
+    const start = Math.floor((i * items.length) / batchCount);
+    const end = Math.floor(((i + 1) * items.length) / batchCount);
+    batches.push(items.slice(start, end));
+  }
+  return batches;
 }
 
 function buildCells(rootDir: string, conditions: readonly Condition[]): Cell[] {
@@ -176,11 +208,7 @@ async function main() {
     }
   }
 
-  const batchSize = 5;
-  const batches: Cell[][] = [];
-  for (let i = 0; i < cells.length; i += batchSize) {
-    batches.push(cells.slice(i, i + batchSize));
-  }
+  const batches = splitIntoBatches(cells, 5);
 
   let aborted = false;
   for (let i = 0; i < batches.length; i++) {
