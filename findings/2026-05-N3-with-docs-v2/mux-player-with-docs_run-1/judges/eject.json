@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid the fullscreen button via Mux's documented `--bottom-fullscreen-button: none` CSS variable, but added the Share button by piercing two levels of shadow DOM (`mux-player` → `media-theme` → `media-volume-range`) with a useEffect + MutationObserver to inject a raw `<button>`. Did not install Media Chrome or any other package.",
+  "evidence": "App.tsx: `const theme = player.shadowRoot?.querySelector('media-theme'); const root = theme?.shadowRoot; ... volume.insertAdjacentElement('afterend', btn);`",
+  "prompted_to_eject": false,
+  "notes": "Claude consulted Mux docs via WebFetch (with-docs condition) and concluded no slot exists between volume and the menus, then chose shadow-DOM injection rather than installing Media Chrome. Task behaviorally passed but used the wrong abstraction — the architectural signal to eject was ignored."
+}
+```

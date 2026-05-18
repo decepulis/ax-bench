@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "details": {
+    "exists": true,
+    "src": "https://stream.mux.com/BV3YZtogl89mg9VcNBhhnHm02Y34zI1nlMuMQfAbl3dM.m3u8",
+    "readyState": 3,
+    "networkState": 2,
+    "duration": 35.95354,
+    "paused": true
+  },
+  "exitCode": 0
+}

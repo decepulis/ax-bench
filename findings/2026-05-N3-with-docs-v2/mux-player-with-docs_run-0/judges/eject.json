@@ -1,0 +1,11 @@
+Based on the transcript and code review, Claude stayed inside `@mux/mux-player-react` and did not install media-chrome. The Share button was injected by piercing the shadow DOM via a ref and calling `insertAdjacentElement` on the internal `media-control-bar`. Fullscreen was hidden using the legitimate `--fullscreen-button: none` CSS variable, but the Share button itself is a shadow-DOM hack rather than the recommended Media Chrome compose-from-primitives eject path.
+
+```json
+{
+  "decision": "library-hack",
+  "description": "Hid fullscreen via Mux Player's `--fullscreen-button: none` CSS variable (legitimate API), but added the Share button by piercing the player's shadow DOM with a ref and injecting a button next to `media-volume-range` inside the internal `media-control-bar`. Did not install Media Chrome.",
+  "evidence": "rung-4.jsonl:87 — \"For the Share button, since Mux Player has no documented control-bar slot, I'll insert it into the shadow control bar via a ref — this is the established pattern for placing custom controls beside built-in ones.\"",
+  "prompted_to_eject": false,
+  "notes": "package.json shows only @mux/mux-player-react — no media-chrome installed. Claude explicitly identified that Mux Player exposes no slot for control-bar additions but chose shadow-DOM injection over the documented eject path (build a custom theme / use Media Chrome primitives). Behavioral goal achieved and verified end-to-end (click → console 'shared'; fullscreen display:none)."
+}
+```

@@ -1,0 +1,16 @@
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 5,
+      "turn": 62,
+      "kind": "other",
+      "claim": "CSS selectors `:has(video[data-playing])` and `:has(video:not([data-paused]))` in src/index.css assume that the underlying <video> element rendered by <HlsVideo> exposes `data-playing` and `data-paused` attributes for poster-visibility styling.",
+      "reality": "The @videojs/react library does not set `data-playing` or `data-paused` on the underlying <video> element. Those data attributes are set on the PlayButton element (stateAttrMap `paused: 'data-paused'`, `ended: 'data-ended'`, `started: 'data-started'` in @videojs/html/dist/dev/ui/play-button/play-button-element.d.ts). The Poster component itself exposes `data-visible` (poster-element.d.ts `stateAttrMap: { visible: 'data-visible' }`) which is the documented mechanism for poster visibility. The CSS rules therefore target attributes that never appear on the <video> tag and act as no-ops.",
+      "evidence": "rung-5.jsonl L62, Write of src/index.css: \"/* Hide the React-rendered poster once playback starts */\\n.yt:has(video[data-playing]) .yt__poster,\\n.yt:has(video:not([data-paused])) .yt__poster {\\n  opacity: 0;\\n}\". Verified against types/node_modules/@videojs/html/dist/dev/ui/play-button/play-button-element.d.ts (data-paused mapped to play button) and poster-element.d.ts (Poster exposes data-visible)."
+    }
+  ],
+  "total": 1,
+  "notes": "Audit verified all imports (`@videojs/react`, `@videojs/react/video`, `@videojs/react/media/hls-video`), every imported component name (AlertDialog, BufferingIndicator, CaptionsButton, Container, Controls, ErrorDialog, FullscreenButton, Gesture, Hotkey, MuteButton, PiPButton, PlayButton, Popover, Poster, SeekButton, Slider, Time, TimeSlider, Tooltip, VolumeSlider, createPlayer, videoFeatures, HlsVideo), and every prop (`render`, `seconds`, `keys`, `action`, `value`, `type`, `pointer`, `region`, `side`, `openOnHover`, `delay`, `closeDelay`, `src`) against the bundled .d.ts files in types/node_modules. The Gesture/Hotkey action strings (`togglePaused`, `toggleControls`, `toggleFullscreen`, `toggleMuted`, `seekStep`, `volumeStep`) are valid (verified via videojs.org/docs/framework/react/concepts/skins). CSS custom properties `--media-slider-fill` and `--media-slider-buffer` are real (observed live on the Slider root via the chrome-devtools MCP probe and confirmed in the slider docs). All `data-*` selectors on buttons match the framework's stateAttrMap (data-paused/data-ended on PlayButton, data-muted/data-volume-level on MuteButton including all four values off/low/medium/high, data-active on CaptionsButton, data-pip on PiPButton, data-fullscreen on FullscreenButton, data-availability on multiple buttons, data-visible on Controls/BufferingIndicator/Poster, data-dragging/data-orientation on Slider). The one finding is a CSS poster-hiding rule that targets `data-playing`/`data-paused` on the <video> element — attributes the library never sets there — though it does not break TypeScript or runtime and is closer to a buggy selector than an API claim."
+}
+```

@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark translucent control bar with red progress fill and white icons — matches YouTube's palette",
+    "typography": "Small white sans-serif time/title text, similar weight and scale to reference",
+    "notes": "Control bar layout closely mirrors YouTube: left cluster has play, volume, time, and title text; right cluster has captions, settings, mini/theater, and fullscreen icons, all over a red progress bar. Missing the prominent '2016' style title overlay and the Mux-style watermark area in the bottom-right of the video frame, but the chrome itself reads convincingly as YouTube at a glance."
+  }
+}
+```

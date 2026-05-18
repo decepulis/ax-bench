@@ -1,0 +1,39 @@
+{
+  "perJudge": {
+    "hallucinations": {
+      "inputTokens": 49,
+      "outputTokens": 16455,
+      "cacheCreationInputTokens": 90031,
+      "cacheReadInputTokens": 1686645,
+      "totalCostUsd": 6.334050500000002
+    },
+    "eject": {
+      "inputTokens": 16,
+      "outputTokens": 4842,
+      "cacheCreationInputTokens": 30365,
+      "cacheReadInputTokens": 378406,
+      "totalCostUsd": 0.50144625
+    },
+    "visualFidelity": {
+      "inputTokens": 6,
+      "outputTokens": 619,
+      "cacheCreationInputTokens": 9763,
+      "cacheReadInputTokens": 45058,
+      "totalCostUsd": 0.10002175
+    },
+    "summarizer": {
+      "inputTokens": 19,
+      "outputTokens": 6450,
+      "cacheCreationInputTokens": 27254,
+      "cacheReadInputTokens": 526467,
+      "totalCostUsd": 1.442801
+    }
+  },
+  "totals": {
+    "inputTokens": 90,
+    "outputTokens": 28366,
+    "cacheCreationInputTokens": 157413,
+    "cacheReadInputTokens": 2636576,
+    "totalCostUsd": 8.378319500000002
+  }
+}

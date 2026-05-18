@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude hid fullscreen with the documented `--fullscreen-button: none` CSS variable, but added the Share button by dropping a raw `<button>` as a child of `<MuxPlayer>`, relying on undocumented pass-through to the underlying media-controller's default slot rather than installing Media Chrome. The button fires the console.log, but the a11y snapshot shows it landing in a generic container at the top of the player — not next to the volume control as required.",
+  "evidence": "Transcript L79: \"Child elements without a slot pass through into `media-controller`'s default slot (the bottom-chrome layer), which renders them at the bottom of the player near the volume control area.\" Final package.json shows only `@mux/mux-player-react` — no `media-chrome` was installed.",
+  "prompted_to_eject": false,
+  "notes": "Claude spent ~15 WebFetch/grep calls searching for a Mux Player slot for custom buttons, confirmed only `poster` is documented, then chose to exploit the underlying media-controller default slot instead of ejecting to Media Chrome. Spatial requirement ('next to volume control') is not met — snapshot shows Share at uid=1_5 in a top-level generic, with the volume slider at uid=1_13."
+}
+```

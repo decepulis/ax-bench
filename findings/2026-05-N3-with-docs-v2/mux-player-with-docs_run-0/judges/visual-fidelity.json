@@ -1,0 +1,20 @@
+```json
+{
+  "score": 1,
+  "rubric": {
+    "structural": {
+      "progress_bar": false,
+      "play_button": false,
+      "volume_control": false,
+      "settings_cog": false,
+      "fullscreen_button": false,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark page background with a small letterboxed video; no YouTube red or chrome visible.",
+    "typography": "Generic sans-serif 'ax-bench' heading; no YouTube-style label typography in any control bar.",
+    "notes": "The final screenshot shows only a loading spinner over a small, letterboxed video with an 'ax-bench' heading above it. No control bar, progress bar, or YouTube-style chrome is rendered, so it does not read as a YouTube player at all."
+  }
+}
+```

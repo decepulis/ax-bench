@@ -1,0 +1,241 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.yt-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  font-size: 13px;
+  color: #fff;
+}
+
+.yt-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.yt-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out;
+}
+.yt-poster:not([data-visible]) {
+  opacity: 0;
+}
+
+.yt-gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 90px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+.yt-player:has(.yt-controls[data-visible]) .yt-gradient {
+  opacity: 1;
+}
+
+.yt-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+  z-index: 10;
+}
+.yt-controls[data-visible] {
+  opacity: 1;
+}
+
+/* ---------- Progress bar ---------- */
+
+.yt-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 12px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.yt-progress__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: height 0.1s ease-out;
+}
+
+.yt-progress:hover .yt-progress__track {
+  height: 5px;
+}
+
+.yt-progress__buffer {
+  position: absolute;
+  inset: 0;
+  width: var(--media-slider-buffer, 0%);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.yt-progress__fill {
+  position: absolute;
+  inset: 0;
+  width: var(--media-slider-fill, 0%);
+  background: #f00;
+}
+
+.yt-progress__thumb {
+  position: absolute;
+  left: var(--media-slider-fill, 0%);
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #f00;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.1s ease-out;
+}
+
+.yt-progress:hover .yt-progress__thumb {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ---------- Controls row ---------- */
+
+.yt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  height: 40px;
+}
+
+.yt-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.yt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  outline: none;
+}
+
+.yt-btn:hover {
+  opacity: 1;
+}
+
+.yt-btn:hover .yt-icon {
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+.yt-icon {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+}
+
+/* Toggle icon visibility based on state */
+
+.yt-btn--play[data-paused] .yt-icon--pause,
+.yt-btn--play:not([data-paused]) .yt-icon--play {
+  display: none;
+}
+
+.yt-btn--mute[data-muted] .yt-icon--vol-on,
+.yt-btn--mute:not([data-muted]) .yt-icon--vol-off {
+  display: none;
+}
+
+.yt-btn--fs[data-fullscreen] .yt-icon--fs-enter,
+.yt-btn--fs:not([data-fullscreen]) .yt-icon--fs-exit {
+  display: none;
+}
+
+/* CC button — text-style with underline on active */
+
+.yt-btn--cc {
+  width: auto;
+  padding: 0 8px;
+}
+
+.yt-cc {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid transparent;
+  line-height: 1.2;
+  padding-bottom: 1px;
+}
+
+.yt-btn--cc[data-active] .yt-cc {
+  border-bottom-color: #fff;
+}
+
+/* Time + title */
+
+.yt-time {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 5px;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+.yt-time time {
+  font-variant-numeric: tabular-nums;
+}
+
+.yt-time__sep {
+  margin: 0 2px;
+  opacity: 0.85;
+}
+
+.yt-title {
+  margin-left: 12px;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}

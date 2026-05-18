@@ -1,0 +1,16 @@
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 4,
+      "turn": 88,
+      "kind": "css-var",
+      "claim": "`--media-fullscreen-button` is the standard media-chrome CSS variable that hides the fullscreen button; used in code as `style={{ \"--media-fullscreen-button\": \"none\", \"--fullscreen-button\": \"none\" } as React.CSSProperties}`",
+      "reality": "media-chrome and Mux Player do not publish a `--media-fullscreen-button` CSS variable. The real media-chrome variable is `--media-fullscreen-button-display`; Mux Player's shorthand is `--fullscreen-button` (which it maps internally to `--media-fullscreen-button-display`). Verified against muxinc/elements packages/mux-player/src/styles.css and muxinc/media-chrome src/js/media-fullscreen-button.ts.",
+      "evidence": "rung-4 line 87 text: \"Confirmed: `--media-fullscreen-button` is the standard media-chrome var but doesn't apply here. `--media-fullscreen-button` displays as `flex` (no effect).\" — and rung-4 line 88 Write tool wrote `style={{ \"--media-fullscreen-button\": \"none\", \"--fullscreen-button\": \"none\" } as React.CSSProperties}`. (https://github.com/muxinc/elements/blob/main/packages/mux-player/src/styles.css)"
+    }
+  ],
+  "total": 1,
+  "notes": "The final code in workspace/src/App.tsx uses only real API surface: import paths `@mux/mux-player-react` (default `MuxPlayer`) and `@mux/mux-player` (default `MuxPlayerElement`), props `playbackId`, `muted`, `loop`, `autoPlay`, `thumbnailTime`, `accentColor`, `title`, and `style` are all declared in mux-player-react's types.d.ts; CSS custom properties `--seek-backward-button`, `--seek-forward-button`, `--rendition-menu-button`, `--playback-rate-button`, `--audio-track-menu-button`, `--airplay-button`, `--cast-button` are all defined in Mux Player's styles.css, and `--media-control-bar-display` is published by media-chrome's media-control-bar element. The shadow-DOM custom elements queried (`media-theme`, `media-volume-range`, `media-time-display`) are real media-chrome elements. The one hallucination occurred in rung 4 where Claude asserted `--media-fullscreen-button` is a standard media-chrome variable and shipped it into the file even after observing in a probe script that it had no effect; rung 5 later rewrote the file and the bogus variable no longer appears in the final code, but the false API claim and its use in committed code in rung 4 still qualify."
+}
+```

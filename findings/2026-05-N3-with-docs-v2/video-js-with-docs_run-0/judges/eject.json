@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the default VideoSkin and worked around it: hid fullscreen with a CSS `display: none` rule (boosting specificity to beat skin.css), then injected a Share button via `createPortal` into a `<span style=\"display:contents\">` it manually inserted after `.media-button--mute` in the library's internal DOM.",
+  "evidence": "rung-4.jsonl line 19: \"I'll go with a surgical approach: hide fullscreen via CSS, and inject the Share button next to the volume control using a portal (the docs note VideoSkin doesn't expose slots, but writing a full custom skin from scratch would require replacing ~300 lines and loses the bundled icon set since `@videojs/react/icons/*` isn't a public export).\"",
+  "prompted_to_eject": false,
+  "notes": "WebFetch on videojs.org explicitly told Claude the right path was to 'build your own skin using lower-level primitives' and omit FullscreenButton. Claude rejected that path citing icon-import cost and instead chose CSS + DOM-portal workarounds — a textbook library-hack. (Note: rung-5 later did rebuild a custom YTSkin from primitives, so the workspace files now reflect the rung-5 state, not rung-4's output.)"
+}
+```

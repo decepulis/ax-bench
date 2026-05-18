@@ -1,0 +1,11 @@
+The Edit calls confirm the approach. Now I'll output the classification.
+
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept the monolithic VideoSkin in place and worked around it: a ShareButton React component uses document.querySelector('.media-button--mute') + createPortal to inject a button into the rendered VideoSkin DOM, and the fullscreen button is hidden via a CSS display:none rule (later bumped with doubled-class specificity). The docs returned by WebFetch explicitly said VideoSkin has no slots/render props and that you must compose primitives like Controls.Root/MuteButton/etc., but Claude chose DOM-piercing + CSS instead of restructuring.",
+  "evidence": "src/App.tsx ShareButton: `const mute = document.querySelector('.media-button--mute'); ... mute.insertAdjacentElement('afterend', slot); ... createPortal(<button ... onClick={() => console.log('shared')}>Share</button>, host)` and src/index.css: `.media-default-skin--video .media-button--fullscreen.media-button--fullscreen { display: none; }`",
+  "prompted_to_eject": false,
+  "notes": "The docs tool result early in the transcript explicitly recommended the in-library-primitive path (`Bottom line: VideoSkin is a complete, pre-built skin. For layout customization, use the lower-level primitives to assemble your own controls bar.`) — Claude saw this guidance and still chose the DOM/CSS hack route. The fully-primitive App.tsx now in the workspace is the cumulative state after rung 5, not what rung 4 produced."
+}
+```

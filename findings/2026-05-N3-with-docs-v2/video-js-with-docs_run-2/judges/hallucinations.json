@@ -1,0 +1,14 @@
+{
+  "hallucinations": [
+    {
+      "rung": 5,
+      "turn": 30,
+      "kind": "other",
+      "claim": "Poster emits a `data-hidden` attribute when not visible — used as the selector `.yt-player .yt-poster[data-hidden] { display: none; }` in `src/player.css`.",
+      "reality": "The Poster web component only exposes the `data-visible` data attribute (per `PosterDataAttrs = { visible: 'data-visible' }` in `@videojs/core/dist/dev/core/ui/poster/poster-data-attrs.d.ts`). There is no `data-hidden` attribute, so the selector never matches and the Poster never auto-hides.",
+      "evidence": "src/player.css:32 `.yt-player .yt-poster[data-hidden] { display: none; }`. Ground truth: `types/node_modules/.pnpm/@videojs+core@10.0.0-beta.23_*/node_modules/@videojs/core/dist/dev/core/ui/poster/poster-data-attrs.d.ts` lists only `readonly visible: 'data-visible'`."
+    }
+  ],
+  "total": 1,
+  "notes": "Across the five rungs, Claude was disciplined about reading `.d.ts` and dist CSS before asserting API surface — most candidate hallucinations (an invented `--media-slider-thumb` CSS var, an unused `Slider` import) were self-corrected within the same rung and do not count. All component imports from `@videojs/react` and `@videojs/react/video` (including `videoFeatures`), the namespace APIs (`TimeSlider.Root/Track/Buffer/Fill/Thumb`, `VolumeSlider.Root/Track/Fill/Thumb`, `Controls.Root`, `Time.Value`), the Hotkey/Gesture `action`/`type`/`pointer`/`region` values used, `Time.Value type=\"current|duration\"`, and the CSS variables `--media-slider-fill` / `--media-slider-buffer` all match the installed types. The single surviving factual error is the `[data-hidden]` attribute selector used to auto-hide the Poster in `player.css` — the real attribute is `data-visible`, so the rule is dead. The visual impact is masked because the same component receives an explicit `alt=\"\"` and a sibling `<Video>` covers it, but the underlying API claim is wrong."
+}

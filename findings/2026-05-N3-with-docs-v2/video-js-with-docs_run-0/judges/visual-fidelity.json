@@ -1,0 +1,19 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": true,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark chrome with red progress fill and white icons — matches YouTube",
+    "typography": "Small sans-serif white text for title and time, consistent with YouTube",
+    "notes": "Control bar layout closely mirrors YouTube: left cluster (play, volume, time, title) and right cluster (CC, settings, mini-player, fullscreen) with a red scrubber above. Minor divergences include slightly tighter spacing and a less prominent volume slider on hover, but at a glance it reads convincingly as a YouTube-style player."
+}
+```

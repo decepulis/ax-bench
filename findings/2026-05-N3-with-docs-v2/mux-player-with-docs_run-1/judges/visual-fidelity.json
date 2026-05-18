@@ -1,0 +1,20 @@
+```json
+{
+  "score": 1,
+  "rubric": {
+    "structural": {
+      "progress_bar": false,
+      "play_button": false,
+      "volume_control": false,
+      "settings_cog": false,
+      "fullscreen_button": false,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark gray page background with a black-letterboxed video area; no YouTube-style chrome colors visible.",
+    "typography": "Light sans-serif 'ax-bench' heading; no control labels or timecode typography present.",
+    "notes": "The screenshot shows only a loading spinner on a partially-rendered video — no control bar, no progress scrubber, no buttons of any kind. None of YouTube's structural elements appear, so the result does not read as YouTube-like at all."
+  }
+}
+```

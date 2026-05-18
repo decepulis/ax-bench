@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept VideoSkin (the closed preset) and worked around it: hid the fullscreen button with a specificity-bumped CSS rule and injected a Share button into the library's internal DOM via a React createPortal targeting `.media-button-group` after `.media-button--mute`. The docs Claude had just fetched explicitly recommended composing primitives under Controls.Root instead.",
+  "evidence": "transcript rung-4.jsonl: 'Plan: keep VideoSkin, hide fullscreen via CSS, and inject a Share button into the volume's button-group using a React portal. Cleaner than re-implementing the entire skin.'",
+  "prompted_to_eject": false,
+  "notes": "Claude explicitly identified the in-library-primitive path (read VideoSkin source, noted 'the right approach is to compose my own controls layout') but rejected it as too much work and chose the hack. CSS rule used was `.media-default-skin .media-button--fullscreen.media-button { display: none }` — a specificity workaround. The share button click does fire console.log('shared'), so the behavioral goal is met. Note: the rung-4 final state differs from the workspace shown — a subsequent rung-5 appears to have rewritten App.tsx with the primitive composition approach."
+}
+```

@@ -1,0 +1,324 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ---------- player container ---------- */
+.yt {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  font-feature-settings: 'tnum';
+  --yt-accent: #ff3e00;
+}
+
+.yt video,
+.yt .yt__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.yt .yt__poster {
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 200ms;
+}
+/* Hide the React-rendered poster once playback starts */
+.yt:has(video[data-playing]) .yt__poster,
+.yt:has(video:not([data-paused])) .yt__poster {
+  opacity: 0;
+}
+
+/* ---------- buffering ---------- */
+.yt__buffering {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  pointer-events: none;
+  color: #fff;
+}
+.yt__buffering:not([data-visible]) { display: none; }
+
+/* ---------- error dialog ---------- */
+.yt__error {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  text-align: center;
+  gap: 0.5rem;
+}
+.yt__error-title { font-size: 1rem; font-weight: 600; margin: 0; }
+.yt__error-desc { font-size: 0.85rem; color: #ccc; margin: 0; }
+.yt__error-close {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: var(--yt-accent);
+  color: #fff;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* ---------- controls bar ---------- */
+.yt__controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 0 12px 4px;
+  color: #fff;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.55) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.yt__controls:not([data-visible]) {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+}
+
+/* ---------- progress bar ---------- */
+.yt__progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+  touch-action: none;
+}
+.yt__progress-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 1.5px;
+  overflow: hidden;
+  transition: height 100ms;
+}
+.yt__progress:hover .yt__progress-track {
+  height: 5px;
+}
+.yt__progress-buffer {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.45);
+  transform-origin: left;
+  width: var(--media-slider-buffer, 0%);
+}
+.yt__progress-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--yt-accent);
+  width: var(--media-slider-fill, 0%);
+}
+.yt__progress-thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill, 0%);
+  width: 13px;
+  height: 13px;
+  margin-left: -6.5px;
+  margin-top: -6.5px;
+  background: var(--yt-accent);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 100ms;
+}
+.yt__progress:hover .yt__progress-thumb,
+.yt__progress[data-dragging] .yt__progress-thumb {
+  opacity: 1;
+}
+
+/* ---------- bottom bar (buttons + time) ---------- */
+.yt__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  gap: 4px;
+}
+.yt__group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ---------- generic button ---------- */
+.yt__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: opacity 100ms;
+  -webkit-tap-highlight-color: transparent;
+}
+.yt__btn:hover { opacity: 0.85; }
+.yt__btn:focus-visible { outline: 2px solid var(--yt-accent); outline-offset: -4px; }
+.yt__btn[disabled] { opacity: 0.4; cursor: default; }
+.yt__icon { display: block; }
+
+/* state-driven icon swap: hide all, then show the one matching the button's data-* */
+.yt__btn .yt__icon--restart,
+.yt__btn .yt__icon--play,
+.yt__btn .yt__icon--pause,
+.yt__btn .yt__icon--vol-off,
+.yt__btn .yt__icon--vol-low,
+.yt__btn .yt__icon--vol-high,
+.yt__btn .yt__icon--cc-off,
+.yt__btn .yt__icon--cc-on,
+.yt__btn .yt__icon--pip-enter,
+.yt__btn .yt__icon--pip-exit,
+.yt__btn .yt__icon--fs-enter,
+.yt__btn .yt__icon--fs-exit {
+  display: none;
+}
+
+.yt__btn--play[data-ended] .yt__icon--restart,
+.yt__btn--play:not([data-ended])[data-paused] .yt__icon--play,
+.yt__btn--play:not([data-paused]):not([data-ended]) .yt__icon--pause,
+
+.yt__btn--mute[data-muted] .yt__icon--vol-off,
+.yt__btn--mute:not([data-muted])[data-volume-level="off"] .yt__icon--vol-off,
+.yt__btn--mute:not([data-muted])[data-volume-level="low"] .yt__icon--vol-low,
+.yt__btn--mute:not([data-muted])[data-volume-level="medium"] .yt__icon--vol-high,
+.yt__btn--mute:not([data-muted])[data-volume-level="high"] .yt__icon--vol-high,
+
+.yt__btn[data-active] .yt__icon--cc-on,
+.yt__btn:not([data-active]) .yt__icon--cc-off,
+
+.yt__btn[data-pip] .yt__icon--pip-exit,
+.yt__btn:not([data-pip]) .yt__icon--pip-enter,
+
+.yt__btn[data-fullscreen] .yt__icon--fs-exit,
+.yt__btn:not([data-fullscreen]) .yt__icon--fs-enter {
+  display: block;
+}
+
+/* When the underlying capability isn't available, fade the button rather than hide it */
+.yt__btn[data-availability="unavailable"] {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ---------- volume row (hover-expanding slider) ---------- */
+.yt__volume {
+  display: inline-flex;
+  align-items: center;
+}
+.yt__vol-popup {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 8px;
+  background: transparent;
+}
+.yt__vol {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 70px;
+  height: 36px;
+  cursor: pointer;
+  touch-action: none;
+}
+.yt__vol-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 1.5px;
+  overflow: hidden;
+}
+.yt__vol-fill {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  width: var(--media-slider-fill, 0%);
+}
+.yt__vol-thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill, 0%);
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -6px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+/* ---------- time and title ---------- */
+.yt__time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  font-size: 13px;
+  white-space: nowrap;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.yt__time time { color: inherit; }
+.yt__time-sep { color: inherit; opacity: 0.95; }
+
+.yt__title {
+  display: inline-block;
+  padding-left: 12px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* ---------- tooltip ---------- */
+.yt__tooltip {
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* ---------- cursor hides when controls hidden ---------- */
+.yt:has(.yt__controls:not([data-visible])) {
+  cursor: none;
+}

@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark chrome with red progress accent matching YouTube's signature treatment",
+    "typography": "Small white sans-serif timestamp and title label, similar weight to YouTube",
+    "notes": "Control bar layout closely mirrors YouTube: left-aligned play/volume/time/title and right-aligned captions/settings/mini/fullscreen icons over a dark gradient with a red progress bar. Lacks an in-frame title overlay (only the surrounding 'ax-bench' page label is visible) and chapter markers, and the progress bar dot/scrubber styling is slightly off, but overall reads clearly as YouTube-inspired."
+  }
+}
+```
