@@ -141,7 +141,13 @@ Off (`WITH_DOCS=0`), the placeholder collapses to empty and rungs are byte-ident
 > Before writing any code, fetch <docs URL>. It is the authoritative reference for this library at the version you have installed.
 ```
 
-Tests a narrower question than v1: *given an explicit instruction to fetch the docs, does Claude do it — and if so, does that change output quality?* If v2 is still inert, the next move is inline-injecting a curated docs excerpt (so the docs land in context regardless of WebFetch).
+Tests a narrower question than v1: *given an explicit instruction to fetch the docs, does Claude do it — and if so, does that change output quality?*
+
+**May 2026 result: behavior moved, oracle didn't.** Across `N3-with-docs-v2` (6 cells), `WebFetch` jumped from 2 calls / 10 cells (v1) to 81 calls / 6 cells; every cell fetched. The hint works as a tool-call lever. But every cell then ran the same `node_modules`-grep playbook as v1 for its load-bearing reads (mux rung-4 cells racked up 404s on guessed GitHub paths before falling back to `node_modules/@mux/mux-player/dist/themes/gerwig/index.mjs`). Rung 3 pass rate moved 2/5 → 3/3 on both libs (N=3 too small to call). Eject behavior, hallucination shape: unchanged. Per-run writeup: [`findings/2026-05-N3-with-docs-v2/`](findings/2026-05-N3-with-docs-v2/README.md).
+
+**Why even an imperative hint can't move the oracle:** [WebFetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool) hands the URL to a smaller model that answers one focused question against the page and returns just that answer — never the raw page. So when Claude obediently fetches, *the docs never enter Claude's context.* What returns is a Q&A summary, gone after the next turn. Meanwhile `Read node_modules/<pkg>/dist/types/*.d.ts` returns verbatim source Claude can re-grep all rung. The local file is a higher-fidelity oracle by tool contract, not by training quirk. **Lesson:** v1's "invite vs enable" framing generalizes — even an imperative invitation can't beat a type-surface that enables `Grep`, because of what `WebFetch` actually returns. (Independently observed in the [`llms.txt` playbook](https://dev.to/toyama0919/using-llmstxt-with-cursor-and-claude-code-a-concrete-playbook-4jln), whose corrective recipe inverts the agent's default — fetch `llms.txt` first, *then* consult local types.)
+
+**Next move:** to change the oracle, the docs need to land in context as text, not as a `WebFetch` Q&A round-trip. Either inline-inject a curated docs excerpt, or re-aim the hint at content the agent reads directly — `llms.txt` if shipped, or an explicit pointer to `node_modules/<pkg>/dist/types/` so it skips the round-trip entirely. The narrower next question: not *will Claude fetch?* (it will) but *what content shape, in context, actually changes output quality?*
 
 ## What this test does NOT do
 
