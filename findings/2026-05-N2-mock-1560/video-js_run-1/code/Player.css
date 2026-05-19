@@ -1,0 +1,133 @@
+.ax-player {
+  --ax-accent: #f00;
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  background: #000;
+  font-family: Roboto, Arial, system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.ax-player video {
+  width: 100%;
+  display: block;
+}
+
+.ax-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+.ax-progress {
+  height: 14px;
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.ax-progress-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+}
+
+.ax-progress-fill {
+  height: 100%;
+  background: var(--ax-accent);
+  transition: width 80ms linear;
+}
+
+.ax-progress-thumb {
+  position: absolute;
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--ax-accent);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: left 80ms linear;
+}
+
+.ax-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.ax-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ax-btn {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.95;
+  transition: opacity 120ms ease;
+}
+
+.ax-btn:hover,
+.ax-btn:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+
+.ax-btn:focus-visible svg {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+}
+
+.ax-btn svg {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+  display: block;
+}
+
+.ax-time {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2px;
+  padding: 0 8px 0 6px;
+  white-space: nowrap;
+}
+
+.ax-time-sep,
+.ax-time-total {
+  opacity: 0.85;
+}
+
+.ax-chapter {
+  font-size: 13px;
+  padding: 0 8px;
+  opacity: 0.95;
+  white-space: nowrap;
+}
+
+.ax-chapter::before {
+  content: '·';
+  margin-right: 10px;
+  opacity: 0.6;
+}

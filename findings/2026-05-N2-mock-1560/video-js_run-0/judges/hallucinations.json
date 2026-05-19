@@ -1,0 +1,24 @@
+I've verified the API surface against the type definitions. Let me output the findings.
+
+{
+  "hallucinations": [
+    {
+      "rung": 3,
+      "turn": 31,
+      "kind": "prop",
+      "claim": "Targets `data-controls-visible='false'` on `<Controls.Root>` to fade the control bar when controls are hidden.",
+      "reality": "The Controls element emits `data-visible` (a presence-based attribute), not `data-controls-visible`. Per `ControlsDataAttrs` in `@videojs/core`: `{ visible: 'data-visible', userActive: 'data-user-active' }`. The CSS selector matches nothing.",
+      "evidence": "Player.css: `.vjs-controls[data-controls-visible='false'] { opacity: 0; pointer-events: none; }`. Verified against `node_modules/.pnpm/.../@videojs/core/dist/dev/core/ui/controls/controls-data-attrs.d.ts`."
+    },
+    {
+      "rung": 5,
+      "turn": 15,
+      "kind": "prop",
+      "claim": "Targets `data-captions-active` on `<CaptionsButton>` to swap on/off CC icons and apply an active underline.",
+      "reality": "CaptionsButton emits `data-active` (mapped from `subtitlesShowing`) plus `data-availability`. There is no `data-captions-active` attribute. Per `CaptionsButtonDataAttrs`: `{ subtitlesShowing: 'data-active', availability: 'data-availability' }`, and `captions-button-element.d.ts` confirms `stateAttrMap: { subtitlesShowing: 'data-active', availability: 'data-availability' }`.",
+      "evidence": "Player.css: `.vjs-icon-btn[data-captions-active] .vjs-icon-cc-off, .vjs-icon-btn:not([data-captions-active]) .vjs-icon-cc-on { display: none; }` and `.vjs-icon-btn--cc[data-captions-active] { ... }`. Verified against `@videojs/core/dist/dev/core/ui/captions-button/captions-button-data-attrs.d.ts` and `@videojs/html/dist/dev/ui/captions-button/captions-button-element.d.ts`."
+    }
+  ],
+  "total": 2,
+  "notes": "Imports (`createPlayer`, `videoFeatures`, `PlayButton`, `MuteButton`, `FullscreenButton`, `PiPButton`, `CaptionsButton`, `PlaybackRateButton`, `Controls`, `TimeSlider`, `Time` from `@videojs/react`; `HlsVideo` from `@videojs/react/media/hls-video`) all resolve to real exports per `dist/dev/index.d.ts` and the package `exports` map. Compound parts (`Player.Provider`, `Player.Container`, `Controls.Root`, `TimeSlider.Root/Track/Buffer/Fill/Thumb`, `Time.Value` with `type='current'|'duration'`) match the component namespaces and `TimeProps.type` union. The CSS variables `--media-slider-fill` and `--media-slider-buffer` and the data attributes `data-paused`, `data-muted`, `data-fullscreen`, `data-pip`, and `data-dragging` are all real per the core's `*-data-attrs.d.ts` and the html element `stateAttrMap`s. Two false attribute names made it into the final `Player.css`: `data-controls-visible` (real name: `data-visible`) and `data-captions-active` (real name: `data-active`). The unrelated runtime errors Claude hit and patched (missing `createPopupGroup`, `LiveButtonCore`, etc.) are real package-internal beta bugs in the vendored 10.0.0-beta.23 build, not hallucinations."
+}

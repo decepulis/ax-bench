@@ -1,0 +1,197 @@
+.vjs-player {
+  --vjs-accent: #ff3e00;
+
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+  border-radius: 12px;
+  font-family:
+    'YouTube Sans', Roboto, system-ui, -apple-system, sans-serif;
+}
+
+.vjs-player video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.vjs-watermark {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 2px;
+  color: #fff;
+  pointer-events: none;
+}
+
+.vjs-controls {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding-top: 12px;
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+.vjs-controls[data-controls-visible='false'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Progress bar — full width, thin, sits above the row of buttons */
+.vjs-time-slider {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.vjs-time-slider .vjs-slider-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  transition: height 100ms ease;
+}
+
+.vjs-time-slider:hover .vjs-slider-track,
+.vjs-time-slider[data-dragging] .vjs-slider-track {
+  height: 5px;
+}
+
+.vjs-time-slider .vjs-slider-buffer {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--media-slider-buffer, 0%);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.vjs-time-slider .vjs-slider-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--media-slider-fill, 0%);
+  background: var(--vjs-accent);
+}
+
+.vjs-time-slider .vjs-slider-thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill, 0%);
+  width: 13px;
+  height: 13px;
+  margin-left: -6.5px;
+  background: var(--vjs-accent);
+  border-radius: 50%;
+  transform: translateY(-50%) scale(0);
+  transition: transform 100ms ease;
+}
+
+.vjs-time-slider:hover .vjs-slider-thumb,
+.vjs-time-slider[data-dragging] .vjs-slider-thumb {
+  transform: translateY(-50%) scale(1);
+}
+
+/* Button row */
+.vjs-button-row {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  height: 40px;
+  gap: 4px;
+}
+
+.vjs-button-row .vjs-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.vjs-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0.95;
+}
+
+.vjs-icon-btn:hover,
+.vjs-icon-btn:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+
+.vjs-icon-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.vjs-icon-btn[data-paused] .vjs-icon-pause,
+.vjs-icon-btn:not([data-paused]) .vjs-icon-play,
+.vjs-icon-btn[data-muted] .vjs-icon-volume,
+.vjs-icon-btn:not([data-muted]) .vjs-icon-mute,
+.vjs-icon-btn[data-fullscreen] .vjs-icon-fs-enter,
+.vjs-icon-btn:not([data-fullscreen]) .vjs-icon-fs-exit,
+.vjs-icon-btn[data-pip] .vjs-icon-pip-enter,
+.vjs-icon-btn:not([data-pip]) .vjs-icon-pip-exit,
+.vjs-icon-btn[data-captions-active] .vjs-icon-cc-off,
+.vjs-icon-btn:not([data-captions-active]) .vjs-icon-cc-on {
+  display: none;
+}
+
+/* CC button gets an underline when captions are active */
+.vjs-icon-btn--cc[data-captions-active] {
+  border-bottom: 2px solid #fff;
+  border-radius: 0;
+}
+
+.vjs-time {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  padding: 0 6px;
+  gap: 2px;
+}
+
+.vjs-time time {
+  font-feature-settings: 'tnum';
+}
+
+.vjs-title {
+  font-size: 13px;
+  color: #fff;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 30ch;
+}

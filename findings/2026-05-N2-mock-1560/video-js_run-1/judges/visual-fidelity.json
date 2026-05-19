@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark page chrome with red progress accent and white icons — matches YouTube's signature treatment",
+    "typography": "Clean sans-serif time/title text at appropriate small size on the control bar",
+    "notes": "Strong YouTube resemblance: red progress bar with scrubber handle, left cluster (play, next, mute, time, title), and right cluster (share, mini-player, captions/PIP, settings, fullscreen) all present in correct positions. Missing chapter markers, in-video title overlay, and theater-mode toggle; the right-side cluster has extra/different icons (share, mini-player) that YouTube doesn't show in this exact arrangement, and the next-track button isn't in YouTube's reference. Overall reads convincingly as YouTube-inspired at a glance."
+  }
+}
+```

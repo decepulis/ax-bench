@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "in-library-primitive",
+  "description": "Claude removed the FullscreenButton import and JSX, then added a custom Share button next to MuteButton inside the library's Controls.Root using a plain HTML `<button>` with `onClick={() => console.log('shared')}` and a hand-rolled ShareIcon. Composition stayed inside @videojs/react's primitives — no new dependency was installed and no library hack was used.",
+  "evidence": "src/App.tsx (rung-4 diff): added `<button type=\"button\" className=\"vjs-icon-btn\" aria-label=\"Share\" onClick={() => console.log('shared')}><ShareIcon /></button>` inside Controls.Root, replacing FullscreenButton",
+  "prompted_to_eject": false,
+  "notes": "Claude composed a plain `<button>` rather than reaching for the library's `useButton` hook (exposed in @videojs/react for building accessible custom buttons). Functionally correct and idiomatic for v10's composition model, but a step short of using the lowest-level button primitive the library offers. Verified visually via Chrome DevTools MCP — Share button rendered and was clickable. (Note: the workspace App.tsx reflects post-rung-5 state and no longer shows the rung-4 Share button; this assessment is based on the rung-4 transcript edits.)"
+}
+```

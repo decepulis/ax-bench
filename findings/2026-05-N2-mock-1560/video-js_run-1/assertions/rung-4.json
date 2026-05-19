@@ -1,0 +1,42 @@
+{
+  "pass": true,
+  "details": {
+    "fullscreenHidden": true,
+    "shareButtonPresent": true,
+    "shareButton": {
+      "tag": "button",
+      "aria": "Share",
+      "title": "",
+      "text": "Share",
+      "classes": "ax-btn"
+    },
+    "shareClickLogged": true,
+    "consoleSample": [
+      {
+        "text": "[vite] connecting...",
+        "type": "debug"
+      },
+      {
+        "text": "[vite] connected.",
+        "type": "debug"
+      },
+      {
+        "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold",
+        "type": "info"
+      },
+      {
+        "text": "Warning: Unexpected return value from a callback ref in %s. A callback ref should not return a function.%s video \n    at video\n    at HlsVideo (http://localhost:5173/node_modules/.pnpm/@videojs+react@file+vendor+videojs-react-10.0.0-beta.23.tgz_@svta+cml-cta@1.0.1_@svta+cml-str_6i6jqz6eqabtziz6v5xrrc57ly/node_modules/@videojs/react/dist/dev/media/hls-video/index.js?v=51b7f7a2:10:49)\n    at div\n    at PlayerContextProvider (http://localhost:5173/node_modules/.pnpm/@videojs+react@file+vendor+videojs-react-10.0.0-beta.23.tgz_@svta+cml-cta@1.0.1_@svta+cml-str_6i6jqz6eqabtziz6v5xrrc57ly/node_modules/@videojs/react/dist/default/player/context.js?v=51b7f7a2:13:34)\n    at Provider (http://localhost:5173/node_modules/.pnpm/@videojs+react@file+vendor+videojs-react-10.0.0-beta.23.tgz_@svta+cml-cta@1.0.1_@svta+cml-str_6i6jqz6eqabtziz6v5xrrc57ly/node_modules/@videojs/react/dist/default/player/create-player.js?v=51b7f7a2:11:22)\n    at main\n    at App (http://localhost:5173/src/App.tsx?t=1779206718606:168:20)",
+        "type": "error"
+      },
+      {
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "type": "error"
+      },
+      {
+        "text": "shared",
+        "type": "log"
+      }
+    ]
+  },
+  "exitCode": 0
+}

@@ -1,0 +1,38 @@
+{
+  "pass": false,
+  "details": {
+    "fullscreenHidden": true,
+    "shareButtonPresent": true,
+    "shareButton": {
+      "tag": "button",
+      "aria": "Share",
+      "title": "",
+      "text": "",
+      "classes": "vjs-icon-btn"
+    },
+    "shareClickLogged": false,
+    "consoleSample": [
+      {
+        "text": "[vite] connecting...",
+        "type": "debug"
+      },
+      {
+        "text": "[vite] connected.",
+        "type": "debug"
+      },
+      {
+        "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold",
+        "type": "info"
+      },
+      {
+        "text": "Warning: Unexpected return value from a callback ref in %s. A callback ref should not return a function.%s video \n    at video\n    at HlsVideo2 (http://localhost:5173/node_modules/.vite/deps/@videojs_react_media_hls-video.js?v=3cee667d:34213:66)\n    at div\n    at Container2 (http://localhost:5173/node_modules/.vite/deps/chunk-CDMBUQOD.js?v=61590e96:212:69)\n    at PlayerContextProvider (http://localhost:5173/node_modules/.vite/deps/chunk-CDMBUQOD.js?v=61590e96:168:34)\n    at Provider (http://localhost:5173/node_modules/.vite/deps/@videojs_react.js?v=6974918f:219:23)\n    at main\n    at App",
+        "type": "error"
+      },
+      {
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "type": "error"
+      }
+    ]
+  },
+  "exitCode": 1
+}

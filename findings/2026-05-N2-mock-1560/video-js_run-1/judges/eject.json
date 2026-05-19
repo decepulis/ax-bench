@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "in-library-primitive",
+  "description": "Claude edited the existing custom Controls component in src/App.tsx — replacing the toggleFullscreen handler with a share handler and swapping the fullscreen button for a Share button next to the mute button. The setup continued to use the Video.js media primitive (HlsVideo from @videojs/react/media/hls-video) with a fully custom React control bar built in earlier rungs.",
+  "evidence": "src/App.tsx:132-134 `const share = () => { console.log('shared'); };` and src/App.tsx:189-191 `<button className=\"ax-btn\" onClick={share} aria-label=\"Share\"><ShareIcon /></button>`",
+  "prompted_to_eject": false,
+  "notes": "No new dependencies installed (package.json unchanged — still just @videojs/html and @videojs/react). The control bar architecture was established in prior rungs as fully custom JSX driven by a videoRef to the HlsVideo primitive; rung 4 was a trivial structural edit within that established pattern."
+}
+```

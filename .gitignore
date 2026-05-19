@@ -3,6 +3,7 @@ node_modules/
 .env.local
 /runs/
 /pilot/
+/harness/template/vendor/
 .DS_Store
 *.log
 dist/

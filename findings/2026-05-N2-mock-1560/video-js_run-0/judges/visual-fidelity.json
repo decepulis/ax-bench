@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black control bar with red progress accent, matching YouTube's treatment",
+    "typography": "Light sans-serif time and title text, consistent with YouTube's style",
+    "notes": "Control bar layout reads as YouTube at a glance — red progress, left-aligned play/volume/time/title, right-aligned CC/settings/PiP/fullscreen icons. Missing the larger title overlay/'year' style text seen in the reference and no chapter markers, but the icon set and proportions are a strong match."
+  }
+}
+```
