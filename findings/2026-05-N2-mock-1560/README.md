@@ -1,5 +1,8 @@
 # N=2 mock-1560 — bundled-docs PR proof — May 2026
 
+> **AUDIT NOTE (2026-05-19):** This doc contains a discrepancy with raw run data, flagged during a folder-wide audit. Untangle later.
+> - The May N5 baseline reference (`no bundled docs, 5 cells … 21/25 rung-passes (84%)`) is wrong on both counts: N5 has **10 cells** (5 video-js + 5 mux-player), and the 21/25 rate matches neither video-js alone (15/20) nor the full N5 population (26/40). Core findings of this run are unaffected — the issue is in the comparison aside.
+
 A small follow-up to the WITH_DOCS thread ([N5-with-docs](../2026-05-N5-with-docs/),
 [N3-with-docs-v2](../2026-05-N3-with-docs-v2/)), but a different question.
 Those ablations asked "does *telling* Claude to fetch the docs site change

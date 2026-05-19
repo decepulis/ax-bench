@@ -1,5 +1,8 @@
 # Synthesis — N3-with-docs-v2
 
+> **AUDIT NOTE (2026-05-19):** Minor count discrepancy flagged during a folder-wide audit. Untangle later.
+> - The hallucinations summary says "All **3** hallucinations are CSS attributes, data-* selectors, or var(--…) references." Raw `judges/hallucinations.json` across all 6 runs shows only **2** hallucinations (mux-player-with-docs_run-0 + video-js-with-docs_run-2). The qualitative characterization still holds for the 2 that exist.
+
 6 cells across 2 conditions (mux-player, video-js). Longest cell 24.8min; agent cost $45.2366, judge cost $36.3333, total $81.5699.
 
 ## Cell outcomes (deterministic)

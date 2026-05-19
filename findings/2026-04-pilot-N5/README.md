@@ -1,5 +1,9 @@
 # Pilot N=5 — April 2026
 
+> **AUDIT NOTE (2026-05-19):** This doc contains discrepancies with raw run data, flagged during a folder-wide audit. Untangle later.
+> - **video-js Rung 4 pass tally** says `4/5`; raw `metrics.json` shows runs 0/1/4 pass and 2/3 fail → actual is **3/5**.
+> - **Visual fidelity notation** for video-js (`4×4, 1×4`) implies an outlier; all 5 video-js runs actually scored 4. Mux-player notation (`4×4, 1×3`) is correct.
+
 First production run. 10 cells = 5 video-js + 5 mux-player, run in 2 batches
 of 5 parallel containers. ~99 min total wall time including judges. All 10
 cells exited cleanly.

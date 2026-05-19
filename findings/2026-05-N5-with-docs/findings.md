@@ -1,5 +1,8 @@
 # Synthesis — N5-with-docs
 
+> **AUDIT NOTE (2026-05-19):** Unverifiable claims flagged during a folder-wide audit. Untangle later.
+> - The "9 of 10 cells made zero `WebFetch`/`WebSearch` calls" and "`mux-player-with-docs_run-2` fetched the docs URL twice during rung 4" claims cannot be checked against this folder — `metrics.json` has no tool-call fields, and transcripts live outside `findings/`. May be true from the source transcripts; verify against `runs/` before citing.
+
 10 cells across 2 conditions (mux-player, video-js). Longest cell 23.4min; agent cost $73.4500, judge cost $61.0635, total $134.5135.
 
 ## Cell outcomes (deterministic)

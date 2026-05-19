@@ -1,5 +1,8 @@
 # N=3 post-bundled-docs — released-tarball validation — May 2026
 
+> **AUDIT NOTE (2026-05-19):** This doc contains a story-altering discrepancy, flagged during a folder-wide audit. Untangle later.
+> - The "Correction to findings.md" section claims `video-js_run-2` *did* open `llms.txt` and 7 other docs files during rung 1. The raw rung-1 transcript shows **zero** reads of any `docs/` path or `llms.txt` for run-2 (all 31 Read calls hit `.d.ts`, `package.json`, `README.md`, or `.js` files under `node_modules/.../dist/dev/`). The original `findings.md` statement that run-2 never opened `llms.txt` is correct; **this README's "correction" is the hallucination.** Treat findings.md as canonical for run-2 behavior.
+
 The follow-up to [N2-mock-1560](../2026-05-N2-mock-1560/). That run mocked
 [videojs/v10#1560](https://github.com/videojs/v10/pull/1560) by packing
 the PR branch into local tarballs and wiring them via pnpm overrides.

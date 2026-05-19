@@ -1,5 +1,9 @@
 # Follow-up N=5 — May 2026
 
+> **AUDIT NOTE (2026-05-19):** This README contains discrepancies with raw run data, flagged during a folder-wide audit. The sibling `findings.md` is canonical where they disagree. Untangle later.
+> - **Cost rollup** says `$134.89 total ($78.91 agent + $55.98 judges)`. Summed `metrics.json` across all 10 cells gives **$132.8341 ($78.9124 agent + $53.9217 judges)** — matching `findings.md`.
+> - **video-js Rung 4 narrative** says "only `video-js_run-3` passes" (table shows `1/5`). Raw `assertion.pass` shows **runs 0, 1, 3 all pass → 3/5**. This is story-altering: the conclusion shifts from "video-js mostly fails this rung even when it renders" to "video-js usually gets this right."
+
 Second N=5 run, after the April harness fixes landed (behavioral rung-2
 assertion, pinned Chrome DevTools MCP, mandatory per-rung screenshots,
 token tracking). Same two libraries, same five rungs, same Opus 4.7.
