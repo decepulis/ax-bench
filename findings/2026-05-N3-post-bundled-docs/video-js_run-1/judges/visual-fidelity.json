@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black chrome with white icons and text, matches YouTube's neutral treatment",
+    "typography": "Clean sans-serif, white text for time/title; sizing reads similar to YouTube",
+    "notes": "Control bar layout closely mirrors YouTube: left cluster (play, volume, time, title) and right cluster (captions, settings cog, PiP, fullscreen) with a thin progress bar above. The video frame appears broken/cropped (only a vertical slice of the poster renders) which hurts the overall illusion, and there is no red progress fill, no hover scrubber, and no chapter markers. Outer 'ax-bench' heading and lack of rounded container deviate from the reference."
+  }
+}
+```

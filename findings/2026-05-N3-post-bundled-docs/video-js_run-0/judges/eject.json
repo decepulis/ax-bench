@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude abandoned the rung-3 primitive-composed YouTube layout and instead used the default VideoSkin, then hid the FullscreenButton with a CSS specificity override and injected the Share button via a MutationObserver + createPortal that DOM-pierces into the skin's internal `.media-button-group`.",
+  "evidence": "src/App.tsx (rung-4 Write): `const observer = new MutationObserver(...); muteBtn.parentElement.insertBefore(span, muteBtn.nextSibling); ... return createPortal(<button className=\"media-button media-button--subtle media-button--icon\" ...>, slot)` paired with CSS `.media-default-skin .media-controls .media-button--fullscreen { display: none }`.",
+  "prompted_to_eject": false,
+  "notes": "Ironic regression: rung 3 already had a custom Controls.Root layout composed from Video.js primitives, where removing <FullscreenButton/> and adding a new <button onClick={() => console.log('shared')}/> would have been a trivial in-library-primitive edit. Claude instead reverted to the default VideoSkin and worked around it with CSS + portal/MutationObserver DOM injection — textbook library-hack. The behavior was verified working (console logs 'shared'), but the approach reaches around the library rather than through it."
+}
+```

@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Kept the monolithic `<VideoSkin>` default skin untouched and injected a Share button via a React portal — using `useEffect` + `document.querySelector('.media-button--mute')` to find the mute button, then inserting a `display:contents` slot div as its next sibling and rendering the button into that slot with `createPortal`. Hid the fullscreen button with a `display: none` CSS rule against `.media-button--fullscreen` (bumping selector specificity when the first attempt was overridden by skin CSS).",
+  "evidence": "rung-4.jsonl (assistant turn): \"I'll wire up the Share button via a portal slot inserted after the mute button, and hide fullscreen via CSS.\" — see Player.tsx edit adding `useEffect`/`createPortal` against `.media-button--mute`, plus `src/index.css` rule `.media-default-skin.media-default-skin--video .media-button--fullscreen { display: none; }`.",
+  "prompted_to_eject": false,
+  "notes": "Video.js 10 primitives (`Controls.Root`, `MuteButton`, `FullscreenButton`, etc. from `@videojs/react`) were available — Claude used them in rung 5 to rebuild the player YouTube-style, and the bundled docs/findings on the WITH_DOCS branch include the primitive composition pattern. On rung 4 Claude bypassed that path and instead DOM-portal-injected into the default `<VideoSkin>` plus a CSS hide. Achieved behavior verified (console log fires, fullscreen hidden), but via workarounds, not the in-library eject pattern."
+}
+```

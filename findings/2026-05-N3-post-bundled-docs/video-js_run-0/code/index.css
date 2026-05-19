@@ -1,0 +1,328 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', 'YouTube Sans', system-ui, -apple-system, sans-serif;
+  background: #0f0f0f;
+  color: #f1f1f1;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ==========================================================================
+   YouTube-style player
+   ========================================================================== */
+
+.yt-player {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  color: #fff;
+  background: #000;
+  border-radius: 12px;
+  isolation: isolate;
+}
+
+.yt-player:focus-visible {
+  outline: none;
+}
+
+.yt-video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.yt-poster {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.yt-poster:not([data-visible]) {
+  opacity: 0;
+}
+
+.yt-buffering {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.yt-buffering[data-visible] {
+  display: flex;
+}
+
+.yt-spinner {
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  animation: yt-spin 1s linear infinite;
+}
+
+@keyframes yt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* MUX watermark in bottom-right of video area */
+.yt-watermark {
+  position: absolute;
+  right: 12px;
+  bottom: 56px;
+  z-index: 5;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Bottom bar (progress + controls)
+   ========================================================================== */
+
+.yt-bottom {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.65) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  transition: opacity 150ms ease-out;
+}
+
+.yt-bottom:not([data-visible]) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Progress bar
+   ========================================================================== */
+
+.yt-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+}
+
+.yt-progress__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  overflow: visible;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: height 100ms ease-out;
+}
+
+.yt-progress:hover .yt-progress__track,
+.yt-progress[data-dragging] .yt-progress__track {
+  height: 5px;
+}
+
+.yt-progress__buffer,
+.yt-progress__fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.yt-progress__buffer {
+  width: var(--media-slider-buffer);
+  background-color: rgba(255, 255, 255, 0.45);
+}
+
+.yt-progress__fill {
+  width: var(--media-slider-fill);
+  background-color: #f03;
+}
+
+.yt-progress__thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill);
+  z-index: 2;
+  width: 13px;
+  height: 13px;
+  background: #f03;
+  border-radius: 50%;
+  translate: -50% -50%;
+  opacity: 0;
+  transition: opacity 100ms ease-out;
+}
+
+.yt-progress:hover .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__thumb {
+  opacity: 1;
+}
+
+.yt-progress[data-dragging] .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__fill {
+  left: var(--media-slider-pointer);
+}
+
+.yt-progress[data-dragging] .yt-progress__fill {
+  left: 0;
+  width: var(--media-slider-pointer);
+}
+
+/* ==========================================================================
+   Control row
+   ========================================================================== */
+
+.yt-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 4px;
+  color: #fff;
+}
+
+.yt-controls__group {
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.yt-btn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  transition: opacity 100ms ease-out;
+}
+
+.yt-btn:hover {
+  opacity: 0.9;
+}
+
+.yt-btn:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+  outline-offset: -3px;
+}
+
+.yt-btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.yt-btn[data-availability='unavailable'],
+.yt-btn[data-availability='unsupported'] {
+  display: none;
+}
+
+/* Always show CC / PiP — matches the YouTube reference even when
+   the underlying media has no captions or PiP is unavailable. */
+.yt-btn--captions[data-availability='unavailable'],
+.yt-btn--captions[data-availability='unsupported'],
+.yt-btn--pip[data-availability='unavailable'],
+.yt-btn--pip[data-availability='unsupported'] {
+  display: inline-flex;
+}
+
+.yt-icon {
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  fill: currentColor;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+/* --- State-driven icon visibility --- */
+
+.yt-btn--play .yt-icon--play,
+.yt-btn--play .yt-icon--pause,
+.yt-btn--mute .yt-icon--vol-on,
+.yt-btn--mute .yt-icon--vol-off,
+.yt-btn--captions .yt-icon--cc-on,
+.yt-btn--captions .yt-icon--cc-off,
+.yt-btn--pip .yt-icon--pip-on,
+.yt-btn--pip .yt-icon--pip-off,
+.yt-btn--fullscreen .yt-icon--fs-on,
+.yt-btn--fullscreen .yt-icon--fs-off {
+  display: none;
+}
+
+.yt-btn--play[data-paused] .yt-icon--play,
+.yt-btn--play:not([data-paused]) .yt-icon--pause,
+.yt-btn--mute[data-muted] .yt-icon--vol-off,
+.yt-btn--mute:not([data-muted]) .yt-icon--vol-on,
+.yt-btn--captions[data-active] .yt-icon--cc-on,
+.yt-btn--captions:not([data-active]) .yt-icon--cc-off,
+.yt-btn--pip[data-pip] .yt-icon--pip-on,
+.yt-btn--pip:not([data-pip]) .yt-icon--pip-off,
+.yt-btn--fullscreen[data-fullscreen] .yt-icon--fs-on,
+.yt-btn--fullscreen:not([data-fullscreen]) .yt-icon--fs-off {
+  display: block;
+}
+
+/* ==========================================================================
+   Time + title
+   ========================================================================== */
+
+.yt-time {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  padding-inline: 4px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+.yt-time > [aria-hidden='true'] {
+  white-space: pre;
+}
+
+.yt-title {
+  margin-left: 8px;
+  overflow: hidden;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.95);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

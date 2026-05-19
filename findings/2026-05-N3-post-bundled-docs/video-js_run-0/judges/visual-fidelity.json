@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark translucent bar with red progress fill and white icons — matches YouTube's signature treatment",
+    "typography": "Small white sans-serif time/title text, similar weight and scale to YouTube's bottom bar",
+    "notes": "Control bar layout closely mirrors YouTube: left-grouped play/volume/time and title, right-aligned settings/CC/fullscreen, red progress with scrubber thumb. Missing chapter markers, title overlay, and theater-mode toggle, and the MUX watermark/large center play button aren't present, but the overall chrome reads convincingly as YouTube at a glance."
+  }
+}
+```

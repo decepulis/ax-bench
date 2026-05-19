@@ -1,0 +1,247 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ===========================================================================
+   YouTube-style player skin
+   =========================================================================== */
+
+.yt-player {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  font-family:
+    Roboto, "Helvetica Neue", Arial, system-ui, -apple-system, sans-serif;
+  isolation: isolate;
+  outline: none;
+}
+
+.yt-player video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+/* Poster: covers the video until first play */
+.yt-player .yt-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity 200ms ease-out;
+}
+
+.yt-player .yt-poster:not([data-visible]) {
+  opacity: 0;
+}
+
+/* Controls overlay */
+.yt-controls {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 0 12px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+  pointer-events: none;
+}
+
+.yt-controls > * {
+  pointer-events: auto;
+}
+
+.yt-controls:not([data-visible]) {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.yt-player:has(.yt-controls:not([data-visible])) {
+  cursor: none;
+}
+
+/* Progress bar */
+.yt-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.yt-progress__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: height 100ms ease-out;
+}
+
+.yt-progress:hover .yt-progress__track,
+.yt-progress[data-dragging] .yt-progress__track {
+  height: 5px;
+}
+
+.yt-progress__buffer,
+.yt-progress__fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  border-radius: inherit;
+}
+
+.yt-progress__buffer {
+  width: var(--media-slider-buffer);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.yt-progress__fill {
+  width: var(--media-slider-fill);
+  background: #ff3e00;
+}
+
+.yt-progress__thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill);
+  width: 13px;
+  height: 13px;
+  margin-left: -6.5px;
+  background: #ff3e00;
+  border-radius: 50%;
+  transform: translateY(-50%) scale(0);
+  transition: transform 100ms ease-out;
+  pointer-events: none;
+}
+
+.yt-progress:hover .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__thumb {
+  transform: translateY(-50%) scale(1);
+}
+
+/* Control row */
+.yt-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+}
+
+.yt-row__side {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.yt-row__side--right {
+  margin-left: auto;
+}
+
+/* Buttons */
+.yt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.yt-btn:hover {
+  color: #fff;
+}
+
+.yt-btn:focus-visible {
+  outline: 2px solid #ff3e00;
+  outline-offset: -2px;
+}
+
+.yt-btn:active {
+  scale: 0.92;
+}
+
+.yt-icon {
+  width: 22px;
+  height: 22px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+/* Icon visibility per button state */
+.yt-btn .yt-icon {
+  display: none;
+}
+
+.yt-btn--settings .yt-icon--settings,
+.yt-btn--play[data-ended] .yt-icon--restart,
+.yt-btn--play:not([data-ended])[data-paused] .yt-icon--play,
+.yt-btn--play:not([data-paused]):not([data-ended]) .yt-icon--pause,
+.yt-btn--mute[data-muted] .yt-icon--volume-off,
+.yt-btn--mute:not([data-muted])[data-volume-level="low"] .yt-icon--volume-low,
+.yt-btn--mute:not([data-muted]):not([data-volume-level="low"]) .yt-icon--volume-high,
+.yt-btn--fullscreen:not([data-fullscreen]) .yt-icon--fs-enter,
+.yt-btn--fullscreen[data-fullscreen] .yt-icon--fs-exit,
+.yt-btn--pip:not([data-pip]) .yt-icon--pip-enter,
+.yt-btn--pip[data-pip] .yt-icon--pip-exit,
+.yt-btn--captions:not([data-active]) .yt-icon--captions-off,
+.yt-btn--captions[data-active] .yt-icon--captions-on {
+  display: block;
+}
+
+/* Time display */
+.yt-time {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  color: #fff;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.yt-time__sep {
+  margin: 0 2px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Title */
+.yt-title {
+  margin-left: 6px;
+  color: #fff;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}

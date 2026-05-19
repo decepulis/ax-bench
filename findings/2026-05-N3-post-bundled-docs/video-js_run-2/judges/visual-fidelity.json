@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": true,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark/black control bar with white icons and red progress fill — matches YouTube's palette closely",
+    "typography": "Small light sans-serif time/title text consistent with YouTube's compact bottom-bar style",
+    "notes": "Layout reads as clearly YouTube-inspired: left cluster (play, volume, time, title) and right cluster (CC, settings, theater/PiP, fullscreen) are in the right positions with a thin red progress bar above. Differences: no scrubber thumb visible, title overlay is in the top-left (the 'ax-bench' label) rather than overlaying on hover like YouTube, and icon spacing is a touch tighter than the reference. Overall structure and color treatment are convincingly YouTube-like."
+  }
+}
+```

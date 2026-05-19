@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "in-library-primitive",
+  "description": "Claude rewrote PlayerSkin.tsx using @videojs/react primitive components directly — removed the FullscreenButton entirely and composed a custom Share button from the same primitive <Button> wrapper (with Tooltip) already used for the other controls, wired via an onShare prop that calls console.log('shared'). No new packages installed.",
+  "evidence": "tool_use Write to src/PlayerSkin.tsx adds `<Button aria-label=\"Share\" onClick={onShare}>` next to the VolumePopover and drops the FullscreenButton import; Player.tsx passes `onShare={() => console.log('shared')}`",
+  "prompted_to_eject": false,
+  "notes": "package.json deps remain only @videojs/html and @videojs/react — confirms no ejection to a third-party library. (Note: the current workspace file no longer matches the rung-4 write; rung 5 appears to have rewritten PlayerSkin again, but the rung-4 transcript clearly shows the in-library primitive approach.)"
+}
+```

@@ -1,0 +1,298 @@
+.yt-player {
+  --yt-red: #ff0000;
+  --yt-fg: #fff;
+  position: relative;
+  overflow: hidden;
+  color: var(--yt-fg);
+  font-family: Roboto, Arial, sans-serif;
+}
+
+/* Bottom scrim behind controls */
+.yt-player::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 6rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+.yt-player:has(.yt-controls[data-visible])::after {
+  opacity: 1;
+}
+
+/* Controls bar */
+.yt-controls {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+}
+.yt-controls:not([data-visible]) {
+  opacity: 0;
+  pointer-events: none;
+}
+.yt-player:has(.yt-controls:not([data-visible])) {
+  cursor: none;
+}
+
+/* Progress bar */
+.yt-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+  margin-bottom: -2px; /* slight overlap with bottom row */
+  user-select: none;
+}
+.yt-progress__track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.2);
+  overflow: visible;
+  transition: height 100ms ease-out;
+}
+.yt-progress:hover .yt-progress__track {
+  height: 5px;
+}
+.yt-progress__buffer {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: var(--media-slider-buffer);
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: width 200ms ease-out;
+}
+.yt-progress__fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: var(--media-slider-fill);
+  background-color: var(--yt-red);
+}
+.yt-progress__thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--media-slider-fill);
+  width: 13px;
+  height: 13px;
+  background-color: var(--yt-red);
+  border-radius: 50%;
+  translate: -50% -50%;
+  transform: scale(0);
+  transition: transform 100ms ease-out;
+}
+.yt-progress:hover .yt-progress__thumb,
+.yt-progress[data-dragging] .yt-progress__thumb {
+  transform: scale(1);
+}
+.yt-progress[data-dragging] .yt-progress__thumb {
+  left: var(--media-slider-pointer);
+}
+.yt-progress[data-dragging] .yt-progress__fill {
+  width: var(--media-slider-pointer);
+}
+
+/* Bottom row */
+.yt-bottom {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+}
+.yt-bottom__group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.yt-bottom__group--right {
+  margin-left: auto;
+}
+
+/* Buttons */
+.yt-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--yt-fg);
+  cursor: pointer;
+  outline: none;
+}
+.yt-btn > .yt-icon {
+  grid-area: 1 / 1;
+}
+.yt-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: -4px;
+  border-radius: 4px;
+}
+.yt-btn[data-availability='unavailable'],
+.yt-btn[data-availability='unsupported'] {
+  opacity: 0.55;
+  cursor: default;
+}
+.yt-btn--primary {
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  background: var(--yt-red);
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.yt-icon {
+  display: block;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+/* Icon visibility per state */
+.yt-btn .yt-icon--play,
+.yt-btn .yt-icon--pause,
+.yt-btn .yt-icon--restart,
+.yt-btn .yt-icon--vol-off,
+.yt-btn .yt-icon--vol-low,
+.yt-btn .yt-icon--vol-high,
+.yt-btn .yt-icon--cc-on,
+.yt-btn .yt-icon--cc-off,
+.yt-btn .yt-icon--fs-enter,
+.yt-btn .yt-icon--fs-exit {
+  display: none;
+}
+.yt-btn--play[data-ended] .yt-icon--restart,
+.yt-btn--play:not([data-ended])[data-paused] .yt-icon--play,
+.yt-btn--play:not([data-paused]):not([data-ended]) .yt-icon--pause,
+.yt-btn--mute[data-muted] .yt-icon--vol-off,
+.yt-btn--mute:not([data-muted])[data-volume-level='low'] .yt-icon--vol-low,
+.yt-btn--mute:not([data-muted]):not([data-volume-level='low']) .yt-icon--vol-high,
+.yt-btn--cc:not([data-active]) .yt-icon--cc-off,
+.yt-btn--cc[data-active] .yt-icon--cc-on,
+.yt-btn--fs:not([data-fullscreen]) .yt-icon--fs-enter,
+.yt-btn--fs[data-fullscreen] .yt-icon--fs-exit {
+  display: block;
+}
+
+/* Time + chapter text */
+.yt-time {
+  padding: 0 8px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+.yt-chapter {
+  padding: 0 8px;
+  font-size: 13px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+.yt-chapter::before {
+  content: '• ';
+  opacity: 0.65;
+  margin-right: 2px;
+}
+
+/* Settings menu */
+.yt-menu {
+  margin-bottom: 8px;
+  padding: 8px 0;
+  min-width: 200px;
+  color: var(--yt-fg);
+  background: rgba(28, 28, 28, 0.9);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  list-style: none;
+  font-size: 13px;
+}
+.yt-menu__group {
+  display: flex;
+  flex-direction: column;
+}
+.yt-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  cursor: pointer;
+  outline: none;
+}
+.yt-menu__item[data-highlighted],
+.yt-menu__item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.yt-menu__indicator {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  visibility: hidden;
+}
+.yt-menu__item[aria-checked='true'] .yt-menu__indicator {
+  visibility: visible;
+}
+.yt-menu__check {
+  width: 16px;
+  height: 16px;
+}
+
+/* Buffering spinner */
+.yt-buffering {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--yt-fg);
+  pointer-events: none;
+  z-index: 6;
+}
+.yt-buffering[data-visible] {
+  display: flex;
+}
+.yt-spinner {
+  width: 48px;
+  height: 48px;
+}
+
+/* Error dialog */
+.yt-error {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.75);
+}
+.yt-error:not([data-open]) {
+  display: none;
+}
+.yt-error__title {
+  font-size: 16px;
+  font-weight: 500;
+}
+.yt-error__description {
+  font-size: 13px;
+  opacity: 0.75;
+}
