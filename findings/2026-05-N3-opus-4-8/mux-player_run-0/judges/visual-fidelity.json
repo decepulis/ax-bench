@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": true,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark translucent bar with red progress fill and white icons — matches YouTube",
+    "typography": "Small white sans-serif timestamp and title text, consistent with YouTube's compact control labels",
+    "notes": "Layout closely mirrors YouTube: red progress bar with scrubber, left-aligned play/next/volume/time/title group, right-aligned CC/settings/mini/theater/fullscreen cluster. Minor divergences include slightly different icon spacing and a title overlay ('ax-bench') in the top-left rather than appearing on hover, but the overall chrome reads unmistakably YouTube-like."
+  }
+}
+```

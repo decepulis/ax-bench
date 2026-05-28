@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark/black chrome with white icons; missing YouTube's signature red progress accent (progress bar appears monochrome)",
+    "typography": "Clean sans-serif time/title text matching YouTube's general feel; sizing close to reference",
+    "notes": "Control bar layout is a strong YouTube match — left cluster (play, volume, time, title) and right cluster (CC, theater, settings, PiP, fullscreen) are well-placed and the icon set is close. Missing the red progress fill is the most visible deviation, and there is no title overlay or chapter markers. Overall a clearly YouTube-inspired result with minor color/iconography mismatches."
+  }
+}
+```

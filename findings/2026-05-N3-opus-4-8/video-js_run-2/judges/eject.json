@@ -1,0 +1,11 @@
+The transcript shows Claude rewrote Player.tsx using Video.js primitives — removed the `FullscreenButton` component entirely (not CSS-hidden) and composed a new Share `<Button>` (the library's primitive) wrapped in `Tooltip.Root` and sibling to `VolumePopover` and `CaptionsButton`. No new packages installed; package.json stayed at `@videojs/react` only. (The workspace file I initially read appears to be from a later state — but the rung-4 transcript clearly shows what Claude did during this rung.)
+
+```json
+{
+  "decision": "in-library-primitive",
+  "description": "Claude rewrote Player.tsx using Video.js v10 primitives directly — removed the FullscreenButton component (not CSS-hidden), removed its hotkey/gesture, and composed a new Share button using the library's local Button primitive wrapped in Tooltip.Root, placed as a sibling to VolumePopover and CaptionsButton in the right media-button-group.",
+  "evidence": "rung-4.jsonl line 21 Write tool: `<Button className=\"media-button--share\" aria-label=\"Share\" onClick={() => console.log('shared')}>` placed between VolumePopover and CaptionsButton; FullscreenButton import and JSX both removed.",
+  "prompted_to_eject": false,
+  "notes": "No new dependencies — package.json still has only @videojs/react and @videojs/html. Verified in-browser: rightGroupOrder = playback-rate → mute → share → captions → cast → pip (no fullscreen); clicking .media-button--share logged 'shared'. Notably, Claude abandoned the rung-3 yt-skin custom CSS layout and rewrote from the default skin to do this — a heavy-handed but in-library refactor."
+}
+```

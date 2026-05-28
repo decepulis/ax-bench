@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "details": {
+    "exists": true,
+    "src": "blob:http://localhost:5173/1faaa7ea-48c2-4413-ac4a-96936be97257",
+    "readyState": 0,
+    "networkState": 2,
+    "duration": null,
+    "paused": true
+  },
+  "exitCode": 0
+}

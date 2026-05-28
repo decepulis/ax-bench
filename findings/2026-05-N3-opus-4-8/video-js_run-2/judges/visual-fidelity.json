@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": false,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": true
+    },
+    "color_palette": "Dark/black bg with red progress accent — matches YouTube treatment",
+    "typography": "Sans-serif white time/labels, small and YouTube-appropriate",
+    "notes": "Strong YouTube-inspired chrome: thin red progress bar with handle, left-clustered play/volume/time, right-aligned control group with settings cog and theater-style buttons. Missing a clear fullscreen icon and no chapter markers or video title overlay; a stray 'ax-bench' label sits above the player instead of overlaid on it. Icon set diverges slightly from YouTube's exact glyphs but the overall reading is unmistakably YouTube-like."
+  }
+}
+```

@@ -1,0 +1,501 @@
+{
+  "pass": true,
+  "details": {
+    "accentMatches": [
+      {
+        "tag": "div",
+        "classes": "media-surface media-controls",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-button-group",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--play",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--seek",
+        "kind": "color"
+      },
+      {
+        "tag": "span",
+        "classes": "media-icon__container",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "span",
+        "classes": "media-icon__label",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--seek",
+        "kind": "color"
+      },
+      {
+        "tag": "span",
+        "classes": "media-icon__container",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "span",
+        "classes": "media-icon__label",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-time-controls",
+        "kind": "color"
+      },
+      {
+        "tag": "time",
+        "classes": "media-time",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider__track",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider__fill",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider__buffer",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-slider__thumb",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-surface media-preview media-slider__preview",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-preview__thumbnail",
+        "kind": "color"
+      },
+      {
+        "tag": "img",
+        "classes": "",
+        "kind": "color"
+      },
+      {
+        "tag": "output",
+        "classes": "media-time media-preview__time",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "style",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "time",
+        "classes": "media-time",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-button-group",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--playback-rate",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--mute",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--captions",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--cast",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "mask",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "g",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "circle",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "circle",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "circle",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "circle",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "mask",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "g",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "circle",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "circle",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "circle",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--pip",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "rect",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "button",
+        "classes": "media-button media-button--subtle media-button--icon media-button--fullscreen",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "svg",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "path",
+        "classes": "[object SVGAnimatedString]",
+        "kind": "color"
+      },
+      {
+        "tag": "div",
+        "classes": "media-input-feedback",
+        "kind": "color"
+      }
+    ],
+    "bgMatches": [
+      {
+        "tag": "div",
+        "classes": "media-surface media-controls",
+        "kind": "bg"
+      }
+    ],
+    "semiTransparentBlackFound": true
+  },
+  "exitCode": 0
+}

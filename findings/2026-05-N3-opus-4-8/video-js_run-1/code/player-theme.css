@@ -1,0 +1,233 @@
+/* ============================================================
+   YouTube-style skin overrides (layered on @videojs/react/video/skin.css)
+   ============================================================ */
+
+.yt-skin.media-default-skin {
+  --media-color-primary: #fff;
+  --media-icon-size: 24px;
+  --media-border-radius: 12px;
+  font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+/* Square the video corners off only slightly, like a YouTube embed */
+.yt-skin .media-video,
+.yt-skin video {
+  border-radius: var(--media-border-radius);
+}
+
+/* ---------- Controls container: full-width bottom gradient ---------- */
+.yt-skin.media-default-skin--video .media-controls.yt-controls {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: none;
+  margin: 0;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0;
+  padding: 0 12px 4px;
+
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%);
+  background-position: bottom;
+  border: none;
+  border-radius: 0 0 var(--media-border-radius) var(--media-border-radius);
+  box-shadow: none;
+  backdrop-filter: none;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  padding-top: 28px;
+}
+
+/* The default skin draws an inner border ring via ::after — remove it */
+.yt-skin.media-default-skin--video .media-controls.yt-controls::after {
+  display: none;
+  content: none;
+}
+
+/* Disable the full-frame scrim; the controls gradient is the scrim now */
+.yt-skin .media-overlay {
+  display: none;
+}
+
+/* ---------- Button row ---------- */
+.yt-skin .yt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 40px;
+}
+
+.yt-skin .yt-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ---------- Buttons ---------- */
+.yt-skin .media-button {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 0;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.yt-skin .media-button:hover {
+  background: transparent;
+  opacity: 1;
+}
+
+.yt-skin .media-icon {
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.45));
+}
+
+/* ---------- Progress bar (full width, YouTube red) ---------- */
+.yt-skin .yt-progress-row {
+  width: 100%;
+  padding: 0 0 6px;
+}
+
+.yt-skin .yt-progress.media-slider {
+  width: 100%;
+  height: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.yt-skin .yt-progress .media-slider__track {
+  height: 3px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  transition: height 0.1s ease;
+}
+
+.yt-skin .yt-progress:hover .media-slider__track,
+.yt-skin .yt-progress[data-dragging] .media-slider__track {
+  height: 5px;
+}
+
+.yt-skin .yt-progress .media-slider__buffer {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.yt-skin .yt-progress .media-slider__fill {
+  background-color: #f00;
+}
+
+.yt-skin .yt-progress .media-slider__thumb {
+  width: 13px;
+  height: 13px;
+  background-color: #f00;
+  box-shadow: none;
+  opacity: 1;
+}
+
+/* ---------- Volume (inline horizontal, expand on hover) ---------- */
+.yt-skin .yt-volume {
+  display: flex;
+  align-items: center;
+}
+
+.yt-skin .yt-volume-slider.media-slider {
+  width: 0;
+  min-width: 0;
+  flex: 0 0 auto;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  opacity: 0;
+  padding-inline: 0;
+  transition: width 0.2s ease, opacity 0.2s ease, padding 0.2s ease;
+}
+
+.yt-skin .yt-volume:hover .yt-volume-slider.media-slider,
+.yt-skin .yt-volume:focus-within .yt-volume-slider.media-slider {
+  width: 60px;
+  min-width: 60px;
+  opacity: 1;
+  padding-inline: 6px;
+}
+
+.yt-skin .yt-volume-slider .media-slider__track {
+  height: 3px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+}
+
+.yt-skin .yt-volume-slider .media-slider__fill {
+  background-color: #fff;
+}
+
+.yt-skin .yt-volume-slider .media-slider__thumb {
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  box-shadow: none;
+  opacity: 1;
+}
+
+/* ---------- Time display ---------- */
+.yt-skin .yt-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.yt-skin .yt-time .media-time {
+  font-size: 13px;
+}
+
+.yt-skin .yt-time__sep {
+  opacity: 0.85;
+}
+
+/* ---------- Chapter / title text ---------- */
+.yt-skin .yt-title {
+  color: #fff;
+  font-size: 13px;
+  padding: 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* ---------- Settings menu popover ---------- */
+.yt-skin .media-menu--playback-rate {
+  background: rgba(28, 28, 28, 0.9);
+  color: #fff;
+  border-radius: 12px;
+}
+
+/* ---------- Tooltips ---------- */
+.yt-skin .media-tooltip {
+  background: rgba(28, 28, 28, 0.9);
+  color: #fff;
+  font-size: 12px;
+  border-radius: 4px;
+  padding: 5px 8px;
+  box-shadow: none;
+  border: none;
+}
+
+/* ---------- Buffering spinner centered ---------- */
+.yt-skin .media-buffering-indicator {
+  color: #fff;
+}

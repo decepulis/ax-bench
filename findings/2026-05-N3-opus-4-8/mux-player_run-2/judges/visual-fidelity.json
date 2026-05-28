@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark translucent bottom bar with white icons and a red progress fill — matches YouTube",
+    "typography": "Small white sans-serif time/title labels, similar weight and scale to reference",
+    "notes": "Bottom control bar layout closely mirrors YouTube: left-aligned play/volume/time and right-aligned CC, settings, PiP-style and fullscreen icons over a red progress bar. Missing a visible video title overlay/text in the row and chapter markers; the scrubber thumb and icon set are slightly simpler, but at a glance it reads clearly as YouTube-inspired."
+  }
+}
+```

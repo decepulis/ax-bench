@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "in-library-primitive",
+  "description": "Claude ejected the @videojs/react default skin into src/Player.tsx by copy-pasting the skin source from the library's documented eject guide, then dropped FullscreenButton (along with its hotkey/gesture/status icons) and added a Share button (using the in-file Button primitive with an inline SVG) right after the VolumePopover. No new packages were installed.",
+  "evidence": "rung-4.jsonl line 20: \"I'll eject the skin into src/Player.tsx, adapting it to keep HLS + autoplay/mute/loop/poster, remove the fullscreen button, and add the Share button next to the volume control.\"",
+  "prompted_to_eject": false,
+  "notes": "Claude followed the library's own 'Customize skins' doc (node_modules/@videojs/react/docs/how-to/customize-skins.md) — the canonical Video.js v10 customization path. Share button reuses the skin's Button wrapper (`media-button media-button--subtle media-button--icon`) with onClick={() => console.log('shared')}. package.json deps unchanged at @videojs/html + @videojs/react only. Typecheck passed (exit 0)."
+}
+```

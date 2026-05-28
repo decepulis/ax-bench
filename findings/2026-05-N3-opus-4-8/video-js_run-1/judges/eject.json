@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "in-library-primitive",
+  "description": "Claude ejected the Default Video Skin per the library's own customize-skins docs into src/Player.tsx, removed the FullscreenButton primitive (plus its hotkey/gesture/status references), and added a Share button composed from the library's Button + Tooltip primitives next to the VolumeControl. No new packages were installed; only @videojs/react primitives were used.",
+  "evidence": "rung-4.jsonl: \"I'll need to eject the skin to insert a custom button and remove the fullscreen button from the control layout. Let me read the customize-skins guide.\" — followed by writing src/Player.tsx with `<Button onClick={() => console.log('shared')}>` inside Tooltip.Root and no FullscreenButton block.",
+  "prompted_to_eject": false,
+  "notes": "Library architecture worked as intended: docs/how-to/customize-skins.md explicitly framed copy-paste-the-skin as 'ejecting,' and Claude reached for that path on its own. It also reused the shipped @videojs/react/video/skin.css instead of duplicating 1500 lines of CSS — a judgment call that preserved earlier rungs' styling. Note: the workspace Player.tsx still shows FullscreenButton because rung-5 ran afterward; rung-4's own diff did remove it (verified via the browser snapshot in-transcript)."
+}
+```

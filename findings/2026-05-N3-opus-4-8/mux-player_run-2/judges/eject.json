@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Claude kept using @mux/mux-player-react and reached into nested shadow roots with a recursive deepQuery to locate media-volume-range, then injected a raw <button> via insertAdjacentElement('afterend', ...). Fullscreen was hidden via the documented --fullscreen-button: none CSS var, which is fine, but the Share button is a shadow-DOM-piercing hack.",
+  "evidence": "src/App.tsx insert(): `const volume = player.shadowRoot ? deepQuery(player.shadowRoot, 'media-volume-range') : null; ... volume.insertAdjacentElement('afterend', btn);`",
+  "prompted_to_eject": false,
+  "notes": "media-chrome appears in package.json from earlier rungs, but in rung 4 Claude reverted App.tsx to a MuxPlayer-only implementation and never composed Media Chrome primitives — it bypassed the eject path entirely and pierced Mux Player's internal shadow DOM. The workspace App.tsx visible now appears to be a later or different state (still has MediaFullscreenButton, no Share button), but the transcript and rung-4 screenshot show MuxPlayer in use."
+}
+```

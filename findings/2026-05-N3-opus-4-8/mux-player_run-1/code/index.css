@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ---- YouTube-style player ---- */
+.yt-player {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  font-family: "Roboto", "Arial", system-ui, sans-serif;
+
+  --media-primary-color: #fff;
+  --media-secondary-color: transparent;
+  --media-icon-color: #fff;
+  --media-control-background: transparent;
+  --media-control-hover-background: transparent;
+  --media-font-family: "Roboto", "Arial", system-ui, sans-serif;
+}
+
+.yt-player video,
+.yt-player::part(poster) {
+  object-fit: contain;
+}
+
+/* Bottom chrome: progress bar + control row, sitting on a dark gradient */
+.yt-chrome {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 32px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
+
+/* Progress / scrubber bar */
+.yt-progress {
+  width: 100%;
+  height: 5px;
+  --media-range-padding-left: 12px;
+  --media-range-padding-right: 12px;
+  --media-range-bar-color: #f00;
+  --media-range-track-background: rgba(255, 255, 255, 0.3);
+  --media-range-track-height: 3px;
+  --media-range-thumb-background: #f00;
+  --media-range-thumb-width: 13px;
+  --media-range-thumb-height: 13px;
+  transition: height 0.1s ease;
+}
+
+.yt-progress:hover {
+  --media-range-track-height: 5px;
+}
+
+/* Control button row */
+.yt-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 8px;
+}
+
+.yt-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.yt-btn {
+  --media-button-icon-width: 24px;
+  height: 48px;
+  padding: 0 8px;
+}
+
+/* Volume control that expands on hover, like YouTube */
+.yt-volume {
+  display: flex;
+  align-items: center;
+}
+
+.yt-volume-range {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.2s ease;
+  --media-range-track-height: 3px;
+}
+
+.yt-volume:hover .yt-volume-range,
+.yt-volume:focus-within .yt-volume-range {
+  width: 64px;
+}
+
+.yt-time {
+  --media-control-padding: 0;
+  padding: 0 6px;
+  font-size: 13px;
+  color: #fff;
+}
+
+/* Settings popup: out of flow, opening upward above the control bar */
+.yt-settings {
+  position: absolute;
+  right: 8px;
+  bottom: 56px;
+}

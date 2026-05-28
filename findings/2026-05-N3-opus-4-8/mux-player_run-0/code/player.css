@@ -1,0 +1,170 @@
+.yt-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  font-family: "Roboto", "Arial", system-ui, sans-serif;
+  --media-primary-color: #fff;
+  --media-secondary-color: transparent;
+  --media-control-background: transparent;
+  --media-control-hover-background: transparent;
+  --media-font-size: 13px;
+  --media-text-color: #fff;
+  overflow: hidden;
+}
+
+.yt-player video {
+  width: 100%;
+  height: 100%;
+}
+
+/* Bottom area: progress bar + controls over a fading gradient */
+.yt-bottom {
+  width: 100%;
+  padding-top: 44px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrubber */
+.yt-progress {
+  width: 100%;
+  height: 5px;
+  --media-control-background: transparent;
+  --media-control-hover-background: transparent;
+  --media-range-track-height: 3px;
+  --media-range-track-background: rgba(255, 255, 255, 0.2);
+  --media-time-range-buffered-color: rgba(255, 255, 255, 0.4);
+  --media-range-bar-color: #f00;
+  --media-range-thumb-background: #f00;
+  --media-range-thumb-width: 13px;
+  --media-range-thumb-height: 13px;
+  --media-range-thumb-border-radius: 50%;
+  --media-range-padding: 0;
+  --media-range-padding-left: 0;
+  --media-range-padding-right: 0;
+  transition: height 0.1s ease;
+}
+
+/* Control row */
+.yt-controls {
+  --media-control-height: 36px;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+  background: transparent;
+}
+
+.yt-btn {
+  height: 36px;
+  width: 36px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yt-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.yt-ico svg {
+  width: 100%;
+  height: 100%;
+}
+
+.yt-spacer {
+  flex: 1;
+}
+
+/* Volume: collapsed, expands on hover like YouTube */
+.yt-volume {
+  height: 36px;
+  width: 12px;
+  overflow: hidden;
+  transition: width 0.2s ease;
+  --media-control-background: transparent;
+  --media-control-hover-background: transparent;
+  --media-range-track-height: 3px;
+  --media-range-track-background: rgba(255, 255, 255, 0.3);
+  --media-range-bar-color: #fff;
+  --media-range-thumb-background: #fff;
+  --media-range-thumb-width: 12px;
+  --media-range-thumb-height: 12px;
+  --media-range-thumb-border-radius: 50%;
+}
+
+.yt-controls:hover .yt-volume,
+.yt-volume:hover,
+.yt-volume:focus-within {
+  width: 52px;
+}
+
+.yt-time {
+  color: #fff;
+  font-size: 13px;
+  padding: 0 8px;
+  background: transparent;
+  --media-control-background: transparent;
+  --media-control-hover-background: transparent;
+  white-space: nowrap;
+}
+
+.yt-chapter {
+  color: #fff;
+  font-size: 13px;
+  padding: 0 8px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+}
+
+/* Autoplay pill toggle */
+.yt-autoplay {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.yt-autoplay-track {
+  position: relative;
+  width: 26px;
+  height: 12px;
+  border-radius: 6px;
+  background: #fff;
+  display: inline-block;
+  transition: background 0.15s ease;
+}
+
+.yt-autoplay-knob {
+  position: absolute;
+  top: -2px;
+  left: -1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #717171;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.yt-autoplay.on .yt-autoplay-track {
+  background: #fff;
+}
+
+.yt-autoplay.on .yt-autoplay-knob {
+  background: #111;
+  transform: translateX(12px);
+}

@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark translucent bar with white icons; progress bar appears red/light, matching YouTube's dark chrome",
+    "typography": "Small light-weight sans-serif time display, consistent with YouTube's understated label style",
+    "notes": "The control bar layout closely mirrors YouTube: left cluster with play, next, volume and time; right cluster with captions, settings, mini-player-like and fullscreen icons, plus a thin progress bar above. Missing the title/channel overlay at top-left and chapter markers, and the right-side icon set diverges slightly (no clear theater toggle), but at a glance it reads as YouTube-inspired."
+  }
+}
+```

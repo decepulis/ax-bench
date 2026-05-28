@@ -1,0 +1,9 @@
+```json
+{
+  "decision": "library-hack",
+  "description": "Used the supported `--fullscreen-button: none` CSS variable to hide fullscreen (legitimate), but added the Share button by piercing Mux Player's shadow DOM with a custom recursive `findInShadow` helper and inserting a raw `<button>` element as a sibling of `media-volume-range`, with a MutationObserver to re-inject on theme re-renders.",
+  "evidence": "src/App.tsx (rung-4 write): `function findInShadow<T extends Element>(root: Document | ShadowRoot, selector: string) ... volumeRange.after(button)` and assistant text: \"the default Gerwig theme hard-codes its control bar with no free slot, so I insert the button into the theme's shadow DOM after locating `media-volume-range`.\"",
+  "prompted_to_eject": false,
+  "notes": "media-chrome appears in package.json but is a transitive dep of @mux/mux-player-react; Claude never imported or installed it in rung 4. The current workspace App.tsx uses media-chrome directly — that reflects a later rung overwriting the file, not the rung-4 final state. Rung-4 explicitly stayed inside MuxPlayer and reached for shadow-DOM injection rather than ejecting to Media Chrome."
+}
+```

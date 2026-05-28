@@ -1,0 +1,201 @@
+/* YouTube-style player skin */
+
+.media-default-skin {
+  --media-border-radius: 0;
+  --media-color-primary: #ff0000;
+}
+
+/* ---- Control bar: full-width bottom, gradient scrim, no pill ---- */
+.media-default-skin--video .media-controls.yt-controls {
+  inset-inline: 0;
+  bottom: 0;
+  max-width: none;
+  margin-inline: 0;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  column-gap: 0;
+  padding: 36px 0 0;
+  border-radius: 0;
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.4) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  --media-icon-size: 24px;
+  /* Keep the control bar persistently visible (matches the reference's
+     active/hover state; the player still autoplays muted in the background). */
+  opacity: 1;
+  scale: 1;
+  filter: none;
+  pointer-events: auto;
+}
+
+/* ---- Progress bar ---- */
+.media-default-skin--video .media-slider.yt-progress {
+  flex: none;
+  width: auto;
+  min-width: 0;
+  height: 14px;
+  margin: 0 12px;
+  color: #ff0000;
+}
+.media-default-skin--video .media-slider.yt-progress .media-slider__track {
+  height: 3px;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+  transition: height 0.1s ease;
+}
+.media-default-skin--video .media-slider.yt-progress:hover .media-slider__track {
+  height: 5px;
+}
+.media-default-skin--video .media-slider.yt-progress .media-slider__buffer {
+  background: rgba(255, 255, 255, 0.45);
+}
+.media-default-skin--video .media-slider.yt-progress .media-slider__fill {
+  background: #ff0000;
+}
+.media-default-skin--video .media-slider.yt-progress .media-slider__thumb {
+  width: 13px;
+  height: 13px;
+  background: #ff0000;
+  box-shadow: none;
+}
+.media-default-skin--video .media-slider.yt-progress .media-slider__thumb::after {
+  display: none;
+}
+
+/* ---- Button row ---- */
+.media-default-skin .yt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 6px 6px;
+}
+.media-default-skin .yt-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ---- Buttons ---- */
+.media-default-skin .yt-btn {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 0;
+  opacity: 0.92;
+  transition: opacity 0.1s ease;
+}
+.media-default-skin .yt-btn:hover {
+  opacity: 1;
+}
+.media-default-skin .yt-btn .media-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---- Time readout ---- */
+.media-default-skin .yt-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  color: #fff;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.media-default-skin .yt-time__sep {
+  opacity: 0.75;
+}
+
+/* ---- Chapter title ---- */
+.media-default-skin .yt-chapter {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+  color: #fff;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.media-default-skin .yt-chapter .yt-chevron {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Volume (hover-expand horizontal slider) ---- */
+.media-default-skin .yt-volume {
+  display: flex;
+  align-items: center;
+}
+.media-default-skin--video .media-slider.yt-volume__slider {
+  flex: none;
+  width: 0;
+  min-width: 0;
+  height: 40px;
+  margin: 0;
+  padding-right: 6px;
+  color: #fff;
+  opacity: 0;
+  overflow: hidden;
+  transition: width 0.2s ease, opacity 0.2s ease;
+}
+.media-default-skin .yt-volume:hover .media-slider.yt-volume__slider,
+.media-default-skin--video .media-slider.yt-volume__slider:focus-within {
+  width: 56px;
+  opacity: 1;
+}
+.media-default-skin--video .media-slider.yt-volume__slider .media-slider__track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+}
+.media-default-skin--video .media-slider.yt-volume__slider .media-slider__fill {
+  background: #fff;
+}
+.media-default-skin--video .media-slider.yt-volume__slider .media-slider__thumb {
+  background: #fff;
+  box-shadow: none;
+}
+
+/* ---- Autoplay toggle (decorative, "on" state) ---- */
+.media-default-skin .yt-autoplay {
+  width: auto;
+  padding: 0 8px;
+}
+.media-default-skin .yt-autoplay__track {
+  position: relative;
+  display: inline-block;
+  width: 26px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 7px;
+}
+.media-default-skin .yt-autoplay__knob {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+}

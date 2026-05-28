@@ -1,0 +1,20 @@
+```json
+{
+  "score": 4,
+  "rubric": {
+    "structural": {
+      "progress_bar": true,
+      "play_button": true,
+      "volume_control": true,
+      "settings_cog": true,
+      "fullscreen_button": true,
+      "chapter_markers": false,
+      "title_overlay": false,
+      "theater_mode_toggle": false
+    },
+    "color_palette": "Dark/black chrome with red progress fill and white icons — matches YouTube's palette closely.",
+    "typography": "Small white sans-serif time/label text consistent with YouTube's compact control-bar typography.",
+    "notes": "The control bar reads convincingly as YouTube: red progress with scrubber knob, left-cluster play/next/volume/time, right-cluster CC/settings/mini/fullscreen. Missing a visible title overlay on the video and chapter markers, and the time label appears truncated vs the reference's clearer '0:01 / 3:55' + chapter title. Overall structure and color clearly YouTube-inspired."
+  }
+}
+```

@@ -1,0 +1,16 @@
+```json
+{
+  "hallucinations": [
+    {
+      "rung": 5,
+      "turn": 90,
+      "kind": "part-selector",
+      "claim": "Used `.yt-player::part(poster) { object-fit: contain; }` in src/index.css to target the poster inside a `<MediaController>` (class=\"yt-player\").",
+      "reality": "MediaController/MediaContainer's shadow DOM declares `<slot name=\"poster\" part=\"layer poster-layer\">` — i.e., the slot exposes parts named `layer` and `poster-layer`, not `poster`. The `poster` part name only exists one shadow boundary deeper, inside `media-poster-image`'s own shadow DOM (`<img part=\"poster img\">`), and `::part()` does not pierce nested shadow roots. There is no `exportparts` from MediaController that would forward it. The rule therefore targets nothing.",
+      "evidence": "workspace/src/index.css L31-34: `.yt-player video,\\n  .yt-player::part(poster) { object-fit: contain; }`. Ground truth: node_modules/media-chrome/dist/media-container.js L209 `<slot name=\"poster\" part=\"layer poster-layer\"></slot>`, plus media-poster-image.js declaring `<img part=\"poster img\">` inside its own shadow root. https://www.media-chrome.org/docs/en/reference/components/media-controller/"
+    }
+  ],
+  "total": 1,
+  "notes": "Across the five rungs Claude's API claims about Mux Player itself (props `playbackId`, `streamType`, `muted`, `loop`, `autoPlay`, `thumbnailTime`, `accentColor`; CSS var `--fullscreen-button`; `mux-player::part(control-bar)`; type import `MuxPlayerElement` from `@mux/mux-player`) all check out against the captured `.d.ts` files and the player's runtime shadow DOM, which Claude probed directly. After pivoting in rung 5 to media-chrome's React components (`MediaController`, `MediaTimeRange`, `MediaPlaybackRateMenu`, etc.), every prop, slot, and CSS variable used is documented or verified in `node_modules/media-chrome/dist/*.d.ts` and source — including the undocumented-but-real `submenu` and `title` slots. One factual error survives into the final code: a `::part(poster)` selector on the MediaController, where the part exposed by the poster slot is actually `layer poster-layer`. Two earlier slips (probing nonexistent `--media-control-bar-*` variables in rung 3, and `anchor=\"auto\"` on `MediaSettingsMenu` in rung 5) were transient — Claude either explicitly tested the candidate and discarded it, or removed it from the final file."
+}
+```

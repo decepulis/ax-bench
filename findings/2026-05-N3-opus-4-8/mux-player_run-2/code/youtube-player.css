@@ -1,0 +1,183 @@
+.yt-player {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  font-family: "Roboto", "Arial", system-ui, sans-serif;
+
+  --media-primary-color: #fff;
+  --media-secondary-color: transparent;
+  --media-control-background: transparent;
+  --media-control-hover-background: transparent;
+  --media-font-family: "Roboto", "Arial", system-ui, sans-serif;
+}
+
+/* Make MuxVideo fill the controller */
+.yt-player video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Bottom controls wrapper: YouTube gradient scrim */
+.yt-controls {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 36px 12px 2px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.45) 45%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* Scrub bar */
+.yt-scrubber {
+  width: 100%;
+  height: 14px;
+  background: transparent;
+  padding: 0;
+  --media-range-track-height: 3px;
+  --media-range-bar-color: #f00;
+  --media-range-track-background: rgba(255, 255, 255, 0.3);
+  --media-time-range-buffered-color: rgba(255, 255, 255, 0.45);
+  --media-range-thumb-background: #f00;
+  --media-range-thumb-width: 13px;
+  --media-range-thumb-height: 13px;
+  --media-range-thumb-opacity: 0;
+  transition: height 0.1s ease;
+}
+.yt-scrubber:hover {
+  --media-range-track-height: 5px;
+  --media-range-thumb-opacity: 1;
+}
+
+/* Button row */
+.yt-row {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  gap: 0;
+}
+.yt-left,
+.yt-right {
+  display: flex;
+  align-items: center;
+}
+.yt-spacer {
+  flex: 1 1 auto;
+}
+
+/* Shared control sizing */
+.yt-row media-play-button,
+.yt-row media-mute-button,
+.yt-row media-pip-button,
+.yt-row media-fullscreen-button,
+.yt-btn {
+  height: 40px;
+  width: 40px;
+  padding: 8px;
+  background: transparent;
+  --media-button-icon-width: 100%;
+}
+
+/* Custom icon buttons */
+.yt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.yt-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  display: block;
+}
+.yt-row media-play-button {
+  width: 46px;
+}
+
+/* Time display */
+.yt-row media-time-display {
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  padding: 0 5px 0 8px;
+  --media-control-padding: 0;
+}
+
+/* Title */
+.yt-title {
+  color: #fff;
+  font-size: 13px;
+  padding: 0 8px;
+  white-space: nowrap;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Volume: speaker + hover-expand slider */
+.yt-volume {
+  display: flex;
+  align-items: center;
+}
+.yt-volume media-volume-range {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  transition: width 0.2s ease;
+  background: transparent;
+  --media-range-track-height: 3px;
+  --media-range-bar-color: #fff;
+  --media-range-track-background: rgba(255, 255, 255, 0.35);
+  --media-range-thumb-background: #fff;
+}
+.yt-volume:hover media-volume-range,
+.yt-volume:focus-within media-volume-range {
+  width: 52px;
+}
+
+/* Autoplay toggle pill */
+.yt-toggle {
+  width: 34px;
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.3);
+  position: relative;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 10px;
+  flex: none;
+}
+.yt-toggle[aria-checked="true"] {
+  background: rgba(255, 255, 255, 0.5);
+}
+.yt-knob {
+  position: absolute;
+  top: -3px;
+  left: -1px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.yt-toggle[aria-checked="true"] .yt-knob {
+  left: 15px;
+}
+.yt-knob svg {
+  width: 11px;
+  height: 11px;
+  fill: #000;
+  display: block;
+}

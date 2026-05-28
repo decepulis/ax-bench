@@ -1,0 +1,11 @@
+I have enough to classify. Claude during rung 4 stayed inside Mux Player and pierced the shadow DOM to inject a `media-chrome-button` next to `media-volume-range`. The fullscreen-hide used a legitimate CSS variable, but the Share button was added by traversing shadow roots and inserting an element imperatively — a classic library-hack.
+
+```json
+{
+  "decision": "library-hack",
+  "description": "Hid fullscreen with the legitimate `--fullscreen-button: none` CSS variable, but added Share by piercing Mux Player's shadow DOM: a ref effect walks shadowRoots (`findBottomControlBar`) to find the `media-control-bar[part~='bottom']`, then imperatively appends a `media-chrome-button` after `media-volume-range`, retrying via `requestAnimationFrame` until the theme mounts.",
+  "evidence": "App.tsx: `findBottomControlBar(root: ShadowRoot | null)` walks shadowRoots; assistant note: \"Mux Player's default theme has no slot for inserting buttons there, so I'll inject one via a ref + effect\"",
+  "prompted_to_eject": false,
+  "notes": "Workspace src/App.tsx reflects a later state (MuxVideo + media-chrome composition) — that ejection appears to have happened in rung 5, not rung 4. Rung-4 transcript clearly shows Claude recognized the lack of a slot but chose shadow-DOM injection rather than ejecting to Media Chrome."
+}
+```
