@@ -36,14 +36,15 @@ judge:
 | `mux-player_run-2` | Recursive `deepQuery()` + `insertAdjacentElement('afterend')` to inject `<button>` | library-hack |
 
 For comparison, N3-post-bundled-docs (same setup, 4.7) was **1/3
-in-library-primitive, 2/3 library-hack on video-js** — and every prior
-run scored mux-player **library-hack at 100%** (10/10 in May N5, 6/6
-across the with-docs ablations). The architecture pressure that 4.7
-mostly *named-and-declined* in earlier runs, 4.8 mostly *acted on* —
-but only where the library exposes a real primitive path. On
-mux-player, where the eject path requires installing `media-chrome` and
-recomposing, 4.8 still chose the cheaper hack, same as 4.7. The model
-got better; the library shape decides whether better matters.
+in-library-primitive, 2/3 library-hack on video-js** — and across all
+16 prior video-js cells at 4.7, only that one chose the in-library
+path. On mux-player, every prior cell scored library-hack: 5/5 May N5,
+5/5 N5-with-docs, 3/3 N3-with-docs-v2 — **13/13 mux-player cells across
+prior runs**. At 4.8, video-js flipped to 3/3 in-library-primitive
+(3 of 3 cells reading `customize-skins.md` and ejecting the skin),
+while mux-player held at 3/3 library-hack — same shadow-piercing
+pattern as every prior 4.7 mux cell. The model got better; the library
+shape decides whether better matters.
 
 ---
 
